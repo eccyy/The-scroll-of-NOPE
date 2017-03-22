@@ -25,6 +25,8 @@ namespace The_scroll_of_NOPE.BaseClasses
     {
         protected Rectangle Hitbox;
 
+       
+
         
     }
 

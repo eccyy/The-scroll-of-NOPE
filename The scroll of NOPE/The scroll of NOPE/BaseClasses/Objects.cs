@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace The_scroll_of_NOPE.BaseClasses
 {
-    abstract class Object
+    public abstract class Object
     {
         // Variabler
         protected Texture2D Texture;

@@ -21,14 +21,14 @@ namespace The_scroll_of_NOPE.BaseClasses
         }
     }
 
-    public abstract class PhysicalObject
+    public abstract class PhysicalObject : Object
     {
         protected Rectangle Hitbox;
 
         
     }
 
-    public abstract class NonPhysicalObject
+    public abstract class NonPhysicalObject : Object
     {
         // empty class for the first sprint
     }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace The_scroll_of_NOPE.BaseClasses
 {
-    class AnimateObject : PhysicalObject
+   public class AnimateObject : PhysicalObject
     {
        protected Vector2 speed { get; set; }
     }

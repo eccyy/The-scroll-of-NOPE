@@ -16,7 +16,7 @@ namespace The_scroll_of_NOPE.BaseClasses
 
         // Draw(), metod för att rita ut object
         // Tar en  parameter: SpriteBatch
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position);
         }
@@ -28,9 +28,11 @@ namespace The_scroll_of_NOPE.BaseClasses
         // Tar en parameter: PhysicalObject (polymorphism, skicka in t.ex ANKA, en elev eller ett level objekt)
         public bool CheckCollision(PhysicalObject other)
         {
+            // skapa en Rectangle för det nuvarande objektet
             Rectangle firstRect = new Rectangle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), Convert.ToInt32(texture.Width), Convert.ToInt32(texture.Height));
+            // skapa en Rectangle för det andra objektet
             Rectangle otherRect = new Rectangle(Convert.ToInt32(other.position.X), Convert.ToInt32(other.position.Y), Convert.ToInt32(other.texture.Width), Convert.ToInt32(other.texture.Height));
-
+            // om de kolliderar med varandra returnera true annars returnera false
             return firstRect.Intersects(otherRect);
         }
     }

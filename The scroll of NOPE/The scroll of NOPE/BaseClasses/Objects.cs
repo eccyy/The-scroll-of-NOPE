@@ -38,9 +38,11 @@ namespace The_scroll_of_NOPE.BaseClasses
 
     public abstract class PhysicalObject : Object
     {
+        // En hitbox för objektet, används för att kolla kollisioner
         protected Rectangle Hitbox;
 
-        public bool CheckCollision(PhysicalObject other)
+        // Metod för att kolla kollisioner
+        public bool CheckCollision()
         {
             return true; // :^)
         }

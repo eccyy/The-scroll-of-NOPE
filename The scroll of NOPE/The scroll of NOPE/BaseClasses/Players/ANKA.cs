@@ -8,5 +8,10 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 {
     class ANKA : Player
     {
+
+        public ANKA(float AnkaMultiplier)
+        {
+            
+        }
     }
 }

@@ -8,6 +8,13 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 {
     public abstract class Player 
     {
+        protected float jumpAcceleration = 9.82f;
+        protected float health = 1000;
 
+        public void Update()
+        {
+
+        }
     }
+   
 }

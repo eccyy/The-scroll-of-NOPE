@@ -16,7 +16,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             this.position = position;
             this.speed    = speed;
 
-            this.Projectiles = new List<Projectile>();
+            this.projectiles = new List<Projectile>();
             this.health  = 1000;
         }
     }

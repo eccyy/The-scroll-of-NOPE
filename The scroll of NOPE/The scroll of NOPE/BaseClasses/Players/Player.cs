@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace The_scroll_of_NOPE.BaseClasses.Players
 {
-    public abstract class Player
+    public abstract class Player 
     {
+
     }
 }

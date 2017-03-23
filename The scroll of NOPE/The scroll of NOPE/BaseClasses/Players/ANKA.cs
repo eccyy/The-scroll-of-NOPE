@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace The_scroll_of_NOPE.BaseClasses.Players
 {
-    class ANKA
+    class ANKA : Player
     {
     }
 }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace The_scroll_of_NOPE.LevelObjects
 {
-    class levelObject
+    abstract class LevelObject
     {
+        
     }
 }

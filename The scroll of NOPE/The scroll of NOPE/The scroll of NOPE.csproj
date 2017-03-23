@@ -42,6 +42,7 @@
     <Compile Include="BaseClasses\Objects.cs" />
     <Compile Include="BaseClasses\Players\ANKA.cs" />
     <Compile Include="BaseClasses\Players\Player.cs" />
+    <Compile Include="BaseClasses\Players\Projectile.cs" />
     <Compile Include="BaseClasses\Players\Student.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="LevelObjects\LevelObject.cs" />

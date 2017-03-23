@@ -11,12 +11,18 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
     {
         protected float jumpAcceleration = 9.82f;
         protected float health = 1000;
-        protected Vector2 a;
+        protected List<Projectile> projectiles { get; set; }
+        
+        
+        public Player()
+        {
+
+        }
                 
 
         public void Update()
         {
-
+           
         }
     }
    

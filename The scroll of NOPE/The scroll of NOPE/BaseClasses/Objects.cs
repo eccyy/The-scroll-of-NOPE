@@ -15,36 +15,23 @@ namespace The_scroll_of_NOPE.BaseClasses
         protected Vector2 position; // objektets position
 
         // Draw(), metod för att rita ut object
-        // tar en  parameter: SpriteBatch
+        // Tar en  parameter: SpriteBatch
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position);
-        }
-
-        // getter och setter för texture (är det nödvändigt när den är protected och klassen är abstract??)
-        public Texture2D Texture
-        {
-            get { return texture; }
-            set { this.texture = value; }
-        }
-
-        // getter och setter för position (är det nödvändigt när den är protected och klassen är abstract??)
-        public Vector2 Position
-        {
-            get { return position; }
-            set { this.position = value; }
         }
     }
 
     public abstract class PhysicalObject : Object
     {
-        // En hitbox för objektet, används för att kolla kollisioner
-        protected Rectangle Hitbox;
-
         // Metod för att kolla kollisioner
-        public bool CheckCollision()
+        // Tar en parameter: PhysicalObject (polymorphism, skicka in t.ex ANKA, en elev eller ett level objekt)
+        public bool CheckCollision(PhysicalObject other)
         {
-            return true; // :^)
+            Rectangle firstRect = new Rectangle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), Convert.ToInt32(texture.Width), Convert.ToInt32(texture.Height));
+            Rectangle otherRect = new Rectangle(Convert.ToInt32(other.position.X), Convert.ToInt32(other.position.Y), Convert.ToInt32(other.texture.Width), Convert.ToInt32(other.texture.Height));
+
+            return firstRect.Intersects(otherRect);
         }
     }
 

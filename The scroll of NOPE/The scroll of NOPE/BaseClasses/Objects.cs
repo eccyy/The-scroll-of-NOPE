@@ -20,20 +20,6 @@ namespace The_scroll_of_NOPE.BaseClasses
         {
             spriteBatch.Draw(texture, position);
         }
-
-        // getter och setter för texture (är det nödvändigt när den är protected och klassen är abstract??)
-        public Texture2D Texture
-        {
-            get { return texture; }
-            set { this.texture = value; }
-        }
-
-        // getter och setter för position (är det nödvändigt när den är protected och klassen är abstract??)
-        public Vector2 Position
-        {
-            get { return position; }
-            set { this.position = value; }
-        }
     }
 
     public abstract class PhysicalObject : Object

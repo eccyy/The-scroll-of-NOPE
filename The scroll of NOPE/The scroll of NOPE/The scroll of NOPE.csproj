@@ -38,6 +38,8 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BaseClasses\AnimateObject.cs" />
+    <Compile Include="BaseClasses\ANKA.cs" />
     <Compile Include="BaseClasses\Objects.cs" />
     <Compile Include="BaseClasses\Players\ANKA.cs" />
     <Compile Include="BaseClasses\Players\Player.cs" />

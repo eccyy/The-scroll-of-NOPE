@@ -16,7 +16,7 @@ namespace The_scroll_of_NOPE.BaseClasses
 
         // Draw(), metod för att rita ut object
         // Tar en  parameter: SpriteBatch
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position);
         }

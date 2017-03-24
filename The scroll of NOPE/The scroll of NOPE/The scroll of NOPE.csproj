@@ -42,10 +42,12 @@
     <Compile Include="BaseClasses\Objects.cs" />
     <Compile Include="BaseClasses\Players\ANKA.cs" />
     <Compile Include="BaseClasses\Players\Player.cs" />
-    <Compile Include="BaseClasses\Players\Projectile.cs" />
     <Compile Include="BaseClasses\Players\Student.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="LevelObjects\LevelObject.cs" />
+    <Compile Include="LevelObjects\Platform.cs" />
+    <Compile Include="LevelObjects\levelObject.cs" />
+    <Compile Include="Menyer\GameElements.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

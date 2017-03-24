@@ -10,9 +10,10 @@ namespace The_scroll_of_NOPE.LevelObjects
 {
     class Platform : LevelObject
     {
-        public Platform(Texture2D texture, float X, float Y) : base(texture, X, Y)
+        public Platform(Texture2D texture, Vector2 position)
         {
-            
+            this.texture = texture;
+            this.position = position;
         }
     }
 }

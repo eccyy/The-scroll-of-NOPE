@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using The_scroll_of_NOPE.Menyer;
+using System.Collections.Generic;
 
 namespace The_scroll_of_NOPE
 {
@@ -13,7 +14,8 @@ namespace The_scroll_of_NOPE
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        
+        List<Vector2> positions;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -42,6 +44,8 @@ namespace The_scroll_of_NOPE
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             GameElements.LoadContent(Content, Window);
+
+            positions = new List<Vector2>() { new Vector2(0, 100), new Vector2(100,100) };
             // TODO: use this.Content to load your game content here
         }
 

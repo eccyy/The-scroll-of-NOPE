@@ -22,7 +22,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         public abstract void Update();
 
-        public abstract void BasicAttack();
+        protected abstract void BasicAttack();
         
                    
     }

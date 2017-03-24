@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
-using The_scroll_of_NOPE.BaseClasses.Players;
 
 namespace The_scroll_of_NOPE.Menyer
 {
@@ -19,21 +18,33 @@ namespace The_scroll_of_NOPE.Menyer
 
         static Texture2D menuSprite;
         static Vector2 menuPos;
-        static Player player;
-        
-        public static void Initialize()
-        {
-            //do stuff
-        }
 
         public static void LoadContent(ContentManager content, GameWindow window)
         {
-            //do stuff
+            //försöker att få en sprite till menuSprite
+            menuSprite = content.Load<Texture2D>("images/menu/menu");
+
+            menuPos.X = window.ClientBounds.Width / 2 - menuSprite.Width / 2;
+            menuPos.Y = window.ClientBounds.Height / 2 - menuSprite.Height / 2;
         }
 
         public static _state MenuUpdate()
         {
-            //do stuff
+            //?????
+            KeyboardState keyboardState = Keyboard.GetState();
+            if (keyboardState.IsKeyDown(Keys.S))
+                return _state.Run;
+            if (keyboardState.IsKeyDown(Keys.H))
+                return _state.HighScore;
+            if (keyboardState.IsKeyDown(Keys.A))
+                return _state.Quit;
+
+            return _state.Menu;
+        }
+
+        public static void MenuDraw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(menuSprite, menuPos, Color.White);
         }
     }
 }

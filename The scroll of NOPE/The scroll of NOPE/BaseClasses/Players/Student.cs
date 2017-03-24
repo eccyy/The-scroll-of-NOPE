@@ -30,11 +30,25 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
     public class Melee : Student
     {
+        public Melee(Texture2D texture, Vector2 position, Vector2 speed) : base(texture, position, speed)
+        {
+        }
 
+        protected override void BasicAttack()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class Ranged : Student
     {
-        
+        public Ranged(Texture2D texture, Vector2 position, Vector2 speed) : base(texture, position, speed)
+        {
+        }
+
+        protected override void BasicAttack()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

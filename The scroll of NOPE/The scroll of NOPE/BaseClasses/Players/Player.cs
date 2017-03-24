@@ -10,7 +10,13 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
     public abstract class Player : AnimateObject
     {
         protected float jumpAcceleration = 9.82f;
-        protected float health = 1000;
+
+        private float _health;
+        protected float health
+        {
+            get { return 1000f;}       
+            set { _health = value; }
+        }
         protected List<Projectile> projectiles { get; set; }
         
         

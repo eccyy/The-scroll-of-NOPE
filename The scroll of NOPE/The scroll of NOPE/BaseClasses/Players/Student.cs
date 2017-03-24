@@ -20,6 +20,11 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             this.health  = 1000;
         }
 
+        public override void Update()
+        {
+            throw new NotImplementedException();
+        }
+
         protected abstract void BasicAttack();
     }
 

@@ -18,18 +18,13 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             set { _health = value; }
         }
         protected List<Projectile> projectiles { get; set; }
-        
-        
-        public Player()
-        {
 
-        }
-                
 
-        public void Update()
-        {
-           
-        }
+        public abstract void Update();
+
+        protected abstract void BasicAttack();
+        
+                   
     }
    
 }

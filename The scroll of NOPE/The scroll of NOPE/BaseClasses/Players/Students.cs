@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace The_scroll_of_NOPE.BaseClasses.Players
 {
-    public abstract class Student : Player
+    public abstract class Students : Player
     {
-        public Student(Texture2D texture, Vector2 position, Vector2 speed)
+        public Students(Texture2D texture, Vector2 position, Vector2 speed)
         {
             this.texture  = texture;
             this.position = position;
@@ -28,7 +28,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         protected override abstract void BasicAttack();
     }
 
-    public class Melee : Student
+    public class Melee : Students
     {
         public Melee(Texture2D texture, Vector2 position, Vector2 speed) : base(texture, position, speed)
         {
@@ -40,7 +40,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         }
     }
 
-    public class Ranged : Student
+    public class Ranged : Students
     {
         public Ranged(Texture2D texture, Vector2 position, Vector2 speed) : base(texture, position, speed)
         {

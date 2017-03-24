@@ -25,7 +25,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             throw new NotImplementedException();
         }
 
-        protected abstract void BasicAttack();
+        protected override abstract void BasicAttack();
     }
 
     public class Melee : Student

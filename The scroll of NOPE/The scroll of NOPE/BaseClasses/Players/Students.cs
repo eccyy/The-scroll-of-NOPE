@@ -8,16 +8,24 @@ using System.Threading.Tasks;
 
 namespace The_scroll_of_NOPE.BaseClasses.Players
 {
-    public abstract class Students : Player
+    public abstract class Student : Player
     {
-        public Students(Texture2D texture, Vector2 position, Vector2 speed)
+        public Student(Texture2D texture, Vector2 position, Vector2 speed)
         {
+            // Sets the necessary variables of the baseclass which are given as inputs to the contructor
             this.texture  = texture;
             this.position = position;
             this.speed    = speed;
 
-            this.projectiles = new List<Projectile>();
-            this.health  = 1000;
+            // Sets non-input variables in the baseclass
+            this.projectiles = new List<Projectile>(); // Initialize of list
+            this.health      = 1000; // Sets health since it's not specified
+        }
+
+        // If you want to specify health
+        public Student(Texture2D texture, Vector2 position, Vector2 speed, float health) : this(texture, position, speed)
+        {
+            this.health = health;
         }
 
         public override void Update()
@@ -28,7 +36,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         protected override abstract void BasicAttack();
     }
 
-    public class Melee : Students
+    public class Melee : Student
     {
         public Melee(Texture2D texture, Vector2 position, Vector2 speed) : base(texture, position, speed)
         {
@@ -40,7 +48,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         }
     }
 
-    public class Ranged : Students
+    public class Ranged : Student
     {
         public Ranged(Texture2D texture, Vector2 position, Vector2 speed) : base(texture, position, speed)
         {

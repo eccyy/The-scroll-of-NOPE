@@ -16,5 +16,10 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         {
             
         }
+
+        public override void Update()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

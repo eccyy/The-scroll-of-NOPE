@@ -19,6 +19,11 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             this.projectiles = new List<Projectile>();
             this.health  = 1000;
         }
+
+        public override void Update()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class Mele

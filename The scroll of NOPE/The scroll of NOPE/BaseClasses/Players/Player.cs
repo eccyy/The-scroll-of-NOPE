@@ -40,17 +40,14 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             if (keyHandler.IsKeyDown(Keys.Down))
                 speed.Y -= 10;
 
+           
         }
 
 
 
         protected abstract void BasicAttack();
         
-        private void test()
-        {
-            
-        }
-                   
+           
     }
    
 }

@@ -10,5 +10,11 @@ namespace The_scroll_of_NOPE.BaseClasses
    public class AnimateObject : PhysicalObject
     {
         protected Vector2 speed;
+
+        public void Update()
+        {
+            position.X += speed.X;
+            position.Y += speed.Y;          
+        }
     }
 }

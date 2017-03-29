@@ -31,6 +31,8 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         protected virtual void Update()
         {
+            base.Update();
+
             if (keyHandler.IsKeyDown(Keys.Left))
                 speed.X -= 10;
             if (keyHandler.IsKeyDown(Keys.Right))

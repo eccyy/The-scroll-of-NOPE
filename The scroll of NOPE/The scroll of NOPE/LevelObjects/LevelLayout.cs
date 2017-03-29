@@ -12,19 +12,26 @@ namespace The_scroll_of_NOPE.LevelObjects
     class LevelLayout : BaseClasses.PhysicalObject
     {
         List<Platform> platforms;
+        List<Ground> grounds;
         
-        public LevelLayout(ContentManager content, List<Vector2> positions)
+        public LevelLayout(ContentManager content, List<Vector2> platformPositions, List<Vector2> groundPositions)
         {
             //Sets the texture for every platform
             base.texture = content.Load<Texture2D>("images/FillerPlatform");
+            base.texture = content.Load<Texture2D>("images/FillerGround");
 
             //Creates a list of platforms
             platforms = new List<Platform>();
+            grounds = new List<Ground>();
 
             //Adds a platform for every position that exists
-            for (int n = 0; n < positions.Count; n++)
+            for (int n = 0; n < platformPositions.Count; n++)
             {
-                platforms.Add(new Platform(texture, positions[n]));
+                platforms.Add(new Platform(texture, platformPositions[n]));
+            }
+            for (int n = 0; n < groundPositions.Count; n++)
+            {
+                grounds.Add(new Ground(texture, groundPositions[n]));
             }
         }
 
@@ -34,6 +41,10 @@ namespace The_scroll_of_NOPE.LevelObjects
             foreach (Platform platform in platforms)
             {
                 platform.Draw(spriteBatch);
+            }
+            foreach (Ground ground in grounds)
+            {
+                ground.Draw(spriteBatch);
             }
         }
     }

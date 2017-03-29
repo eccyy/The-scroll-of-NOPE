@@ -13,8 +13,8 @@ namespace The_scroll_of_NOPE.BaseClasses
 
         public void Update()
         {
-            position.X += speed.X;
-            position.Y += speed.Y;          
+            position += speed;
+                      
         }
     }
 }

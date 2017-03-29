@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using The_scroll_of_NOPE.Menyer;
 using System.Collections.Generic;
 
 namespace The_scroll_of_NOPE
@@ -30,7 +31,7 @@ namespace The_scroll_of_NOPE
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            GameElements.currentState = GameElements._state.Menu;
             base.Initialize();
         }
 
@@ -42,6 +43,7 @@ namespace The_scroll_of_NOPE
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            GameElements.LoadContent(Content, Window);
 
             positions = new List<Vector2>() { new Vector2(0, 100), new Vector2(100,100) };
             // TODO: use this.Content to load your game content here
@@ -63,8 +65,18 @@ namespace The_scroll_of_NOPE
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            //   Exit();
+
+            switch (GameElements.currentState)
+            {
+                case GameElements._state.Quit:
+                    System.Environment.Exit(0);
+                    break;
+                default:
+                    GameElements.currentState = GameElements.MenuUpdate();
+                    break;
+            }
 
             // TODO: Add your update logic here
 

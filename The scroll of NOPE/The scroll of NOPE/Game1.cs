@@ -46,8 +46,10 @@ namespace The_scroll_of_NOPE
             spriteBatch = new SpriteBatch(GraphicsDevice);
             GameElements.LoadContent(Content, Window);
 
+            //Positions for platforms
             positions = new List<Vector2>() { new Vector2(50, 100), new Vector2(100,150), new Vector2(200, 200), new Vector2(100, 300) };
             levelLayout = new LevelObjects.LevelLayout(Content, positions);
+
             // TODO: use this.Content to load your game content here
         }
 

@@ -18,8 +18,10 @@ namespace The_scroll_of_NOPE.LevelObjects
             //Sets the texture for every platform
             base.texture = content.Load<Texture2D>("images/FillerPlatform");
 
+            //Creates a list of platforms
             platforms = new List<Platform>();
 
+            //Adds a platform for every position that exists
             for (int n = 0; n < positions.Count; n++)
             {
                 platforms.Add(new Platform(texture, positions[n]));
@@ -28,15 +30,11 @@ namespace The_scroll_of_NOPE.LevelObjects
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            //Draws each platform
             foreach (Platform platform in platforms)
             {
-                
                 platform.Draw(spriteBatch);
             }
         }
-        //Draw metod som overridear den gammla.
-        //Där man loopar platformar och ritar ut dem
-
-
     }
 }

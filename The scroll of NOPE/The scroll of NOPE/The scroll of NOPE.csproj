@@ -60,6 +60,7 @@
     <Compile Include="BaseClasses\Players\Projectile.cs" />
     <Compile Include="BaseClasses\Student.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="LevelObjects\Ground.cs" />
     <Compile Include="LevelObjects\LevelLayout.cs" />
     <Compile Include="LevelObjects\LevelObject.cs" />
     <Compile Include="LevelObjects\Platform.cs" />

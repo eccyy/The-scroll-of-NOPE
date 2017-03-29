@@ -42,7 +42,8 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             if (keyHandler.IsKeyDown(Keys.Down))
                 base.speed.Y -= 10;
 
-           
+
+            base.position += speed;
             base.Update();
 
         }

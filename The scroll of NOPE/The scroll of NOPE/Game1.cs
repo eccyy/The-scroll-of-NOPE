@@ -83,11 +83,12 @@ namespace The_scroll_of_NOPE
                     break;
                 case GameElements._state.Run:
                     //put Game update here
+                    anka.Update();
                     break;
             }
 
             // TODO: Add your update logic here
-            anka.Update();
+            
             base.Update(gameTime);
         }
 
@@ -103,8 +104,16 @@ namespace The_scroll_of_NOPE
             switch (GameElements.currentState)
             {
                 case GameElements._state.Run:
-            //Draws the level design
-            levelLayout.Draw(spriteBatch);
+                    //Draws the level design
+                    levelLayout.Draw(spriteBatch);
+                    break;
+                case GameElements._state.Menu:
+                    GameElements.MenuDraw(spriteBatch);
+                    break;
+                case GameElements._state.Quit:
+                    this.Exit();
+                    break;
+            }
 
             spriteBatch.End();
             // TODO: Add your drawing code here

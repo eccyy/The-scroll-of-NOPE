@@ -16,10 +16,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         {
             // Tar antalet spelare och räknar ut hur mycket starkare ANKA ska vara. Sedan ökar balanseringsvärden som health.
             BuffCalculator(studentCount);
-            
-            
-
-
+                       
         }
 
         public void Update()

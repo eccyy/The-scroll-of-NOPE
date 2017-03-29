@@ -22,6 +22,11 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         }
 
+        protected override void BasicAttack()
+        {
+
+        }
+
         public override void Update()
         {
             throw new NotImplementedException();

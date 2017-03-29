@@ -33,6 +33,7 @@ namespace The_scroll_of_NOPE.Menyer
 
         public static _state MenuUpdate()
         {
+            throw new NotImplementedException();
             //do stuff
         }
     }

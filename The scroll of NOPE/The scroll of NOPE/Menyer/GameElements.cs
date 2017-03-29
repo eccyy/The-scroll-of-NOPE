@@ -30,7 +30,7 @@ namespace The_scroll_of_NOPE.Menyer
 
         public static _state MenuUpdate()
         {
-            //?????
+            //Keyboardstates
             KeyboardState keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.S))
                 return _state.Run;
@@ -44,7 +44,7 @@ namespace The_scroll_of_NOPE.Menyer
 
         public static void MenuDraw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(menuSprite, menuPos, Color.White);
+            spriteBatch.Draw(menuSprite, menuPos, null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
         }
 
     }

@@ -12,8 +12,10 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
     {
         float buffMultiplier;
 
-        public ANKA(int studentCount,Texture2D texture):base()
+        public ANKA(int studentCount,Texture2D texture, Vector2 position):base()
         {
+
+            base.position = this.position;
             // Tar antalet spelare och räknar ut hur mycket starkare ANKA ska vara. Sedan ökar balanseringsvärden som health.
             BuffCalculator(studentCount);
             base.texture = texture;                       

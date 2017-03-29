@@ -48,7 +48,7 @@ namespace The_scroll_of_NOPE
             GameElements.LoadContent(Content, Window);
 
             //Positions for platforms
-            positions = new List<Vector2>() { new Vector2(50, 100), new Vector2(100,150), new Vector2(200, 200), new Vector2(100, 300) };
+            positions = new List<Vector2>() { new Vector2(50, 50), new Vector2(200,50), new Vector2(50, 200), new Vector2(100, 220), new Vector2(150, 220), new Vector2(200, 200)};
             levelLayout = new LevelObjects.LevelLayout(Content, positions);
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50));
             // TODO: use this.Content to load your game content here
@@ -98,8 +98,9 @@ namespace The_scroll_of_NOPE
             spriteBatch.Begin();
 
             //Draws the level design
-            levelLayout.Draw(spriteBatch);
+            
             anka.Draw(spriteBatch);
+            levelLayout.Draw(spriteBatch);
 
             spriteBatch.End();
             // TODO: Add your drawing code here

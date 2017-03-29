@@ -10,6 +10,6 @@ namespace The_scroll_of_NOPE.LevelObjects
 {
     abstract class LevelObject : BaseClasses.PhysicalObject
     {
-        //Can put variables that all under classes use in here
+        
     }
 }

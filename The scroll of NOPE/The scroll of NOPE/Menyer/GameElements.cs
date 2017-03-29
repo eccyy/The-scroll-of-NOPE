@@ -24,8 +24,8 @@ namespace The_scroll_of_NOPE.Menyer
             //försöker att få en sprite till menuSprite
             menuSprite = content.Load<Texture2D>("images/menu/menu");
 
-            menuPos.X = window.ClientBounds.Width / 2 - menuSprite.Width / 2;
-            menuPos.Y = window.ClientBounds.Height / 2 - menuSprite.Height / 2;
+            menuPos.X = window.ClientBounds.Width/2 - menuSprite.Width/2;
+            menuPos.Y = window.ClientBounds.Height/2 - menuSprite.Height/2;
         }
 
         public static _state MenuUpdate()
@@ -46,5 +46,6 @@ namespace The_scroll_of_NOPE.Menyer
         {
             spriteBatch.Draw(menuSprite, menuPos, Color.White);
         }
+
     }
 }

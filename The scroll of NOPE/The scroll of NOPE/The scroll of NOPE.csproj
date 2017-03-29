@@ -43,7 +43,7 @@
     <Compile Include="BaseClasses\Players\ANKA.cs" />
     <Compile Include="BaseClasses\Players\Player.cs" />
     <Compile Include="BaseClasses\Players\Projectile.cs" />
-    <Compile Include="BaseClasses\Players\Students.cs" />
+    <Compile Include="BaseClasses\Players\Student.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="LevelObjects\LevelLayout.cs" />
     <Compile Include="LevelObjects\LevelObject.cs" />
@@ -53,8 +53,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework">
-      <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+    <Reference Include="MonoGame.Framework, Version=3.4.0.456, Culture=neutral, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />

@@ -29,7 +29,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         protected List<Projectile> projectiles { get; set; }
 
 
-        protected void Update()
+        protected virtual void Update()
         {
             if (keyHandler.IsKeyDown(Keys.Left))
                 speed.X -= 10;

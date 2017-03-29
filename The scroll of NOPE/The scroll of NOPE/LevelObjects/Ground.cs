@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace The_scroll_of_NOPE.LevelObjects
 {
-    class Platform : LevelObject
+    class Ground : LevelObject
     {
-        public Platform(Texture2D texture, Vector2 position)
+        public Ground(Texture2D texture, Vector2 position)
         {
             //Sets this texture to the texture it gets all the way from LevelLayout
             this.texture = texture;

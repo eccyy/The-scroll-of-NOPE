@@ -16,7 +16,7 @@ namespace The_scroll_of_NOPE
 
         List<Vector2> positions;
         LevelObjects.LevelLayout levelLayout;
-        BaseClasses.Players.ANKA anka;
+        BaseClasses.Players.ANKA anka; // ANKA Objekt
 
         public Game1()
         {

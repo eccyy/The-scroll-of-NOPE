@@ -15,7 +15,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         public ANKA(int studentCount,Texture2D texture, Vector2 position):base()
         {
 
-            base.position = this.position;
+            base.position = position;
             // Tar antalet spelare och räknar ut hur mycket starkare ANKA ska vara. Sedan ökar balanseringsvärden som health.
             BuffCalculator(studentCount);
             base.texture = texture;                       

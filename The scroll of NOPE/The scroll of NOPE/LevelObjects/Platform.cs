@@ -15,5 +15,9 @@ namespace The_scroll_of_NOPE.LevelObjects
             this.texture = texture;
             this.position = position;
         }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+        }
     }
 }

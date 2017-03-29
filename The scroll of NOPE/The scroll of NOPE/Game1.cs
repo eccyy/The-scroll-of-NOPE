@@ -15,6 +15,7 @@ namespace The_scroll_of_NOPE
         SpriteBatch spriteBatch;
 
         List<Vector2> positions;
+        LevelObjects.LevelLayout levelLayout;
 
         public Game1()
         {
@@ -45,7 +46,8 @@ namespace The_scroll_of_NOPE
             spriteBatch = new SpriteBatch(GraphicsDevice);
             GameElements.LoadContent(Content, Window);
 
-            positions = new List<Vector2>() { new Vector2(0, 100), new Vector2(100,100) };
+            positions = new List<Vector2>() { new Vector2(50, 100), new Vector2(100,150), new Vector2(200, 200), new Vector2(100, 300) };
+            levelLayout = new LevelObjects.LevelLayout(Content, positions);
             // TODO: use this.Content to load your game content here
         }
 
@@ -90,7 +92,12 @@ namespace The_scroll_of_NOPE
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin();
 
+            //Draws the level design
+            levelLayout.Draw(spriteBatch);
+
+            spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

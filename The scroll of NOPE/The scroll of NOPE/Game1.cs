@@ -16,6 +16,7 @@ namespace The_scroll_of_NOPE
 
         List<Vector2> positions;
         LevelObjects.LevelLayout levelLayout;
+        BaseClasses.Players.ANKA anka;
 
         public Game1()
         {
@@ -46,8 +47,10 @@ namespace The_scroll_of_NOPE
             spriteBatch = new SpriteBatch(GraphicsDevice);
             GameElements.LoadContent(Content, Window);
 
+            //Positions for platforms
             positions = new List<Vector2>() { new Vector2(50, 100), new Vector2(100,150), new Vector2(200, 200), new Vector2(100, 300) };
             levelLayout = new LevelObjects.LevelLayout(Content, positions);
+            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50));
             // TODO: use this.Content to load your game content here
         }
 
@@ -84,7 +87,7 @@ namespace The_scroll_of_NOPE
             }
 
             // TODO: Add your update logic here
-
+            anka.Update();
             base.Update(gameTime);
         }
 
@@ -100,18 +103,8 @@ namespace The_scroll_of_NOPE
             switch (GameElements.currentState)
             {
                 case GameElements._state.Run:
-                    //Draws the level design
-                    levelLayout.Draw(spriteBatch);
-                    break;
-                case GameElements._state.Menu:
-                    //Draws Menu layout
-                    GameElements.MenuDraw(spriteBatch);
-                    break;
-                case GameElements._state.Quit:
-                    this.Exit();
-                    break;
-
-            }
+            //Draws the level design
+            levelLayout.Draw(spriteBatch);
 
             spriteBatch.End();
             // TODO: Add your drawing code here

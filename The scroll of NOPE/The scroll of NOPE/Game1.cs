@@ -47,6 +47,7 @@ namespace The_scroll_of_NOPE
             spriteBatch = new SpriteBatch(GraphicsDevice);
             GameElements.LoadContent(Content, Window);
 
+            //Positions for platforms
             positions = new List<Vector2>() { new Vector2(50, 100), new Vector2(100,150), new Vector2(200, 200), new Vector2(100, 300) };
             levelLayout = new LevelObjects.LevelLayout(Content, positions);
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50));
@@ -75,15 +76,19 @@ namespace The_scroll_of_NOPE
             switch (GameElements.currentState)
             {
                 case GameElements._state.Quit:
-                    System.Environment.Exit(0);
+                    Exit();
                     break;
-                default:
+                case GameElements._state.Menu:
                     GameElements.currentState = GameElements.MenuUpdate();
+                    break;
+                case GameElements._state.Run:
+                    //put Game update here
+                    anka.Update();
                     break;
             }
 
             // TODO: Add your update logic here
-            anka.Update();
+            
             base.Update(gameTime);
         }
 
@@ -96,9 +101,19 @@ namespace The_scroll_of_NOPE
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
 
-            //Draws the level design
-            levelLayout.Draw(spriteBatch);
-            anka.Draw(spriteBatch);
+            switch (GameElements.currentState)
+            {
+                case GameElements._state.Run:
+                    //Draws the level design
+                    levelLayout.Draw(spriteBatch);
+                    break;
+                case GameElements._state.Menu:
+                    GameElements.MenuDraw(spriteBatch);
+                    break;
+                case GameElements._state.Quit:
+                    this.Exit();
+                    break;
+            }
 
             spriteBatch.End();
             // TODO: Add your drawing code here

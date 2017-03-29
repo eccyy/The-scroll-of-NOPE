@@ -31,16 +31,16 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         protected virtual void Update()
         {
-            
+            keyHandler = Keyboard.GetState();
 
-            if (keyHandler.IsKeyDown(Keys.Left))
-                base.speed.X -= 10;
-            if (keyHandler.IsKeyDown(Keys.Right))
-                base.speed.X += 10;
-            if (keyHandler.IsKeyDown(Keys.Up))
-                base.speed.Y += 10;
-            if (keyHandler.IsKeyDown(Keys.Down))
-                base.speed.Y -= 10;
+            if (keyHandler.IsKeyDown(Keys.A) && speed.X > -5)
+                base.speed.X -= 10f;
+            if (keyHandler.IsKeyDown(Keys.D) && speed.X <  5)
+                base.speed.X += 10f;
+            if (keyHandler.IsKeyDown(Keys.W) && speed.Y > -5)
+                base.speed.Y -= 10f;
+            if (keyHandler.IsKeyDown(Keys.S) && speed.Y <  5)
+                base.speed.Y += 10f;
 
 
             base.position += speed;

@@ -18,7 +18,7 @@ namespace The_scroll_of_NOPE.Menyer
 
         static Texture2D menuSprite;
         static Vector2 menuPos;
-
+        
         public static void LoadContent(ContentManager content, GameWindow window)
         {
             //försöker att få en sprite till menuSprite

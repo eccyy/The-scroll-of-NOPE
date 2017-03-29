@@ -24,14 +24,14 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             base.Update();
             
         }
-
+        
         protected override void BasicAttack()
         {
-            throw new NotImplementedException();
+
         }
 
         private void BuffCalculator(int studentCount)
-        {        
+        {
             health *= (studentCount * 1f);
 
         }

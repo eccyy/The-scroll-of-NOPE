@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace The_scroll_of_NOPE.BaseClasses
 {
-    public abstract class Object
+    public abstract class Object // Allt här i är skrivet av William
     {
         // Variabler
         protected Texture2D texture; // objektes grafik

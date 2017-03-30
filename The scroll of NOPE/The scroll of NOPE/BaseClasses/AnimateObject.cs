@@ -15,11 +15,11 @@ namespace The_scroll_of_NOPE.BaseClasses
         public void Update()
         {
             position += speed;
-            if(speed.X > 0 && speed.X > 5)
+            if(speed.X > 0 || speed.X < 0)
             {
                 speed.X *= 0.9f;
             }
-            if (speed.Y > 0 && speed.Y > 5)
+            if (speed.Y > 0 || speed.Y < 0)
             {
                 speed.Y *= 0.9f;
             }
@@ -29,7 +29,7 @@ namespace The_scroll_of_NOPE.BaseClasses
         public override void Draw(SpriteBatch sb)
         {
             Rectangle size = new Rectangle(0, 0, texture.Width, texture.Height);
-            sb.Draw(this.texture, position,size,Color.Wheat,0f,position,0.25f,SpriteEffects.None,0) ;
+            sb.Draw(this.texture, position,size,Color.Wheat,0f,position,0.5f,SpriteEffects.None,0) ;
         }
           
     }

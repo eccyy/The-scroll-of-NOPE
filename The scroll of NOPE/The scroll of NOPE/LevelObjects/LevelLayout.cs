@@ -11,50 +11,22 @@ namespace The_scroll_of_NOPE.LevelObjects
 {
     class LevelLayout : BaseClasses.PhysicalObject
     {
-        List<Platform> platforms;
+        public List<Platform> platforms;
         List<Ground> grounds;
 
-        List<Vector2> platformPositions;
-        List<Vector2> groundPositions;
-        
+        Array groundAmmount;
+        Vector2 groundPosition;
+
         public LevelLayout(ContentManager content)
         {   
             //Creates a list of platforms
             platforms = new List<Platform>();
             grounds = new List<Ground>();
 
-            //All the positions for all objects
-            platformPositions = new List<Vector2>() { new Vector2(50, 50), new Vector2(200, 50), new Vector2(50, 200), new Vector2(100, 220), new Vector2(150, 220), new Vector2(200, 200) };
-            groundPositions = new List<Vector2>() { new Vector2(300, 50) };
-
             //Creates all the objects needed
-            platform(content, platformPositions);
-            ground(content, groundPositions);  
+            platform(content);
+            ground(content);  
         }
-
-        //In order for objects to have separate textures i put them in methods so they get them by them selves when called.
-        #region Methods For Drawing Objects
-        public void platform(ContentManager content, List<Vector2> platformPositions)
-        {
-            base.texture = content.Load<Texture2D>("images/FillerPlatform");
-            //Adds one platform for each Vector2 position in the positions list
-            for (int n = 0; n < platformPositions.Count; n++)
-            {
-                platforms.Add(new Platform(texture, platformPositions[n]));
-            }
-        }
-
-        public void ground(ContentManager content, List<Vector2> groundPositions)
-        {
-            base.texture = content.Load<Texture2D>("images/FillerGround");
-
-            //Adds one platform for each Vector2 position in the positions list
-            for (int n = 0; n < groundPositions.Count; n++)
-            {
-                grounds.Add(new Ground(texture, groundPositions[n]));
-            }
-        }
-        #endregion
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -68,5 +40,41 @@ namespace The_scroll_of_NOPE.LevelObjects
                 ground.Draw(spriteBatch);
             }
         }
+
+        //In order for objects to have separate textures i put them in methods so they get them by them selves when called.
+        #region Methods For Drawing Objects
+        public void platform(ContentManager content)
+        {
+            base.texture = content.Load<Texture2D>("images/FillerPlatform");
+            
+            //Positions for all platforms
+            List<Vector2> platformPositions = new List<Vector2>() { new Vector2(50, 300), new Vector2(300, 250), new Vector2(200, 200) };
+            
+            //Adds one platform for each Vector2 position in the positions list
+            for (int n = 0; n < platformPositions.Count; n++)
+            {
+                platforms.Add(new Platform(texture, platformPositions[n]));
+            }
+        }
+
+        public void ground(ContentManager content)
+        {
+            base.texture = content.Load<Texture2D>("images/FillerGround");
+
+            //Set this number to the ammount of grounds you want
+            groundAmmount = new Array[10];
+
+            //Sets position for start groundPlatform
+            groundPosition.X = -100;
+            groundPosition.Y = 450;
+
+            //Adds a new platform after every platform for as many as you want 
+            for (int n = 0; n < groundAmmount.Length; n++)
+            {
+                groundPosition.X += texture.Width;
+                grounds.Add(new Ground(texture, groundPosition));
+            }
+        }
+        #endregion
     }
 }

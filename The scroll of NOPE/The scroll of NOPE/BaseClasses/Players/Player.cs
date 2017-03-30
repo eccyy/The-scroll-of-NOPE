@@ -11,8 +11,9 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
     public abstract class Player : AnimateObject
     {
         KeyboardState keyHandler = new KeyboardState();
-
+        protected float acceleration = 1f;
         protected float jumpAcceleration = 9.82f;
+        protected float maxSpeed;
 
         public Player()
         {
@@ -34,14 +35,27 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             // Rörelsen på spelaren och acceleration på rörelsen.
             keyHandler = Keyboard.GetState();
 
-            if (keyHandler.IsKeyDown(Keys.A) && speed.X > -5)
-                base.speed.X -= 1f;
-            if (keyHandler.IsKeyDown(Keys.D) && speed.X <  5)
-                base.speed.X += 1f;
-            if (keyHandler.IsKeyDown(Keys.W) && speed.Y > -5)
-                base.speed.Y -= 1f;
-            if (keyHandler.IsKeyDown(Keys.S) && speed.Y <  5)
-                base.speed.Y += 1f;
+            if (keyHandler.IsKeyDown(Keys.A) && speed.X > -maxSpeed)
+                base.speed.X -= acceleration;
+            if (keyHandler.IsKeyDown(Keys.D) && speed.X <  maxSpeed)
+                base.speed.X += acceleration;
+            if (keyHandler.IsKeyDown(Keys.W) && speed.Y > -maxSpeed)
+                base.speed.Y -= acceleration;
+            if (keyHandler.IsKeyDown(Keys.S) && speed.Y <  maxSpeed)
+                base.speed.Y += acceleration;
+            if (keyHandler.IsKeyDown(Keys.H))
+                AttackH();
+            if (keyHandler.IsKeyDown(Keys.J))
+                AttackJ();
+            if (keyHandler.IsKeyDown(Keys.K))
+                AttackK();
+            if (keyHandler.IsKeyDown(Keys.L))
+                AttackL();
+            if (keyHandler.IsKeyDown(Keys.H))
+                AttackH();
+         
+
+        
 
 
             base.position += speed;
@@ -49,11 +63,16 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         }
 
+                                                     
+                                                     
+        protected abstract void AttackBasic();            
+        protected abstract void AttackH();           
+        protected abstract void AttackJ();           
+        protected abstract void AttackK();           
+        protected abstract void AttackL();           
+       
 
 
-        protected abstract void BasicAttack();
-        
-           
     }
    
 }

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using The_scroll_of_NOPE.Menyer;
 using System.Collections.Generic;
+using The_scroll_of_NOPE.BaseClasses.Players;
 
 namespace The_scroll_of_NOPE
 {
@@ -14,10 +15,10 @@ namespace The_scroll_of_NOPE
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        List<Vector2> platformPositions;
-        List<Vector2> groundPositions;
         LevelObjects.LevelLayout levelLayout;
-        BaseClasses.Players.ANKA anka; // ANKA Objekt
+        ANKA anka; // ANKA Objekt
+        Student1 testStudent;
+
 
         public Game1()
         {
@@ -47,12 +48,10 @@ namespace The_scroll_of_NOPE
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             GameElements.LoadContent(Content, Window);
-
-            //Positions for platforms
-            platformPositions = new List<Vector2>() { new Vector2(50, 50), new Vector2(200,50), new Vector2(50, 200), new Vector2(100, 220), new Vector2(150, 220), new Vector2(200, 200)};
-            groundPositions = new List<Vector2>() { new Vector2(300, 50) };
-            levelLayout = new LevelObjects.LevelLayout(Content, platformPositions, groundPositions);
-            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50));
+            
+            levelLayout = new LevelObjects.LevelLayout(Content);
+            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5);
+            testStudent = new Student1(Content.Load<Texture2D>("images/ANKA/ANKA"), new Vector2(100, 100), 7);
             // TODO: use this.Content to load your game content here
         }
 
@@ -86,8 +85,11 @@ namespace The_scroll_of_NOPE
                 case GameElements._state.Run:
                     //put Game update here
                     anka.Update();
+
                     break;
             }
+
+
 
             // TODO: Add your update logic here
             

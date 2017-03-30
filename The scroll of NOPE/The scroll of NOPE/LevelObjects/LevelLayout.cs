@@ -3,36 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace The_scroll_of_NOPE.LevelObjects
 {
     class LevelLayout : BaseClasses.PhysicalObject
     {
-        List<Platform> platforms;
+        public List<Platform> platforms;
         List<Ground> grounds;
-        
-        public LevelLayout(ContentManager content, List<Vector2> platformPositions, List<Vector2> groundPositions)
-        {
-            //Sets the texture for every platform
-            base.texture = content.Load<Texture2D>("images/FillerPlatform");
-            base.texture = content.Load<Texture2D>("images/FillerGround");
 
+        Array groundAmmount;
+        Vector2 groundPosition;
+
+        public LevelLayout(ContentManager content)
+        {   
             //Creates a list of platforms
             platforms = new List<Platform>();
             grounds = new List<Ground>();
 
-            //Adds a platform for every position that exists
-            for (int n = 0; n < platformPositions.Count; n++)
-            {
-                platforms.Add(new Platform(texture, platformPositions[n]));
-            }
-            for (int n = 0; n < groundPositions.Count; n++)
-            {
-                grounds.Add(new Ground(texture, groundPositions[n]));
-            }
+            //Creates all the objects needed
+            platform(content);
+            ground(content);  
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -47,5 +40,41 @@ namespace The_scroll_of_NOPE.LevelObjects
                 ground.Draw(spriteBatch);
             }
         }
+
+        //In order for objects to have separate textures i put them in methods so they get them by them selves when called.
+        #region Methods For Drawing Objects
+        public void platform(ContentManager content)
+        {
+            base.texture = content.Load<Texture2D>("images/FillerPlatform");
+            
+            //Positions for all platforms
+            List<Vector2> platformPositions = new List<Vector2>() { new Vector2(50, 300), new Vector2(300, 250), new Vector2(200, 200) };
+            
+            //Adds one platform for each Vector2 position in the positions list
+            for (int n = 0; n < platformPositions.Count; n++)
+            {
+                platforms.Add(new Platform(texture, platformPositions[n]));
+            }
+        }
+
+        public void ground(ContentManager content)
+        {
+            base.texture = content.Load<Texture2D>("images/FillerGround");
+
+            //Set this number to the ammount of grounds you want
+            groundAmmount = new Array[10];
+
+            //Sets position for start groundPlatform
+            groundPosition.X = -100;
+            groundPosition.Y = 450;
+
+            //Adds a new platform after every platform for as many as you want 
+            for (int n = 0; n < groundAmmount.Length; n++)
+            {
+                groundPosition.X += texture.Width;
+                grounds.Add(new Ground(texture, groundPosition));
+            }
+        }
+        #endregion
     }
 }

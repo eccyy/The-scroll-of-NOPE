@@ -26,6 +26,7 @@ namespace The_scroll_of_NOPE.BaseClasses
     {
         // Metod för att kolla kollisioner
         // Tar en parameter: PhysicalObject (polymorphism, skicka in t.ex ANKA, en elev eller ett level objekt)
+        // kan behövas uppdateras eftersom vi kommer använda spritesheets
         public bool CheckCollision(PhysicalObject other)
         {
             // skapa en Rectangle för det nuvarande objektet

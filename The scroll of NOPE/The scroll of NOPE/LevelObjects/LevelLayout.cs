@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace The_scroll_of_NOPE.LevelObjects
 {
@@ -17,7 +17,7 @@ namespace The_scroll_of_NOPE.LevelObjects
         List<Vector2> platformPositions;
         List<Vector2> groundPositions;
         
-        public LevelLayout(ContentManager content /*, List<Vector2> platformPositions, List<Vector2> groundPositions*/)
+        public LevelLayout(ContentManager content)
         {   
             //Creates a list of platforms
             platforms = new List<Platform>();

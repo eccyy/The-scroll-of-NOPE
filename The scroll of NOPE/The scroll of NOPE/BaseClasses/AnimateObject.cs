@@ -29,7 +29,7 @@ namespace The_scroll_of_NOPE.BaseClasses
         public override void Draw(SpriteBatch sb)
         {
             Rectangle size = new Rectangle(0, 0, texture.Width, texture.Height);
-            sb.Draw(this.texture, position,size,Color.Wheat,0f,position,0.5f,SpriteEffects.None,0) ;
+            sb.Draw(this.texture, position,size,Color.Wheat,0f,position,0.08f,SpriteEffects.None,0) ;
         }
           
     }

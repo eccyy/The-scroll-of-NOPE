@@ -47,7 +47,7 @@ namespace The_scroll_of_NOPE
             GameElements.LoadContent(Content, Window);
             
             levelLayout = new LevelObjects.LevelLayout(Content);
-            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50));
+            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50),5f);
             // TODO: use this.Content to load your game content here
         }
 

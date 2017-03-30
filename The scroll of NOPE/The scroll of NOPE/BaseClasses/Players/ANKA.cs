@@ -12,9 +12,9 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
     {
         float buffMultiplier;
 
-        public ANKA(int studentCount,Texture2D texture, Vector2 position):base()
+        public ANKA(int studentCount,Texture2D texture, Vector2 position, float maxSpeed):base()
         {
-
+            base.maxSpeed = maxSpeed;
             base.position = position;
             // Tar antalet spelare och räknar ut hur mycket starkare ANKA ska vara. Sedan ökar balanseringsvärden som health.
             BuffCalculator(studentCount);
@@ -25,12 +25,32 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         {
             base.Update();
             
+                    
+            
         }
         
-        protected override void BasicAttack()
+        protected override void AttackBasic()
         {
 
         }
+        protected override void AttackH()
+        {
+
+        }
+        protected override void AttackJ()
+        {
+
+        }
+        protected override void AttackK()
+        {
+
+        }
+        protected override void AttackL()
+        {
+
+        }
+       
+
 
         private void BuffCalculator(int studentCount)
         {

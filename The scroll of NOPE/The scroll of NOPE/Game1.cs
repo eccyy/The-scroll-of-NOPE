@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using The_scroll_of_NOPE.Menyer;
 using System.Collections.Generic;
+using The_scroll_of_NOPE.BaseClasses.Players;
 
 namespace The_scroll_of_NOPE
 {
@@ -15,7 +16,9 @@ namespace The_scroll_of_NOPE
         SpriteBatch spriteBatch;
 
         LevelObjects.LevelLayout levelLayout;
-        BaseClasses.Players.ANKA anka; // ANKA Objekt
+        ANKA anka; // ANKA Objekt
+        Student1 testStudent;
+
 
         public Game1()
         {
@@ -47,7 +50,8 @@ namespace The_scroll_of_NOPE
             GameElements.LoadContent(Content, Window);
             
             levelLayout = new LevelObjects.LevelLayout(Content);
-            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50));
+            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5);
+            testStudent = new Student1(Content.Load<Texture2D>("images/ANKA/ANKA"), new Vector2(100, 100), 7);
             // TODO: use this.Content to load your game content here
         }
 
@@ -81,8 +85,11 @@ namespace The_scroll_of_NOPE
                 case GameElements._state.Run:
                     //put Game update here
                     anka.Update();
+
                     break;
             }
+
+
 
             // TODO: Add your update logic here
             

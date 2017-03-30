@@ -10,12 +10,12 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 {
     public abstract class Student : Player
     {
-        public Student(Texture2D texture, Vector2 position, Vector2 speed)
+        public Student(Texture2D texture, Vector2 position, int ppfMaxSpeed)
         {
             // Sets the necessary variables of the baseclass which are given as inputs to the contructor
             this.texture  = texture;
             this.position = position;
-            this.speed    = speed;
+            this.maxSpeed = ppfMaxSpeed;
 
             // Sets non-input variables in the baseclass
             this.projectiles = new List<Projectile>(); // Initialize of list
@@ -23,7 +23,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         }
 
         // If you want to specify health
-        public Student(Texture2D texture, Vector2 position, Vector2 speed, float health) : this(texture, position, speed)
+        public Student(Texture2D texture, Vector2 position, int speed, float health) : this(texture, position, speed)
         {
             this.health = health;
         }
@@ -38,7 +38,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
     public class Melee : Student
     {
-        public Melee(Texture2D texture, Vector2 position, Vector2 speed) : base(texture, position, speed)
+        public Melee(Texture2D texture, Vector2 position, int speed) : base(texture, position, speed)
         {
         }
 
@@ -50,7 +50,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
     public class Ranged : Student
     {
-        public Ranged(Texture2D texture, Vector2 position, Vector2 speed) : base(texture, position, speed)
+        public Ranged(Texture2D texture, Vector2 position, int speed) : base(texture, position, speed)
         {
         }
 

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using The_scroll_of_NOPE.Menyer;
 using System.Collections.Generic;
+using The_scroll_of_NOPE.BaseClasses.Players;
 
 namespace The_scroll_of_NOPE
 {
@@ -15,7 +16,9 @@ namespace The_scroll_of_NOPE
         SpriteBatch spriteBatch;
 
         LevelObjects.LevelLayout levelLayout;
-        BaseClasses.Players.ANKA anka; // ANKA Objekt
+        ANKA anka; // ANKA Objekt
+        Melee testStudent;
+
 
         public Game1()
         {
@@ -48,6 +51,7 @@ namespace The_scroll_of_NOPE
             
             levelLayout = new LevelObjects.LevelLayout(Content);
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50));
+            testStudent = new Melee(Content.Load<Texture2D>("images/ANKA/ANKA"), new Vector2(100, 100), 7);
             // TODO: use this.Content to load your game content here
         }
 

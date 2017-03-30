@@ -17,7 +17,7 @@ namespace The_scroll_of_NOPE
 
         LevelObjects.LevelLayout levelLayout;
         ANKA anka; // ANKA Objekt
-        Melee testStudent;
+        Student1 testStudent;
 
 
         public Game1()
@@ -50,8 +50,8 @@ namespace The_scroll_of_NOPE
             GameElements.LoadContent(Content, Window);
             
             levelLayout = new LevelObjects.LevelLayout(Content);
-            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50));
-            testStudent = new Melee(Content.Load<Texture2D>("images/ANKA/ANKA"), new Vector2(100, 100), 7);
+            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5);
+            testStudent = new Student1(Content.Load<Texture2D>("images/ANKA/ANKA"), new Vector2(100, 100), 7);
             // TODO: use this.Content to load your game content here
         }
 

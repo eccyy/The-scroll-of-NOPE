@@ -33,10 +33,29 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             throw new NotImplementedException();
         }
 
-        protected override abstract void BasicAttack();
+        protected override void AttackBasic()
+        {
+
+        }
+        protected override void AttackH()
+        {
+
+        }
+        protected override void AttackJ()
+        {
+
+        }
+        protected override void AttackK()
+        {
+
+        }
+        protected override void AttackL()
+        {
+
+        }
     }
 
-    public class Melee : Student
+    public abstract class Melee : Student
     {
         public Melee(Texture2D texture, Vector2 position, int speed) : base(texture, position, speed)
         {
@@ -44,19 +63,27 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         protected override void AttackBasic()
         {
-            throw new NotImplementedException();
+
         }
     }
 
-    public class Ranged : Student
+    public abstract class Ranged : Student
     {
         public Ranged(Texture2D texture, Vector2 position, int speed) : base(texture, position, speed)
         {
         }
-
-        protected override void BasicAttack()
+        
+        protected override void AttackBasic()
         {
-            throw new NotImplementedException();
+
+        }
+    }
+
+    public class Student1 : Melee
+    {
+        public Student1(Texture2D texture, Vector2 position, int speed) : base(texture, position, speed)
+        {
+
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Net;
 using System.Threading;
+using Newtonsoft.Json;
 
 namespace The_scroll_of_NOPE.Network
 {
@@ -15,12 +16,28 @@ namespace The_scroll_of_NOPE.Network
         protected string Address; // string för vilken nätverksaddress som ska anslutas till
         protected TcpClient client; // TcpClient, clienten som används för att skicka data
 
-        protected void SendData(string data)
+        protected bool SendData(object data)
         {
-            NetworkStream stream = client.GetStream();
-            byte[] d = System.Text.Encoding.ASCII.GetBytes(data, 0, data.Length);
+            try
+            {
+                NetworkStream stream = client.GetStream();
+                string jsondata = JsonConvert.DeserializeObject<object>(data);
+                byte[] d = System.Text.Encoding.ASCII.GetBytes(jsondata, 0, data.Length);
 
-            stream.Write(d, 0, d.Length);
+                stream.Write(d, 0, d.Length);
+
+                stream.Close();
+
+                return true;
+            }
+            catch (ArgumentNullException e) 
+            {
+                return false;
+            }
+            catch (SocketException e)
+            {
+                return false;
+            }
         }
     }
 
@@ -41,7 +58,7 @@ namespace The_scroll_of_NOPE.Network
     {
         private TcpListener listener; // a server to accept connections and data
         private Thread listenerThread; // a thread to handle incoming data, would interrupt all other operations otherwise
-        delegate void GetData(string data);
+        private delegate void GetData(string data);
 
         // konstruktor, tar en string och en int
         void Host(int p, string a)
@@ -64,13 +81,12 @@ namespace The_scroll_of_NOPE.Network
 
         private void Listener()
         {
-            IPEndPoint endpoint = new IPEndPoint(IPAddress.Any, this.Port);
             GetData dataDelegate = HandleData;
             
             while (true)
             {
-                TcpClient client = listener.AcceptTcpClient();
-                NetworkStream stream = client.GetStream();
+                TcpClient lClient = listener.AcceptTcpClient();
+                NetworkStream stream = lClient.GetStream();
                 byte[] bytes = new byte[256];
                 var data = null;
                 
@@ -80,13 +96,13 @@ namespace The_scroll_of_NOPE.Network
                     invoke(dataDelegate, data);
                 }
 
-                client.Close();
+                lClient.Close();
             } 
         }
 
         private void HandleData(string data)
         {
-
+            
         }
     }
 }

@@ -16,15 +16,22 @@ namespace The_scroll_of_NOPE.Network
         protected string Address; // string för vilken nätverksaddress som ska anslutas till
         protected TcpClient client; // TcpClient, clienten som används för att skicka data
 
-        protected bool SendData(object data)
+        // metod för att skicka data
+        // tar ett object
+        public bool SendData(object data)
         {
+            // try/catch for error "handling"
             try
             {
                 NetworkStream stream = client.GetStream();
-                string jsondata = JsonConvert.DeserializeObject<object>(data);
-                byte[] d = System.Text.Encoding.ASCII.GetBytes(jsondata, 0, data.Length);
 
-                stream.Write(d, 0, d.Length);
+                if (client.Connected)
+                {
+                    string jsondata = JsonConvert.DeserializeObject<object>(data);
+                    byte[] d = System.Text.Encoding.ASCII.GetBytes(jsondata, 0, jsondata.Length);
+
+                    stream.Write(d, 0, d.Length);
+                }
 
                 stream.Close();
 
@@ -58,7 +65,8 @@ namespace The_scroll_of_NOPE.Network
     {
         private TcpListener listener; // a server to accept connections and data
         private Thread listenerThread; // a thread to handle incoming data, would interrupt all other operations otherwise
-        private delegate void GetData(string data);
+        private delegate void GetData(string data); // delegate to handle events
+        private List<string> connectedClients = new List<string>(); // list to keep track of connected clients
 
         // konstruktor, tar en string och en int
         void Host(int p, string a)
@@ -86,6 +94,7 @@ namespace The_scroll_of_NOPE.Network
             while (true)
             {
                 TcpClient lClient = listener.AcceptTcpClient();
+                connectedClients.Add(IPAddress.Parse(((IPEndPoint)lClient.Client.RemoteEndPoint).Address.ToString()));
                 NetworkStream stream = lClient.GetStream();
                 byte[] bytes = new byte[256];
                 var data = null;
@@ -102,7 +111,7 @@ namespace The_scroll_of_NOPE.Network
 
         private void HandleData(string data)
         {
-            
+            object json = JsonConvert.SerializeObject<object>(data);
         }
     }
 }

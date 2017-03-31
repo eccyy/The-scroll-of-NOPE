@@ -40,8 +40,9 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                 base.speed.X -= acceleration;
             if (keyHandler.IsKeyDown(Keys.D) && speed.X <  maxSpeed)
                 base.speed.X += acceleration;
-            if (keyHandler.IsKeyDown(Keys.W) && speed.Y > -maxSpeed)
-                base.speed.Y -= acceleration*10;
+            // Spelaren hoppar
+            if (keyHandler.IsKeyDown(Keys.W) && speed.Y == 0)
+                base.speed.Y -= acceleration*15;
             if (keyHandler.IsKeyDown(Keys.S) && speed.Y <  maxSpeed)
                 base.speed.Y += acceleration;
             if (keyHandler.IsKeyDown(Keys.H))
@@ -61,7 +62,8 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
             base.position += speed;
 
-            if(base.position.Y<mapHeight)
+            // Gravitationen vid hopp och ett stopp vid map height pixlar ner. 
+            if(base.position.Y < mapHeight)
                 base.speed.Y += 1f;
             else
             {

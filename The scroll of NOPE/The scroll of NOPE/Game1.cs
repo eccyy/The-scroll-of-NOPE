@@ -108,12 +108,12 @@ namespace The_scroll_of_NOPE
             switch (GameElements.currentState)
             {
                 case GameElements._state.Run:
-            //Draws the level design
-            
-            anka.Draw(spriteBatch);
-            levelLayout.Draw(spriteBatch);
+                    //Draws the level design
+                    anka.Draw(spriteBatch);
+                    levelLayout.Draw(spriteBatch);
                     break;
                 case GameElements._state.Menu:
+                    //Draws the menu sprite
                     GameElements.MenuDraw(spriteBatch);
                     break;
                 case GameElements._state.Quit:

@@ -14,7 +14,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         protected float acceleration = 1f;
         protected float jumpAcceleration = 9.82f;
         protected float maxSpeed;
-        int mapHeight = 400;
+        int mapHeight = 300;
 
         public Player()
         {

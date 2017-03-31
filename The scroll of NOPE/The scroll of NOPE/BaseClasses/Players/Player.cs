@@ -14,6 +14,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         protected float acceleration = 1f;
         protected float jumpAcceleration = 9.82f;
         protected float maxSpeed;
+        int mapHeight = 400;
 
         public Player()
         {
@@ -40,7 +41,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             if (keyHandler.IsKeyDown(Keys.D) && speed.X <  maxSpeed)
                 base.speed.X += acceleration;
             if (keyHandler.IsKeyDown(Keys.W) && speed.Y > -maxSpeed)
-                base.speed.Y -= acceleration;
+                base.speed.Y -= acceleration*10;
             if (keyHandler.IsKeyDown(Keys.S) && speed.Y <  maxSpeed)
                 base.speed.Y += acceleration;
             if (keyHandler.IsKeyDown(Keys.H))
@@ -53,12 +54,20 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                 AttackL();
             if (keyHandler.IsKeyDown(Keys.H))
                 AttackH();
-         
+          
 
         
 
 
             base.position += speed;
+
+            if(base.position.Y<mapHeight)
+                base.speed.Y += 1f;
+            else
+            {
+                base.speed.Y = 0;
+            }
+
             base.Update();
 
         }

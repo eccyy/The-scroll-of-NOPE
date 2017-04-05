@@ -129,7 +129,8 @@ namespace The_scroll_of_NOPE
 
         private void Collisions()
         {
-
+            // En lista med alla objekt som kan kollidera. 
+            
         }
     }
 }

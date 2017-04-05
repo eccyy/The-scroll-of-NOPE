@@ -22,13 +22,8 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             
         }
 
-        
-        private float _health;
-        protected float health
-        {
-            get { return 1000f;}       
-            set { _health = value; }
-        }
+        protected float health;
+              
         protected List<Projectile> projectiles { get; set; }
 
 
@@ -85,6 +80,39 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             }
 
             base.Update();
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        protected void Collision()
+        {
+            // Komma åt sakerna som kan kollidera med player. 
+            // Om kollision med vapen, ta skada beroende på vapenSkada
+           
+            // Om kollision med kula, ta skada och ta bort kulan
+
 
         }
 

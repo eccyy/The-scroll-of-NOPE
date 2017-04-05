@@ -25,15 +25,11 @@ namespace The_scroll_of_NOPE.BaseClasses
     public abstract class PhysicalObject : Object
     {
         // Metod för att kolla kollisioner
-        // Tar en parameter: PhysicalObject (polymorphism, skicka in t.ex ANKA, en elev eller ett level objekt)
-        public bool CheckCollision(PhysicalObject other)
+        // extremt simplifierad
+        public bool CheckCollision(Rectangle source, Rectangle other)
         {
-            // skapa en Rectangle för det nuvarande objektet
-            Rectangle firstRect = new Rectangle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), Convert.ToInt32(texture.Width), Convert.ToInt32(texture.Height));
-            // skapa en Rectangle för det andra objektet
-            Rectangle otherRect = new Rectangle(Convert.ToInt32(other.position.X), Convert.ToInt32(other.position.Y), Convert.ToInt32(other.texture.Width), Convert.ToInt32(other.texture.Height));
             // om de kolliderar med varandra returnera true annars returnera false
-            return firstRect.Intersects(otherRect);
+            return source.Intersects(other);
         }
     }
 

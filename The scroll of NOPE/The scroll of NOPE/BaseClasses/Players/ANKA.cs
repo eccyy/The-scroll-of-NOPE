@@ -24,9 +24,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         public void Update()
         {
             base.Update();
-            
-                    
-            
+                                           
         }
         
         protected override void AttackBasic()

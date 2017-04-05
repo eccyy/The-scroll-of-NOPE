@@ -51,7 +51,7 @@ namespace The_scroll_of_NOPE
             
             levelLayout = new LevelObjects.LevelLayout(Content);
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5);
-            testStudent = new Student1(Content.Load<Texture2D>("images/FillerPlatform"), new Vector2(100, 100), 7);
+            testStudent = new Student1(Content.Load<Texture2D>("images/ANKA/ANKA"), new Vector2(300, 300), 7);
             // TODO: use this.Content to load your game content here
         }
 
@@ -85,7 +85,7 @@ namespace The_scroll_of_NOPE
                 case GameElements._state.Run:
                     //put Game update here
                     anka.Update();
-
+                    Collisions();
                     break;
             }
 
@@ -108,12 +108,12 @@ namespace The_scroll_of_NOPE
             switch (GameElements.currentState)
             {
                 case GameElements._state.Run:
-            //Draws the level design
-            
-            anka.Draw(spriteBatch);
-            levelLayout.Draw(spriteBatch);
+                    //Draws the level design
+                    anka.Draw(spriteBatch);
+                    levelLayout.Draw(spriteBatch);
                     break;
                 case GameElements._state.Menu:
+                    //Draws the menu sprite
                     GameElements.MenuDraw(spriteBatch);
                     break;
                 case GameElements._state.Quit:
@@ -125,6 +125,11 @@ namespace The_scroll_of_NOPE
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+        }
+
+        private void Collisions()
+        {
+
         }
     }
 }

@@ -112,6 +112,11 @@ namespace The_scroll_of_NOPE.Network
         private void HandleData(string data)
         {
             object json = JsonConvert.SerializeObject<object>(data);
+
+            foreach (string c in connectedClients)
+            {
+
+            }
         }
     }
 }

@@ -28,9 +28,9 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             this.health = health;
         }
 
-        protected override void Update()
+        public override void Update()
         {
-            throw new NotImplementedException();
+            base.Update();
         }
 
         protected override void AttackBasic()

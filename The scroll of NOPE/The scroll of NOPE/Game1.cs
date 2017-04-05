@@ -85,6 +85,7 @@ namespace The_scroll_of_NOPE
                 case GameElements._state.Run:
                     //put Game update here
                     anka.Update();
+                    testStudent.Update();
                     Collisions();
                     break;
             }
@@ -111,6 +112,7 @@ namespace The_scroll_of_NOPE
                     //Draws the level design
                     anka.Draw(spriteBatch);
                     levelLayout.Draw(spriteBatch);
+                    testStudent.Draw(spriteBatch);
                     break;
                 case GameElements._state.Menu:
                     //Draws the menu sprite

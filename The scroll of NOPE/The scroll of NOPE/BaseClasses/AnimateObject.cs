@@ -12,7 +12,7 @@ namespace The_scroll_of_NOPE.BaseClasses
     {
         protected Vector2 speed;
         
-        public void Update()
+        public virtual void Update()
         {
             position += speed;
             if(speed.X > 0 || speed.X < 0)

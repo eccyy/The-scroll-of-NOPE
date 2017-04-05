@@ -32,7 +32,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         protected List<Projectile> projectiles { get; set; }
 
 
-        protected virtual void Update()
+        public override void Update()
         {
             // Rörelsen på spelaren och acceleration på rörelsen.
             keyHandler = Keyboard.GetState();

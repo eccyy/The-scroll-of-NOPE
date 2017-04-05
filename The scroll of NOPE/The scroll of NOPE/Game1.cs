@@ -14,9 +14,10 @@ namespace The_scroll_of_NOPE
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        List<object> collidables;
         LevelObjects.LevelLayout levelLayout;
         ANKA anka; // ANKA Objekt
+        Projectile kula = new Projectile();
         Student1 testStudent;
 
 
@@ -50,7 +51,7 @@ namespace The_scroll_of_NOPE
             GameElements.LoadContent(Content, Window);
             
             levelLayout = new LevelObjects.LevelLayout(Content);
-            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5);
+            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,1000);
             testStudent = new Student1(Content.Load<Texture2D>("images/ANKA/ANKA"), new Vector2(300, 300), 7);
             // TODO: use this.Content to load your game content here
         }
@@ -84,14 +85,15 @@ namespace The_scroll_of_NOPE
                     break;
                 case GameElements._state.Run:
                     //put Game update here
+
                     anka.Update();
+
                     Collisions();
                     break;
             }
 
 
 
-            // TODO: Add your update logic here
             
             base.Update(gameTime);
         }
@@ -129,8 +131,10 @@ namespace The_scroll_of_NOPE
 
         private void Collisions()
         {
-            // En lista med alla objekt som kan kollidera. 
-            
+            // En lista med alla objekt som kan kollidera.                         
+            collidables.Add(kula);
+
+            anka.Collision(collidables);
         }
     }
 }

@@ -130,7 +130,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
 
 
-        protected void Collision()
+       public void Collision(List<object> Collidables)
         {
             // Komma åt sakerna som kan kollidera med player. 
             // Om kollision med vapen, ta skada beroende på vapenSkada

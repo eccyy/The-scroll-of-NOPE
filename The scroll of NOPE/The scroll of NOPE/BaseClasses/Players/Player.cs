@@ -15,6 +15,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         protected float jumpAcceleration = 9.82f;
         protected float maxSpeed;
         int mapHeight = 300;
+        float jumpHeight = 5;
 
         public Player()
         {
@@ -36,13 +37,26 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             // Rörelsen på spelaren och acceleration på rörelsen.
             keyHandler = Keyboard.GetState();
 
+
+            int jumpTimer = 0;
+
             if (keyHandler.IsKeyDown(Keys.A) && speed.X > -maxSpeed)
                 base.speed.X -= acceleration;
             if (keyHandler.IsKeyDown(Keys.D) && speed.X <  maxSpeed)
                 base.speed.X += acceleration;
             // Spelaren hoppar
-            if (keyHandler.IsKeyDown(Keys.W) && speed.Y == 0)
-                base.speed.Y -= acceleration*15;
+            if (keyHandler.IsKeyDown(Keys.Space))
+                if (speed.Y == 0 && jumpTimer < jumpHeight)
+                {
+                    base.speed.Y -= acceleration * 5;
+                    jumpTimer++;
+                }
+                else if (speed.Y == 0)
+                {
+                    jumpTimer = 0;
+                }
+                              
+                
             if (keyHandler.IsKeyDown(Keys.S) && speed.Y <  maxSpeed)
                 base.speed.Y += acceleration;
             if (keyHandler.IsKeyDown(Keys.H))

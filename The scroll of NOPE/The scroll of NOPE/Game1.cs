@@ -85,7 +85,7 @@ namespace The_scroll_of_NOPE
                 case GameElements._state.Run:
                     //put Game update here
                     anka.Update();
-
+                    Collisions();
                     break;
             }
 
@@ -125,6 +125,11 @@ namespace The_scroll_of_NOPE
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+        }
+
+        private void Collisions()
+        {
+
         }
     }
 }

@@ -10,15 +10,25 @@ using Newtonsoft.Json;
 
 namespace The_scroll_of_NOPE.Network
 {
-    abstract class NetworkBase // Allt i denna fil skrivet av William
+    class Client
     {
-        protected int Port; // int för vilken nätverksport som ska användas
-        protected string Address; // string för vilken nätverksaddress som ska anslutas till
-        protected TcpClient client; // TcpClient, clienten som används för att skicka data
+        private int Port; // int för vilken nätverksport som ska användas
+        private string Address; // string för vilken nätverksaddress som ska anslutas till
+        private TcpClient client; // TcpClient, clienten som används för att skicka data
+
+        // konstruktor, tar en string och en int
+        void Client(string a, int p)
+        {
+            this.Port = p;
+            this.Address = a;
+
+            // creates a new client that connects to the host
+            client = new TcpClient(a, p);
+        }
 
         // metod för att skicka data
         // tar ett object
-        public bool SendData(object data)
+        public bool SendData(string data)
         {
             // try/catch for error "handling"
             try
@@ -27,8 +37,7 @@ namespace The_scroll_of_NOPE.Network
 
                 if (client.Connected)
                 {
-                    string jsondata = JsonConvert.DeserializeObject<object>(data);
-                    byte[] d = System.Text.Encoding.ASCII.GetBytes(jsondata, 0, jsondata.Length);
+                    byte[] d = System.Text.Encoding.ASCII.GetBytes(data, 0, data.Length);
 
                     stream.Write(d, 0, d.Length);
                 }
@@ -37,7 +46,7 @@ namespace The_scroll_of_NOPE.Network
 
                 return true;
             }
-            catch (ArgumentNullException e) 
+            catch (ArgumentNullException e)
             {
                 return false;
             }
@@ -46,36 +55,22 @@ namespace The_scroll_of_NOPE.Network
                 return false;
             }
         }
+
     }
 
-    class Node : NetworkBase
-    {
-        // konstruktor, tar en string och en int
-        void Node(string a, int p)
-        {
-            this.Port = p;
-            this.Address = a;
-
-            // creates a new client that connects to the host
-            client = new TcpClient(a, p);
-        }
-    }
-
-    class Host : NetworkBase
+    class Server
     {
         private TcpListener listener; // a server to accept connections and data
         private Thread listenerThread; // a thread to handle incoming data, would interrupt all other operations otherwise
         private delegate void GetData(string data); // delegate to handle events
         private List<string> connectedClients = new List<string>(); // list to keep track of connected clients
+        private int Port;
 
         // konstruktor, tar en string och en int
-        void Host(int p, string a)
+        void Server(int p)
         {
             this.Port = p;
-            this.Address = a;
 
-            // creates a new client to send data
-            client = new TcpClient(a, p);
             // creates a server/listener that listens on any IP address
             listener = new TcpListener(IPAddress.Any, p);
             listener.Start();
@@ -111,12 +106,22 @@ namespace The_scroll_of_NOPE.Network
 
         private void HandleData(string data)
         {
-            object json = JsonConvert.SerializeObject<object>(data);
-
             foreach (string c in connectedClients)
             {
+                TcpClient cli = new TcpClient(c, Port);
+                NetworkStream stream = cli.GetStream();
 
+                if (cli.Connected)
+                {
+                    byte[] d = System.Text.Encoding.ASCII.GetBytes(data, 0, data.Length);
+
+                    stream.Write(d, 0, d.Length);
+                }
+
+                stream.Close();
             }
         }
+
+        public int Port { get { return this.Port; } }
     }
 }

@@ -37,7 +37,7 @@ namespace The_scroll_of_NOPE.Network
 
                 if (client.Connected)
                 {
-                    byte[] d = System.Text.Encoding.ASCII.GetBytes(data, 0, data.Length);
+                    byte[] d = System.Text.Encoding.ASCII.GetBytes(data);
 
                     stream.Write(d, 0, d.Length);
                 }

@@ -17,7 +17,7 @@ namespace The_scroll_of_NOPE.Network
         private TcpClient client; // TcpClient, clienten som används för att skicka data
 
         // konstruktor, tar en string och en int
-        void Client(string a, int p)
+        public Client(string a, int p)
         {
             this.Port = p;
             this.Address = a;
@@ -67,7 +67,7 @@ namespace The_scroll_of_NOPE.Network
         private int Port;
 
         // konstruktor, tar en string och en int
-        void Server(int p)
+        public Server(int p)
         {
             this.Port = p;
 

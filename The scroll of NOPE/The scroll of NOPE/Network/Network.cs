@@ -27,7 +27,7 @@ namespace The_scroll_of_NOPE.Network
         }
 
         // metod för att skicka data
-        // tar ett object
+        // tar en string i form av json objekt
         public bool SendData(string data)
         {
             // try/catch for error "handling"

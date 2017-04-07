@@ -12,12 +12,12 @@ namespace The_scroll_of_NOPE.Menyer
 {
     static class GameElements
     {
-        public enum _state { Menu,Run,HighScore,Quit};
+        public enum _state { Menu,Run,Lobby,Quit};
 
         public static _state currentState;
 
-        static Texture2D menuSprite;
-        static Vector2 menuPos;
+        static Texture2D menuSprite, lobbySprite;
+        static Vector2 menuPos, lobbyPos;
         
         public static void LoadContent(ContentManager content, GameWindow window)
         {
@@ -26,6 +26,8 @@ namespace The_scroll_of_NOPE.Menyer
 
             menuPos.X = window.ClientBounds.Width - menuSprite.Width/2 + 80;
             menuPos.Y = window.ClientBounds.Height - menuSprite.Height/2 + 20;
+
+            //lobbySprite = content.Load<Texture2D>("images/menu/lobby");
         }
 
         public static _state MenuUpdate()
@@ -33,14 +35,45 @@ namespace The_scroll_of_NOPE.Menyer
             //Keyboardstates
             KeyboardState keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.S))
+            {
                 return _state.Run;
+            }
             if (keyboardState.IsKeyDown(Keys.H))
-                return _state.HighScore;
+            {
+                return _state.Lobby;
+            }
             if (keyboardState.IsKeyDown(Keys.A))
+            {
                 return _state.Quit;
+            }
+            if (keyboardState.IsKeyDown(Keys.Escape))
+            {
+                return _state.Menu;
+            }
 
             return _state.Menu;
         }
+
+        public static _state LobbyUpdate()
+        {
+            KeyboardState keyboardState = Keyboard.GetState();
+            if (keyboardState.IsKeyDown(Keys.Escape))
+            {
+                return _state.Menu;
+            }
+            return _state.Lobby;
+        }
+
+        public static _state RunUpdate()
+        {
+            KeyboardState keyboardState = Keyboard.GetState();
+            if (keyboardState.IsKeyDown(Keys.Escape))
+            {
+                return _state.Menu;
+            }
+            return _state.Run;
+        }
+
 
         public static void MenuDraw(SpriteBatch spriteBatch)
         {
@@ -48,5 +81,9 @@ namespace The_scroll_of_NOPE.Menyer
             spriteBatch.Draw(menuSprite, menuPos, null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
         }
 
+        public static void LobbyDraw(SpriteBatch spriteBatch)
+        {
+            //spriteBatch.Draw();
+        }
     }
 }

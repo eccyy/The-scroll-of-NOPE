@@ -79,13 +79,17 @@ namespace The_scroll_of_NOPE
                 case GameElements._state.Quit:
                     Exit();
                     break;
+                case GameElements._state.Lobby:
+                    GameElements.currentState = GameElements.LobbyUpdate();
+                    break;
                 case GameElements._state.Menu:
                     GameElements.currentState = GameElements.MenuUpdate();
                     break;
                 case GameElements._state.Run:
                     //put Game update here
                     anka.Update();
-
+                    //fungerar att switcha mellan gamestates men run state ska restarta spelet.
+                    GameElements.currentState = GameElements.RunUpdate();
                     break;
             }
 
@@ -115,6 +119,9 @@ namespace The_scroll_of_NOPE
                 case GameElements._state.Menu:
                     //Draws the menu sprite
                     GameElements.MenuDraw(spriteBatch);
+                    break;
+                case GameElements._state.Lobby:
+                    GameElements.LobbyDraw(spriteBatch);
                     break;
                 case GameElements._state.Quit:
                     this.Exit();

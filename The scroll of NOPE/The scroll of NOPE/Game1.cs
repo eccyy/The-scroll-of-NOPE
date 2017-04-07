@@ -123,9 +123,9 @@ namespace The_scroll_of_NOPE
             {
                 case GameElements._state.Run:
                     //Draws the level design
-                    anka.Draw(spriteBatch);
-                    levelLayout.Draw(spriteBatch);
-                    testStudent.Draw(spriteBatch);
+                    anka.Draw(spriteBatch, camera);
+                    levelLayout.Draw(spriteBatch, camera);
+                    testStudent.Draw(spriteBatch, camera);
                     break;
                 case GameElements._state.Menu:
                     //Draws the menu sprite

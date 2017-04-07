@@ -77,6 +77,8 @@ namespace The_scroll_of_NOPE
         {
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             //   Exit();
+            
+
 
             switch (GameElements.currentState)
             {

@@ -22,7 +22,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             base.texture = texture;                       
         }
 
-        protected override void Update()
+        public override void Update()
         {
             base.Update();
                                            

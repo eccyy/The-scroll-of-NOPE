@@ -14,9 +14,12 @@ namespace The_scroll_of_NOPE
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        List<object> collidables;
+        
         LevelObjects.LevelLayout levelLayout;
-        ANKA anka; // ANKA Objekt
+
+        ANKA anka; 
+
+        // DEBUG PURPOISE 
         Projectile kula = new Projectile();
         Student1 testStudent;
         Camera camera;
@@ -83,18 +86,21 @@ namespace The_scroll_of_NOPE
                 case GameElements._state.Quit:
                     Exit();
                     break;
+                case GameElements._state.Lobby:
+                    GameElements.currentState = GameElements.LobbyUpdate();
+                    break;
                 case GameElements._state.Menu:
                     GameElements.currentState = GameElements.MenuUpdate();
                     break;
                 case GameElements._state.Run:
                     //put Game update here
-
                     anka.Update();
                     testStudent.Update();
                     Collisions();
 
                     Point screenSize = GraphicsDevice.Viewport.Bounds.Size; // Gets the size of the screen
                     camera.Update(anka, new Vector2(screenSize.X, screenSize.Y)); // Updates camera
+                    GameElements.currentState = GameElements.RunUpdate();
                     break;
             }
 
@@ -125,6 +131,9 @@ namespace The_scroll_of_NOPE
                     //Draws the menu sprite
                     GameElements.MenuDraw(spriteBatch);
                     break;
+                case GameElements._state.Lobby:
+                    GameElements.LobbyDraw(spriteBatch);
+                    break;
                 case GameElements._state.Quit:
                     this.Exit();
                     break;
@@ -139,9 +148,9 @@ namespace The_scroll_of_NOPE
         private void Collisions()
         {
             // En lista med alla objekt som kan kollidera.                         
-            collidables.Add(kula);
+            // collidables.Add(kula);
 
-            anka.Collision(collidables);
+             
         }
     }
 }

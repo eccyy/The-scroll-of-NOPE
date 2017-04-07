@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace The_scroll_of_NOPE.BaseClasses
 {
-    public abstract class Object // Allt här i är skrivet av William
+    #region William
+    public abstract class Object
     {
-        // Variabler
-        protected Texture2D texture; // objektes grafik
-        protected Vector2 position; // objektets position
+        // Variables
+        protected Texture2D texture; // the objects graphics
+        protected Vector2 position; // the objects position
 
         public Vector2 Position { get => position; }
 
@@ -26,17 +27,17 @@ namespace The_scroll_of_NOPE.BaseClasses
 
     public abstract class PhysicalObject : Object
     {
-        // Metod för att kolla kollisioner
-        // extremt simplifierad
+        // Method to check collisions
+        // extremely simplified to handle spritesheet animations
         public bool CheckCollision(Rectangle source, Rectangle other)
         {
-            // om de kolliderar med varandra returnera true annars returnera false
             return source.Intersects(other);
         }
     }
 
     public abstract class NonPhysicalObject : Object
     {
-        // tom klass under första sprinten
+        // empty class for the first sprint (not needed yet)
     }
+    #endregion
 }

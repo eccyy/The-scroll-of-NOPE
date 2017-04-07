@@ -10,9 +10,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace The_scroll_of_NOPE.LevelObjects
 {
-    class LevelLayout : BaseClasses.PhysicalObject
+    #region Lucas
+    public class LevelLayout : BaseClasses.PhysicalObject
     {
-        public List<Platform> platforms;
+        List<Platform> platforms;
         List<Ground> grounds;
 
         Array groundAmmount;
@@ -49,7 +50,7 @@ namespace The_scroll_of_NOPE.LevelObjects
             base.texture = content.Load<Texture2D>("images/FillerPlatform");
             
             //Positions for all platforms
-            List<Vector2> platformPositions = new List<Vector2>() { new Vector2(50, 300), new Vector2(300, 250), new Vector2(200, 200) };
+            List<Vector2> platformPositions = new List<Vector2>() { new Vector2(50, 300), new Vector2(200, 200), new Vector2(400, 300), new Vector2(300, 400) };
             
             //Adds one platform for each Vector2 position in the positions list
             for (int n = 0; n < platformPositions.Count; n++)
@@ -78,4 +79,5 @@ namespace The_scroll_of_NOPE.LevelObjects
         }
         #endregion
     }
+    #endregion
 }

@@ -8,8 +8,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace The_scroll_of_NOPE.LevelObjects
 {
+    #region Lucas
     abstract class LevelObject : BaseClasses.PhysicalObject
     {
         
     }
+    #endregion
 }

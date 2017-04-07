@@ -8,8 +8,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace The_scroll_of_NOPE.LevelObjects
 {
+    #region Lucas
     class Ground : LevelObject
     {
+       
         public Ground(Texture2D texture, Vector2 position)
         {
             //Sets this texture to the texture it gets all the way from LevelLayout
@@ -22,4 +24,5 @@ namespace The_scroll_of_NOPE.LevelObjects
             base.Draw(spriteBatch);
         }
     }
+    #endregion
 }

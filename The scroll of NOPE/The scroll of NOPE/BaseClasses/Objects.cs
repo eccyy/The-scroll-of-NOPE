@@ -15,7 +15,7 @@ namespace The_scroll_of_NOPE.BaseClasses
         protected Texture2D texture; // the objects graphics
         protected Vector2 position; // the objects position
 
-        public Vector2 Position { get => position; }
+        public Vector2 Position { get { return position; } }
 
         // Draw(), metod för att rita ut object
         // Tar en  parameter: SpriteBatch

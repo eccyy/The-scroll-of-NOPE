@@ -15,7 +15,7 @@ namespace The_scroll_of_NOPE
     {
         private Vector2 position;
 
-        public Vector2 Position { get => position; }
+        public Vector2 Position { get { return position; } }
 
         public Camera(Vector2 position)
         {

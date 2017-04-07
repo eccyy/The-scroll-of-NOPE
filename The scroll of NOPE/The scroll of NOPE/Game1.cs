@@ -16,7 +16,10 @@ namespace The_scroll_of_NOPE
         SpriteBatch spriteBatch;
         List<object> collidables;
         LevelObjects.LevelLayout levelLayout;
-        ANKA anka; // ANKA Objekt
+
+        ANKA anka; 
+
+        // DEBUG PURPOISE 
         Projectile kula = new Projectile();
         Student1 testStudent;
 
@@ -133,9 +136,9 @@ namespace The_scroll_of_NOPE
         private void Collisions()
         {
             // En lista med alla objekt som kan kollidera.                         
-            collidables.Add(kula);
+          //  collidables.Add(kula);
 
-            anka.Collision(collidables);
+           // anka.Collision(collidables);
         }
     }
 }

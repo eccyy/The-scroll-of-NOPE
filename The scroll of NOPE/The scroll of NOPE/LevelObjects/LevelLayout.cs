@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
+
 namespace The_scroll_of_NOPE.LevelObjects
 {
     class LevelLayout : BaseClasses.PhysicalObject

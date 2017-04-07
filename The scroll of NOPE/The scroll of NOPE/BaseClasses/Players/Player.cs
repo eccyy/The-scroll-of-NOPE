@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using The_scroll_of_NOPE.LevelObjects;
 
 namespace The_scroll_of_NOPE.BaseClasses.Players
 {
@@ -110,33 +111,13 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
        public void Collision(List<object> Collidables)
         {
             // Komma åt sakerna som kan kollidera med player. 
             // Om kollision med vapen, ta skada beroende på vapenSkada
-           
+          
             // Om kollision med kula, ta skada och ta bort kulan
-
+            
 
         }
 

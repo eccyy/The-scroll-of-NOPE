@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace The_scroll_of_NOPE.BaseClasses
 {
-    public abstract class Object // Allt här i är skrivet av William
+    public abstract class Object // Everything in this file is written by William
     {
-        // Variabler
-        protected Texture2D texture; // objektes grafik
-        protected Vector2 position; // objektets position
+        // Variables
+        protected Texture2D texture; // the objects graphics
+        protected Vector2 position; // the objects position
 
-        // Draw(), metod för att rita ut object
-        // Tar en  parameter: SpriteBatch
+        // Draw(), method to draw the object
+        // Takes one parameter: SpriteBatch
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position);
@@ -24,22 +24,16 @@ namespace The_scroll_of_NOPE.BaseClasses
 
     public abstract class PhysicalObject : Object
     {
-        // Metod för att kolla kollisioner
-        // Tar en parameter: PhysicalObject (polymorphism, skicka in t.ex ANKA, en elev eller ett level objekt)
-        // kan behövas uppdateras eftersom vi kommer använda spritesheets
-        public bool CheckCollision(PhysicalObject other)
+        // Method to check collisions
+        // extremely simplified to handle spritesheet animations
+        public bool CheckCollision(Rectangle source, Rectangle other)
         {
-            // skapa en Rectangle för det nuvarande objektet
-            Rectangle firstRect = new Rectangle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), Convert.ToInt32(texture.Width), Convert.ToInt32(texture.Height));
-            // skapa en Rectangle för det andra objektet
-            Rectangle otherRect = new Rectangle(Convert.ToInt32(other.position.X), Convert.ToInt32(other.position.Y), Convert.ToInt32(other.texture.Width), Convert.ToInt32(other.texture.Height));
-            // om de kolliderar med varandra returnera true annars returnera false
-            return firstRect.Intersects(otherRect);
+            return source.Intersects(other);
         }
     }
 
     public abstract class NonPhysicalObject : Object
     {
-        // tom klass under första sprinten
+        // empty class for the first sprint (not needed yet)
     }
 }

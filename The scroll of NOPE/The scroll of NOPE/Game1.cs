@@ -14,9 +14,10 @@ namespace The_scroll_of_NOPE
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        List<object> collidables;
         LevelObjects.LevelLayout levelLayout;
         ANKA anka; // ANKA Objekt
+        Projectile kula = new Projectile();
         Student1 testStudent;
 
 
@@ -50,8 +51,8 @@ namespace The_scroll_of_NOPE
             GameElements.LoadContent(Content, Window);
             
             levelLayout = new LevelObjects.LevelLayout(Content);
-            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5);
-            testStudent = new Student1(Content.Load<Texture2D>("images/ANKA/ANKA"), new Vector2(100, 100), 7);
+            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,1000);
+            testStudent = new Student1(Content.Load<Texture2D>("images/ANKA/ANKA"), new Vector2(300, 300), 7);
             // TODO: use this.Content to load your game content here
         }
 
@@ -88,14 +89,12 @@ namespace The_scroll_of_NOPE
                 case GameElements._state.Run:
                     //put Game update here
                     anka.Update();
-                    //fungerar att switcha mellan gamestates men run state ska restarta spelet.
-                    GameElements.currentState = GameElements.RunUpdate();
+
                     break;
             }
 
 
 
-            // TODO: Add your update logic here
             
             base.Update(gameTime);
         }
@@ -115,6 +114,7 @@ namespace The_scroll_of_NOPE
                     //Draws the level design
                     anka.Draw(spriteBatch);
                     levelLayout.Draw(spriteBatch);
+                    testStudent.Draw(spriteBatch);
                     break;
                 case GameElements._state.Menu:
                     //Draws the menu sprite
@@ -132,6 +132,14 @@ namespace The_scroll_of_NOPE
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+        }
+
+        private void Collisions()
+        {
+            // En lista med alla objekt som kan kollidera.                         
+            collidables.Add(kula);
+
+            anka.Collision(collidables);
         }
     }
 }

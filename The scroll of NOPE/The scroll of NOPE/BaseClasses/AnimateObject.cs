@@ -12,7 +12,7 @@ namespace The_scroll_of_NOPE.BaseClasses
     {
         protected Vector2 speed;
         
-        public void Update()
+        public virtual void Update()
         {
             position += speed;
             if(speed.X > 0 || speed.X < 0)
@@ -29,7 +29,7 @@ namespace The_scroll_of_NOPE.BaseClasses
         public override void Draw(SpriteBatch sb)
         {
             Rectangle size = new Rectangle(0, 0, texture.Width, texture.Height);
-            sb.Draw(this.texture, position,size,Color.Wheat,0f,position,0.08f,SpriteEffects.None,0) ;
+            sb.Draw(this.texture, position ,size,Color.White,0f,new Vector2(texture.Width/2,texture.Width/2),1f,SpriteEffects.None,0) ;
         }
           
     }

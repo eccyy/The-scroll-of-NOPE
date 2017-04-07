@@ -11,9 +11,9 @@ using Microsoft.Xna.Framework.Graphics;
 namespace The_scroll_of_NOPE.LevelObjects
 {
     #region Lucas
-    class LevelLayout : BaseClasses.PhysicalObject
+    public class LevelLayout : BaseClasses.PhysicalObject
     {
-        public List<Platform> platforms;
+        List<Platform> platforms;
         List<Ground> grounds;
 
         Array groundAmmount;

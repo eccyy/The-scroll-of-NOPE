@@ -14,7 +14,7 @@ namespace The_scroll_of_NOPE
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        List<object> collidables;
+        
         LevelObjects.LevelLayout levelLayout;
 
         ANKA anka; 

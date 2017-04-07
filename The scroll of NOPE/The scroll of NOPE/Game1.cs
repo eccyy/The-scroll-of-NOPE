@@ -14,9 +14,13 @@ namespace The_scroll_of_NOPE
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        List<object> collidables;
         LevelObjects.LevelLayout levelLayout;
-        ANKA anka; // ANKA Objekt
+
+        ANKA anka; 
+
+        // DEBUG PURPOISE 
+        Projectile kula = new Projectile();
         Student1 testStudent;
 
 
@@ -50,7 +54,7 @@ namespace The_scroll_of_NOPE
             GameElements.LoadContent(Content, Window);
             
             levelLayout = new LevelObjects.LevelLayout(Content);
-            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5);
+            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,1000);
             testStudent = new Student1(Content.Load<Texture2D>("images/ANKA/ANKA"), new Vector2(300, 300), 7);
             // TODO: use this.Content to load your game content here
         }
@@ -79,19 +83,21 @@ namespace The_scroll_of_NOPE
                 case GameElements._state.Quit:
                     Exit();
                     break;
+                case GameElements._state.Lobby:
+                    GameElements.currentState = GameElements.LobbyUpdate();
+                    break;
                 case GameElements._state.Menu:
                     GameElements.currentState = GameElements.MenuUpdate();
                     break;
                 case GameElements._state.Run:
                     //put Game update here
                     anka.Update();
-                    Collisions();
+
                     break;
             }
 
 
 
-            // TODO: Add your update logic here
             
             base.Update(gameTime);
         }
@@ -111,10 +117,14 @@ namespace The_scroll_of_NOPE
                     //Draws the level design
                     anka.Draw(spriteBatch);
                     levelLayout.Draw(spriteBatch);
+                    testStudent.Draw(spriteBatch);
                     break;
                 case GameElements._state.Menu:
                     //Draws the menu sprite
                     GameElements.MenuDraw(spriteBatch);
+                    break;
+                case GameElements._state.Lobby:
+                    GameElements.LobbyDraw(spriteBatch);
                     break;
                 case GameElements._state.Quit:
                     this.Exit();
@@ -129,7 +139,10 @@ namespace The_scroll_of_NOPE
 
         private void Collisions()
         {
+            // En lista med alla objekt som kan kollidera.                         
+          //  collidables.Add(kula);
 
+           // anka.Collision(collidables);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using The_scroll_of_NOPE.LevelObjects;
 
 namespace The_scroll_of_NOPE.BaseClasses.Players
 {
@@ -23,17 +24,12 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             
         }
 
-        
-        private float _health;
-        protected float health
-        {
-            get { return 1000f;}       
-            set { _health = value; }
-        }
+        protected float health;
+              
         protected List<Projectile> projectiles { get; set; }
 
 
-        protected virtual void Update()
+        public override void Update()
         {
             // Rörelsen på spelaren och acceleration på rörelsen.
             keyHandler = Keyboard.GetState();
@@ -110,6 +106,19 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
             base.position += speed;
             base.Update();
+        }
+
+
+
+
+       public void Collision(List<object> Collidables)
+        {
+            // Komma åt sakerna som kan kollidera med player. 
+            // Om kollision med vapen, ta skada beroende på vapenSkada
+          
+            // Om kollision med kula, ta skada och ta bort kulan
+            
+
         }
 
                                                      

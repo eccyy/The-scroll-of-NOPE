@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace The_scroll_of_NOPE.BaseClasses
 {
-    public abstract class Object // Everything in this file is written by William
+    #region William
+    public abstract class Object
     {
         // Variables
         protected Texture2D texture; // the objects graphics
@@ -36,4 +37,5 @@ namespace The_scroll_of_NOPE.BaseClasses
     {
         // empty class for the first sprint (not needed yet)
     }
+    #endregion
 }

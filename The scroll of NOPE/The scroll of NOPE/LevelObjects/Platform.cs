@@ -16,7 +16,9 @@ namespace The_scroll_of_NOPE.LevelObjects
         {
             //Sets this texture to the texture it gets all the way from LevelLayout
             this.texture = texture;
-            sourceRectangle = new Rectangle(sourceRectangle.X, sourceRectangle.Y, sourceRectangle.Width, sourceRectangle.Height);
+            //Needed for collision
+            sourceRectangle = new Rectangle(sourceRectangle.X, sourceRectangle.Y, texture.Width, texture.Height);
+
             //Gets the position
             this.position = position;
         }

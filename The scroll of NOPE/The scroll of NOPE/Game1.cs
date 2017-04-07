@@ -92,7 +92,7 @@ namespace The_scroll_of_NOPE
                 case GameElements._state.Run:
                     //put Game update here
                     anka.Update();
-
+                    GameElements.currentState = GameElements.RunUpdate();
                     break;
             }
 

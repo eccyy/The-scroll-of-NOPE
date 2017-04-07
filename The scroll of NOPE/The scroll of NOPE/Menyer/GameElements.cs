@@ -42,13 +42,9 @@ namespace The_scroll_of_NOPE.Menyer
             {
                 return _state.Lobby;
             }
-            if (keyboardState.IsKeyDown(Keys.A))
-            {
-                return _state.Quit;
-            }
             if (keyboardState.IsKeyDown(Keys.Escape))
             {
-                return _state.Menu;
+                return _state.Quit;
             }
 
             return _state.Menu;

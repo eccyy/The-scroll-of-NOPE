@@ -30,16 +30,16 @@ namespace The_scroll_of_NOPE.LevelObjects
             ground(content);  
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Camera camera)
         {
             //Draws each platform
             foreach (Platform platform in platforms)
             {
-                platform.Draw(spriteBatch);
+                platform.Draw(spriteBatch, camera);
             }
             foreach (Ground ground in grounds)
             {
-                ground.Draw(spriteBatch);
+                ground.Draw(spriteBatch, camera);
             }
         }
 

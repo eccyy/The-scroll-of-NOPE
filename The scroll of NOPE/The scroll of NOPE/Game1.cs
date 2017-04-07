@@ -140,9 +140,9 @@ namespace The_scroll_of_NOPE
         private void Collisions()
         {
             // En lista med alla objekt som kan kollidera.                         
-          //  collidables.Add(kula);
+            // collidables.Add(kula);
 
-           // anka.Collision(collidables);
+             
         }
     }
 }

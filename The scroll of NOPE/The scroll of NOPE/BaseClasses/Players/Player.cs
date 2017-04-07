@@ -53,7 +53,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
             #region JumpLogic
             //Om man trycker space och hasJumped är false (man är inte i luften) så hoppar man.
-            if (keyHandler.IsKeyDown(Keys.Space) && hasJumped == false)
+            if ((keyHandler.IsKeyDown(Keys.Space) || keyHandler.IsKeyDown(Keys.W)) && hasJumped == false)
             {
                 position.Y -= 10f;
                 base.speed.Y = -12f;
@@ -111,18 +111,23 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
 
 
-       public void Collision(List<object> Collidables)
+       public void Collision()
         {
             // Komma åt sakerna som kan kollidera med player. 
             // Om kollision med vapen, ta skada beroende på vapenSkada
-          
+
             // Om kollision med kula, ta skada och ta bort kulan
+
+            #region Kollision med plattformar
             
+            #endregion
+
+
 
         }
 
-                                                     
-                                                     
+
+
         protected abstract void AttackBasic();            
         protected abstract void AttackH();           
         protected abstract void AttackJ();           

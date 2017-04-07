@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 
 namespace The_scroll_of_NOPE.Network
 {
+    #region William
+    // check https://github.com/williamboren/P2P for more up to date work
     class Client
     {
         private int Port; // int för vilken nätverksport som ska användas
@@ -124,4 +126,5 @@ namespace The_scroll_of_NOPE.Network
 
         public int Port { get { return this.Port; } }
     }
+    #endregion
 }

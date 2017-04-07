@@ -14,7 +14,6 @@ namespace The_scroll_of_NOPE
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
         LevelObjects.LevelLayout levelLayout;
 
         ANKA anka; 
@@ -137,12 +136,16 @@ namespace The_scroll_of_NOPE
             base.Draw(gameTime);
         }
 
+        #region jontesKollisioner
         private void Collisions()
         {
             // En lista med alla objekt som kan kollidera.                         
             // collidables.Add(kula);
+            
 
+            anka.Collision(levelLayout);
              
         }
+        #endregion
     }
 }

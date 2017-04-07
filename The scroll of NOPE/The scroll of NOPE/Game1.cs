@@ -21,6 +21,7 @@ namespace The_scroll_of_NOPE
         // DEBUG PURPOISE 
         Projectile kula = new Projectile();
         Student1 testStudent;
+        Camera camera;
 
 
         public Game1()
@@ -38,6 +39,8 @@ namespace The_scroll_of_NOPE
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            camera = new Camera(new Vector2(0,0));
+
             GameElements.currentState = GameElements._state.Menu;
             base.Initialize();
         }
@@ -76,6 +79,8 @@ namespace The_scroll_of_NOPE
         {
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             //   Exit();
+            
+
 
             switch (GameElements.currentState)
             {
@@ -91,6 +96,11 @@ namespace The_scroll_of_NOPE
                 case GameElements._state.Run:
                     //put Game update here
                     anka.Update();
+                    testStudent.Update();
+                    Collisions();
+
+                    Point screenSize = GraphicsDevice.Viewport.Bounds.Size; // Gets the size of the screen
+                    camera.Update(anka, new Vector2(screenSize.X, screenSize.Y)); // Updates camera
                     GameElements.currentState = GameElements.RunUpdate();
                     break;
             }

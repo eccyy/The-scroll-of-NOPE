@@ -111,7 +111,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
 
 
-       public void Collision()
+       public void Collision(LevelLayout platforms)
         {
             // Komma åt sakerna som kan kollidera med player. 
             // Om kollision med vapen, ta skada beroende på vapenSkada
@@ -119,7 +119,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             // Om kollision med kula, ta skada och ta bort kulan
 
             #region Kollision med plattformar
-            
+              //  if(CheckCollision( new Rectangle(platforms.platform. .position,platforms.platform))
             #endregion
 
 

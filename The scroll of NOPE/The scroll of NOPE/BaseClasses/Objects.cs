@@ -15,8 +15,10 @@ namespace The_scroll_of_NOPE.BaseClasses
         protected Texture2D texture; // the objects graphics
         protected Vector2 position; // the objects position
 
-        // Draw(), method to draw the object
-        // Takes one parameter: SpriteBatch
+        public Vector2 Position { get => position; }
+
+        // Draw(), metod för att rita ut object
+        // Tar en  parameter: SpriteBatch
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position);

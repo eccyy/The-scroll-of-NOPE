@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace The_scroll_of_NOPE.BaseClasses
 {
     #region William
+    // check the multiplayer branch for more stuff I've done.
     public abstract class Object
     {
         // Variables
@@ -17,8 +18,8 @@ namespace The_scroll_of_NOPE.BaseClasses
 
         public Vector2 Position { get { return position; } }
 
-        // Draw(), metod för att rita ut object
-        // Tar en  parameter: SpriteBatch
+        // Draw(), method to draw graphics
+        // Takes one parameter: SpriteBatch
         public virtual void Draw(SpriteBatch spriteBatch, Camera camera)
         {
             spriteBatch.Draw(texture, position - camera.Position);
@@ -27,11 +28,14 @@ namespace The_scroll_of_NOPE.BaseClasses
 
     public abstract class PhysicalObject : Object
     {
+        protected Rectangle hitbox;
+        public Rectangle Hitbox { get { return this.hitbox; } set { this.hitbox = value; } }
+
         // Method to check collisions
         // extremely simplified to handle spritesheet animations
-        public bool CheckCollision(Rectangle source, Rectangle other)
+        public bool CheckCollision(Rectangle other)
         {
-            return source.Intersects(other);
+            return hitbox.Intersects(other);
         }
     }
 

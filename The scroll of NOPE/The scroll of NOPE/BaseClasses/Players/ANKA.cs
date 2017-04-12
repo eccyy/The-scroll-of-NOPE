@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace The_scroll_of_NOPE.BaseClasses.Players
 {
+    #region Jonte
     class ANKA : Player
     {
         float buffMultiplier;
@@ -19,15 +20,15 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             base.position = position;
             // Tar antalet spelare och räknar ut hur mycket starkare ANKA ska vara. Sedan ökar balanseringsvärden som health.
             BuffCalculator(studentCount);
-            base.texture = texture;                       
+            base.texture = texture;
         }
 
         public override void Update()
         {
             base.Update();
-                                           
+
         }
-        
+
         protected override void AttackBasic()
         {
 
@@ -48,7 +49,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         {
 
         }
-       
+
 
 
         private void BuffCalculator(int studentCount)
@@ -57,4 +58,5 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         }
     }
+    #endregion
 }

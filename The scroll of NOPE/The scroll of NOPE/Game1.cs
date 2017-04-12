@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using The_scroll_of_NOPE.Menyer;
 using System.Collections.Generic;
 using The_scroll_of_NOPE.BaseClasses.Players;
+using The_scroll_of_NOPE.Network;
 
 namespace The_scroll_of_NOPE
 {
@@ -16,12 +17,14 @@ namespace The_scroll_of_NOPE
         SpriteBatch spriteBatch;
         LevelObjects.LevelLayout levelLayout;
 
-        ANKA anka; 
+        ANKA anka;
 
-        // DEBUG PURPOISE 
+        // DEBUG PURPOISE
         Projectile kula = new Projectile();
         Student1 testStudent;
         Camera camera;
+
+        List<BaseClasses.PhysicalObject> collidables = new List<BaseClasses.PhysicalObject>();
 
 
         public Game1()
@@ -42,6 +45,7 @@ namespace The_scroll_of_NOPE
             camera = new Camera(new Vector2(0,0));
 
             GameElements.currentState = GameElements._state.Menu;
+
             base.Initialize();
         }
 
@@ -54,11 +58,13 @@ namespace The_scroll_of_NOPE
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             GameElements.LoadContent(Content, Window);
-            
+
             levelLayout = new LevelObjects.LevelLayout(Content);
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,1000);
             testStudent = new Student1(Content.Load<Texture2D>("images/ANKA/ANKA"), new Vector2(300, 300), 7);
             // TODO: use this.Content to load your game content here
+         
+            collidables.Add(testStudent);
         }
 
         /// <summary>
@@ -79,7 +85,6 @@ namespace The_scroll_of_NOPE
         {
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             //   Exit();
-            
 
 
             switch (GameElements.currentState)
@@ -100,14 +105,14 @@ namespace The_scroll_of_NOPE
                     Collisions();
 
                     Point screenSize = GraphicsDevice.Viewport.Bounds.Size; // Gets the size of the screen
-                    camera.Update(anka, new Vector2(screenSize.X, screenSize.Y)); // Updates camera
+                    camera.Update(testStudent, new Vector2(screenSize.X, screenSize.Y)); // Updates camera
                     GameElements.currentState = GameElements.RunUpdate();
                     break;
             }
 
 
 
-            
+
             base.Update(gameTime);
         }
 
@@ -136,7 +141,7 @@ namespace The_scroll_of_NOPE
                     GameElements.LobbyDraw(spriteBatch);
                     break;
                 case GameElements._state.Quit:
-                    this.Exit();
+                    Exit();
                     break;
             }
 
@@ -149,12 +154,12 @@ namespace The_scroll_of_NOPE
         #region jontesKollisioner
         private void Collisions()
         {
-            // En lista med alla objekt som kan kollidera.                         
+            // En lista med alla objekt som kan kollidera.
             // collidables.Add(kula);
-            
 
-            anka.Collision(levelLayout);
-             
+
+            anka.Collision(collidables,levelLayout);
+
         }
         #endregion
     }

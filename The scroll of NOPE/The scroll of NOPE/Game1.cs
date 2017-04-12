@@ -46,8 +46,6 @@ namespace The_scroll_of_NOPE
 
             GameElements.currentState = GameElements._state.Menu;
 
-            server = new Server(3333);
-            client = new Client("127.0.0.1", 3333);
             base.Initialize();
         }
 

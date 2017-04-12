@@ -9,6 +9,7 @@ using The_scroll_of_NOPE.LevelObjects;
 
 namespace The_scroll_of_NOPE.BaseClasses.Players
 {
+    #region Jonte
     public abstract class Player : AnimateObject
     {
         KeyboardState keyHandler = new KeyboardState();
@@ -105,30 +106,41 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             #endregion
 
             base.position += speed;
+
+            // Updaterar hitboxen
+            hitbox.X = (int)base.position.X;
+            hitbox.Y = (int)base.position.Y;
+
+            hitbox.Height = texture.Height;
+            hitbox.Width = texture.Width;
             base.Update();
         }
 
 
 
 
-       public void Collision(List<BaseClasses.PhysicalObject> collidables)
+       public void Collision(List<BaseClasses.PhysicalObject> collidables, LevelLayout levelLayout)
         {
             // Komma åt sakerna som kan kollidera med player. 
             // Om kollision med vapen, ta skada beroende på vapenSkada
 
             // Om kollision med kula, ta skada och ta bort kulan
-            
-            
+
             //kollar varje sak i listan och gör saker beroende på typ
-            foreach(Object collidable in collidables)
+            foreach(PhysicalObject collidable in collidables)
             {
-                if (collidable is LevelObjects.Platform)
-                {
-                    
-                    Rectangle col = new Rectangle();
-                }
                
+               if (collidable is Student1)
+                {
+                    if (CheckCollision(collidable.Hitbox))
+                    {
+
+                    }
+                }
             }
+
+            //level collisions
+            foreach(Platform platform in levelLayout.)
             
             #region Kollision med plattformar
             
@@ -151,5 +163,5 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
 
     }
-   
+    #endregion
 }

@@ -48,7 +48,6 @@ namespace The_scroll_of_NOPE.LevelObjects
         #region Methods For Drawing Objects
         public void platform(ContentManager content)
         {
-            
             base.texture = content.Load<Texture2D>("images/FillerPlatform");
             
             //Positions for all platforms

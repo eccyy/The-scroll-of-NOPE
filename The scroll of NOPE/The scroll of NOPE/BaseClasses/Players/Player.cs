@@ -52,7 +52,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             if (keyHandler.IsKeyDown(Keys.H))
                 AttackH();
 
-            #region JumpLogic
+            #region Lucas JumpLogic
             //Om man trycker space och hasJumped är false (man är inte i luften) så hoppar man.
             if ((keyHandler.IsKeyDown(Keys.Space) || keyHandler.IsKeyDown(Keys.W)) && hasJumped == false)
             {
@@ -143,7 +143,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
            // foreach(Platform platform in levelLayout.)
             
             #region Kollision med plattformar
-            
+           
               
 
             #endregion

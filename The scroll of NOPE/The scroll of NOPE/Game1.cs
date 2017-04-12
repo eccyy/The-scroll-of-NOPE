@@ -100,7 +100,7 @@ namespace The_scroll_of_NOPE
                     Collisions();
 
                     Point screenSize = GraphicsDevice.Viewport.Bounds.Size; // Gets the size of the screen
-                    camera.Update(anka, new Vector2(screenSize.X, screenSize.Y)); // Updates camera
+                    camera.Update(testStudent, new Vector2(screenSize.X, screenSize.Y)); // Updates camera
                     GameElements.currentState = GameElements.RunUpdate();
                     break;
             }

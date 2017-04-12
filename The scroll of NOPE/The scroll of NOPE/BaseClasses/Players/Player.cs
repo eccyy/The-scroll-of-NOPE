@@ -140,7 +140,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             }
 
             //level collisions
-            foreach(Platform platform in levelLayout.)
+           // foreach(Platform platform in levelLayout.)
             
             #region Kollision med plattformar
             

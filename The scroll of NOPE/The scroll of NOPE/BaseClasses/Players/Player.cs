@@ -111,15 +111,29 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
 
 
-       public void Collision(LevelLayout platforms)
+       public void Collision(List<BaseClasses.PhysicalObject> collidables)
         {
             // Komma åt sakerna som kan kollidera med player. 
             // Om kollision med vapen, ta skada beroende på vapenSkada
 
             // Om kollision med kula, ta skada och ta bort kulan
-
+            
+            
+            //kollar varje sak i listan och gör saker beroende på typ
+            foreach(Object collidable in collidables)
+            {
+                if (collidable is LevelObjects.Platform)
+                {
+                    
+                    Rectangle col = new Rectangle();
+                }
+               
+            }
+            
             #region Kollision med plattformar
-              //  if(CheckCollision( new Rectangle(platforms.platform. .position,platforms.platform))
+            
+              
+
             #endregion
 
 

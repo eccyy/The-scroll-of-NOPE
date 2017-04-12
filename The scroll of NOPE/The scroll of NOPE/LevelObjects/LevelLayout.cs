@@ -25,6 +25,7 @@ namespace The_scroll_of_NOPE.LevelObjects
             platforms = new List<Platform>();
             grounds = new List<Ground>();
 
+           
             //Creates all the objects needed
             platform(content);
             ground(content);  

@@ -28,11 +28,14 @@ namespace The_scroll_of_NOPE.BaseClasses
 
     public abstract class PhysicalObject : Object
     {
+        protected Rectangle hitbox;
+        public Rectangle Hitbox { get { return this.hitbox; } set { this.hitbox = value; } }
+
         // Method to check collisions
         // extremely simplified to handle spritesheet animations
-        public bool CheckCollision(Rectangle source, Rectangle other)
+        public bool CheckCollision(Rectangle other)
         {
-            return source.Intersects(other);
+            return hitbox.Intersects(other);
         }
     }
 

@@ -28,8 +28,24 @@ namespace The_scroll_of_NOPE.BaseClasses
         }
         public override void Draw(SpriteBatch sb, Camera camera)
         {
-            Rectangle size = new Rectangle(0, 0, texture.Width, texture.Height);
-            sb.Draw(this.texture, position - camera.Position ,size,Color.White,0f,new Vector2(texture.Width/2,texture.Width/2),1f,SpriteEffects.None,0) ;
+
+            #region Tommy
+            Rectangle unzoomedDestination = new Rectangle(
+                new Point((int)(position - camera.Position).X, (int)(position - camera.Position).Y),
+                new Point(texture.Width, texture.Height));
+
+            // Scale the size
+            Rectangle zoomedDestination = unzoomedDestination;
+            zoomedDestination.Inflate(
+                zoomedDestination.Width * (camera.ZoomFactor - 1) / 2/*since it's for each side*/, //Zoom Width
+                zoomedDestination.Height * (camera.ZoomFactor - 1) / 2); //Zoom Height
+
+            // Scale the position
+            zoomedDestination = new Rectangle(new Point((int)(zoomedDestination.X * camera.ZoomFactor), (int)(zoomedDestination.Y * camera.ZoomFactor)), zoomedDestination.Size);
+
+            // Draw
+            sb.Draw(texture, zoomedDestination, null/*Entire texture*/, Color.White, 0f, new Vector2(texture.Width / 2, texture.Width / 2), SpriteEffects.None, 0);
+            #endregion
         }
           
     }

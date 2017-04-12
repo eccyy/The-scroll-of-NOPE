@@ -42,7 +42,7 @@ namespace The_scroll_of_NOPE
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            camera = new Camera(new Vector2(0,0));
+            camera = new Camera(new Vector2(0,0), 1f);
 
             GameElements.currentState = GameElements._state.Menu;
 

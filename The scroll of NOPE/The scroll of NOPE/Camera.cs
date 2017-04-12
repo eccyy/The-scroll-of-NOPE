@@ -27,6 +27,7 @@ namespace The_scroll_of_NOPE
         public Camera(Vector2 position)
         {
             this.position = position;
+            this.zoomFactor = 1f;
         }
 
         /// <summary>

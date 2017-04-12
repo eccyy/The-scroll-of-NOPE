@@ -81,7 +81,6 @@ namespace The_scroll_of_NOPE
             //   Exit();
             
 
-
             switch (GameElements.currentState)
             {
                 case GameElements._state.Quit:
@@ -136,7 +135,7 @@ namespace The_scroll_of_NOPE
                     GameElements.LobbyDraw(spriteBatch);
                     break;
                 case GameElements._state.Quit:
-                    this.Exit();
+                    Exit();
                     break;
             }
 

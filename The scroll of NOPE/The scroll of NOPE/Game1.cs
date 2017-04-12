@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using The_scroll_of_NOPE.Menyer;
 using System.Collections.Generic;
 using The_scroll_of_NOPE.BaseClasses.Players;
+using The_scroll_of_NOPE.Network;
 
 namespace The_scroll_of_NOPE
 {
@@ -16,9 +17,9 @@ namespace The_scroll_of_NOPE
         SpriteBatch spriteBatch;
         LevelObjects.LevelLayout levelLayout;
 
-        ANKA anka; 
+        ANKA anka;
 
-        // DEBUG PURPOISE 
+        // DEBUG PURPOISE
         Projectile kula = new Projectile();
         Student1 testStudent;
         Camera camera;
@@ -44,6 +45,9 @@ namespace The_scroll_of_NOPE
             camera = new Camera(new Vector2(0,0));
 
             GameElements.currentState = GameElements._state.Menu;
+
+            server = new Server(3333);
+            client = new Client("127.0.0.1", 3333);
             base.Initialize();
         }
 
@@ -56,7 +60,7 @@ namespace The_scroll_of_NOPE
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             GameElements.LoadContent(Content, Window);
-            
+
             levelLayout = new LevelObjects.LevelLayout(Content);
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,1000);
             testStudent = new Student1(Content.Load<Texture2D>("images/ANKA/ANKA"), new Vector2(300, 300), 7);
@@ -83,7 +87,7 @@ namespace The_scroll_of_NOPE
         {
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             //   Exit();
-            
+
 
 
             switch (GameElements.currentState)
@@ -111,7 +115,7 @@ namespace The_scroll_of_NOPE
 
 
 
-            
+
             base.Update(gameTime);
         }
 
@@ -153,12 +157,12 @@ namespace The_scroll_of_NOPE
         #region jontesKollisioner
         private void Collisions()
         {
-            // En lista med alla objekt som kan kollidera.                         
+            // En lista med alla objekt som kan kollidera.
             // collidables.Add(kula);
-            
+
 
             anka.Collision(collidables);
-             
+
         }
         #endregion
     }

@@ -23,6 +23,8 @@ namespace The_scroll_of_NOPE
         Student1 testStudent;
         Camera camera;
 
+        List<BaseClasses.PhysicalObject> collidables = new List<BaseClasses.PhysicalObject>();
+
 
         public Game1()
         {
@@ -59,6 +61,8 @@ namespace The_scroll_of_NOPE
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,1000);
             testStudent = new Student1(Content.Load<Texture2D>("images/ANKA/ANKA"), new Vector2(300, 300), 7);
             // TODO: use this.Content to load your game content here
+            collidables.Add(levelLayout);
+            collidables.Add(testStudent);
         }
 
         /// <summary>
@@ -100,7 +104,7 @@ namespace The_scroll_of_NOPE
                     Collisions();
 
                     Point screenSize = GraphicsDevice.Viewport.Bounds.Size; // Gets the size of the screen
-                    camera.Update(anka, new Vector2(screenSize.X, screenSize.Y)); // Updates camera
+                    camera.Update(testStudent, new Vector2(screenSize.X, screenSize.Y)); // Updates camera
                     GameElements.currentState = GameElements.RunUpdate();
                     break;
             }
@@ -153,7 +157,7 @@ namespace The_scroll_of_NOPE
             // collidables.Add(kula);
             
 
-            anka.Collision(levelLayout);
+            anka.Collision(collidables);
              
         }
         #endregion

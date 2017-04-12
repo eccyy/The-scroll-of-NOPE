@@ -9,21 +9,22 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 
 namespace The_scroll_of_NOPE.Menyer
-{
+{   //Anton
     static class GameElements
     {
         public enum _state { Menu,Run,Lobby,Quit};
 
         public static _state currentState;
+        //update keyboard function
+        static KeyboardState oldKeyboardState;
 
         static Texture2D menuSprite, lobbySprite;
         static Vector2 menuPos, lobbyPos;
         
         public static void LoadContent(ContentManager content, GameWindow window)
         {
-            //försöker att få en sprite till menuSprite
             menuSprite = content.Load<Texture2D>("images/menu/menu");
-
+            //Centeres the image
             menuPos.X = window.ClientBounds.Width - menuSprite.Width/2 + 80;
             menuPos.Y = window.ClientBounds.Height - menuSprite.Height/2 + 20;
 
@@ -33,18 +34,24 @@ namespace The_scroll_of_NOPE.Menyer
         public static _state MenuUpdate()
         {
             //Keyboardstates
-            KeyboardState keyboardState = Keyboard.GetState();
-            if (keyboardState.IsKeyDown(Keys.S))
+            //Logic for new and oldstate
+            KeyboardState newKeyboardState = Keyboard.GetState();
+            if (newKeyboardState != oldKeyboardState)
             {
-                return _state.Run;
-            }
-            if (keyboardState.IsKeyDown(Keys.H))
-            {
-                return _state.Lobby;
-            }
-            if (keyboardState.IsKeyDown(Keys.Escape))
-            {
-                return _state.Quit;
+                oldKeyboardState = newKeyboardState;
+                if (newKeyboardState.IsKeyDown(Keys.S))
+                {
+                    return _state.Run;
+                }
+                if (newKeyboardState.IsKeyDown(Keys.H))
+                {
+                    return _state.Lobby;
+                }
+                if (newKeyboardState.IsKeyDown(Keys.Escape))
+                {
+                    //if()
+                    return _state.Quit;
+                }
             }
 
             return _state.Menu;
@@ -52,20 +59,29 @@ namespace The_scroll_of_NOPE.Menyer
 
         public static _state LobbyUpdate()
         {
-            KeyboardState keyboardState = Keyboard.GetState();
-            if (keyboardState.IsKeyDown(Keys.Escape))
+            KeyboardState newKeyboardState = Keyboard.GetState();
+            if (newKeyboardState != oldKeyboardState)
             {
-                return _state.Menu;
+                oldKeyboardState = newKeyboardState;
+                if (newKeyboardState.IsKeyDown(Keys.Escape))
+                {
+                    return _state.Menu;
+                }
             }
             return _state.Lobby;
         }
 
         public static _state RunUpdate()
         {
-            KeyboardState keyboardState = Keyboard.GetState();
-            if (keyboardState.IsKeyDown(Keys.Escape))
+            KeyboardState newKeyboardState = Keyboard.GetState();
+
+            if (newKeyboardState != oldKeyboardState)
             {
-                return _state.Menu;
+                oldKeyboardState = newKeyboardState;
+                if (newKeyboardState.IsKeyDown(Keys.Escape))
+                {
+                    return _state.Menu;
+                }
             }
             return _state.Run;
         }

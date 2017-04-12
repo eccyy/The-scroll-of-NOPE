@@ -9,19 +9,20 @@ using System.Threading.Tasks;
 namespace The_scroll_of_NOPE.BaseClasses
 {
     #region William
+    // check the multiplayer branch for more stuff I've done.
     public abstract class Object
     {
         // Variables
         protected Texture2D texture; // the objects graphics
         protected Vector2 position; // the objects position
 
-        public Vector2 Position { get => position; }
+        public Vector2 Position { get { return position; } }
 
-        // Draw(), metod för att rita ut object
-        // Tar en  parameter: SpriteBatch
-        public virtual void Draw(SpriteBatch spriteBatch)
+        // Draw(), method to draw graphics
+        // Takes one parameter: SpriteBatch
+        public virtual void Draw(SpriteBatch spriteBatch, Camera camera)
         {
-            spriteBatch.Draw(texture, position);
+            spriteBatch.Draw(texture, position - camera.Position);
         }
     }
 

@@ -11,11 +11,12 @@ using The_scroll_of_NOPE.BaseClasses.Players;
 
 namespace The_scroll_of_NOPE
 {
-    class Camera
+    #region Tommy
+    public class Camera
     {
         private Vector2 position;
 
-        public Vector2 Position { get => position; }
+        public Vector2 Position { get { return position; } }
 
         public Camera(Vector2 position)
         {
@@ -27,4 +28,5 @@ namespace The_scroll_of_NOPE
             position = player.Position - screenSize / 2; // Centers the camera on the player (No acceleration or boundaries)
         }
     }
+#endregion
 }

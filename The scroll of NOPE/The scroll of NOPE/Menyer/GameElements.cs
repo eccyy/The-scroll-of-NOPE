@@ -20,7 +20,7 @@ namespace The_scroll_of_NOPE.Menyer
 
         static Texture2D menuSprite, lobbySprite;
         static Vector2 menuPos, lobbyPos;
-        
+
         public static void LoadContent(ContentManager content, GameWindow window)
         {
             menuSprite = content.Load<Texture2D>("images/menu/menu");

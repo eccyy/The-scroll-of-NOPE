@@ -16,6 +16,12 @@ namespace The_scroll_of_NOPE.LevelObjects
         List<Platform> platforms;
         List<Ground> grounds;
 
+        public List<Platform> Platforms
+        {
+            get { return platforms; }
+        }
+
+
         Array groundAmmount;
         Vector2 groundPosition;
 

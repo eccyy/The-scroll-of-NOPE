@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace The_scroll_of_NOPE.LevelObjects
 {
     #region Lucas
-    class Platform : LevelObject
+    public class Platform : LevelObject
     {
         public Rectangle sourceRectangle;
 
@@ -18,7 +18,6 @@ namespace The_scroll_of_NOPE.LevelObjects
             //Sets this texture to the texture it gets all the way from LevelLayout
             this.texture = texture;
 
-            this.hitbox = hitbox;
             //Needed for collision
             sourceRectangle = new Rectangle(sourceRectangle.X, sourceRectangle.Y, texture.Width, texture.Height);
 

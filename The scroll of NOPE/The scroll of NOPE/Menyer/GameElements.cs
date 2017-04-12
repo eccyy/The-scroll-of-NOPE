@@ -12,7 +12,7 @@ namespace The_scroll_of_NOPE.Menyer
 {   //Anton
     static class GameElements
     {
-        public enum _state { Menu,Run,Lobby,Quit};
+        public enum _state { Menu,Run,Lobby,Quit };
 
         public static _state currentState;
         //update keyboard function
@@ -30,7 +30,7 @@ namespace The_scroll_of_NOPE.Menyer
 
             //lobbySprite = content.Load<Texture2D>("images/menu/lobby");
         }
-
+        //looping menustate
         public static _state MenuUpdate()
         {
             //Keyboardstates
@@ -49,14 +49,13 @@ namespace The_scroll_of_NOPE.Menyer
                 }
                 if (newKeyboardState.IsKeyDown(Keys.Escape))
                 {
-                    //if()
                     return _state.Quit;
                 }
             }
 
             return _state.Menu;
         }
-
+        //looping lobbystate
         public static _state LobbyUpdate()
         {
             KeyboardState newKeyboardState = Keyboard.GetState();
@@ -70,7 +69,7 @@ namespace The_scroll_of_NOPE.Menyer
             }
             return _state.Lobby;
         }
-
+        //looping runstate
         public static _state RunUpdate()
         {
             KeyboardState newKeyboardState = Keyboard.GetState();
@@ -86,13 +85,13 @@ namespace The_scroll_of_NOPE.Menyer
             return _state.Run;
         }
 
-
+        //draw method for menu
         public static void MenuDraw(SpriteBatch spriteBatch)
         {
             //scaling
             spriteBatch.Draw(menuSprite, menuPos, null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
         }
-
+        //draw method for lobby
         public static void LobbyDraw(SpriteBatch spriteBatch)
         {
             //spriteBatch.Draw();

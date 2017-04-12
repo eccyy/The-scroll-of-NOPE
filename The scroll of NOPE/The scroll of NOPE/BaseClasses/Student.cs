@@ -73,7 +73,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         public Ranged(Texture2D texture, Vector2 position, int speed) : base(texture, position, speed)
         {
         }
-        
+
         protected override void AttackBasic()
         {
 
@@ -92,7 +92,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
     {
         public Student2(Texture2D texture, Vector2 position, int speed) : base(texture, position, speed)
         {
-            
+
         }
     }
     #endregion

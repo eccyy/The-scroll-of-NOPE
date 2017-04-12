@@ -49,14 +49,23 @@ namespace The_scroll_of_NOPE.LevelObjects
         public void platform(ContentManager content)
         {
             base.texture = content.Load<Texture2D>("images/FillerPlatform");
-            
-            //Positions for all platforms
-            List<Vector2> platformPositions = new List<Vector2>() { new Vector2(50, 300), new Vector2(200, 200), new Vector2(400, 300), new Vector2(300, 400) };
+
+            base.hitbox = hitbox;
+
+        //Positions for all platforms
+        List<Vector2> platformPositions = new List<Vector2>() {
+                new Vector2(50, 300), new Vector2(200, 200), new Vector2(400, 300), new Vector2(300, 400)
+                , new Vector2(500, 200), new Vector2(1000, 200), new Vector2(1500, 200), new Vector2(2000, 200)
+                , new Vector2(2500, 400), new Vector2(3000, 400), new Vector2(3500, 400), new Vector2(3250, 200)
+                , new Vector2(3150, -500), new Vector2(1500, 300), new Vector2(2000, 400), new Vector2(200, 200)
+                , new Vector2(200, 200), new Vector2(200, 200), new Vector2(200, 200), new Vector2(200, 200)
+                , new Vector2(200, 200), new Vector2(200, 200), new Vector2(200, 200), new Vector2(200, 200)
+            };
             
             //Adds one platform for each Vector2 position in the positions list
             for (int n = 0; n < platformPositions.Count; n++)
             {
-                platforms.Add(new Platform(texture, platformPositions[n]));
+                platforms.Add(new Platform(texture, platformPositions[n], hitbox));
             }
         }
 
@@ -65,7 +74,7 @@ namespace The_scroll_of_NOPE.LevelObjects
             base.texture = content.Load<Texture2D>("images/FillerGround");
 
             //Set this number to the ammount of grounds you want
-            groundAmmount = new Array[10];
+            groundAmmount = new Array[40];
 
             //Sets position for start groundPlatform
             groundPosition.X = -100;

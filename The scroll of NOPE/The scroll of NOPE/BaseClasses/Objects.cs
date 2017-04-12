@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace The_scroll_of_NOPE.BaseClasses
 {
     #region William
-    // check the multiplayer branch for more stuff I've done.
     public abstract class Object
     {
         // Variables

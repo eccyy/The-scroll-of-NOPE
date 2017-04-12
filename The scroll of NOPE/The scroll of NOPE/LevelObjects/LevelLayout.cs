@@ -50,6 +50,8 @@ namespace The_scroll_of_NOPE.LevelObjects
         {
             base.texture = content.Load<Texture2D>("images/FillerPlatform");
 
+            base.hitbox = hitbox;
+
         //Positions for all platforms
         List<Vector2> platformPositions = new List<Vector2>() {
                 new Vector2(50, 300), new Vector2(200, 200), new Vector2(400, 300), new Vector2(300, 400)

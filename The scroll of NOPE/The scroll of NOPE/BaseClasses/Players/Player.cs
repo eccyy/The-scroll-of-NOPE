@@ -9,7 +9,7 @@ using The_scroll_of_NOPE.LevelObjects;
 
 namespace The_scroll_of_NOPE.BaseClasses.Players
 {
-    #region Jonte
+    #region Jonatan
     public abstract class Player : AnimateObject
     {
         KeyboardState keyHandler = new KeyboardState();
@@ -79,8 +79,8 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             //Går man av en platform ska hasJumped sättas till true
             #endregion
 
-            #region Jontes hopp, om inte den andra skulle fungera
-            /* Jontes hopp
+            #region Jonatans hopp, om inte den andra skulle fungera
+            /* Jonatans hopp
             // Spelaren hoppar
             if (keyHandler.IsKeyDown(Keys.Space))
                 if (speed.Y == 0 && jumpTimer < jumpHeight)
@@ -94,7 +94,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                 }
             */
 
-            /* Jontes Gravitation
+            /* Jonatans Gravitation
             // Gravitationen vid hopp och ett stopp vid map height pixlar ner. 
             if(base.position.Y < mapHeight)
                 base.speed.Y += 1f;

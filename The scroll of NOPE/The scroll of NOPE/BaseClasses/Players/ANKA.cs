@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace The_scroll_of_NOPE.BaseClasses.Players
 {
-    #region Jonte
+    #region Jonatan
     class ANKA : Player
     {
         float buffMultiplier;

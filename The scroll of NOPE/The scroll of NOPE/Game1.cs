@@ -151,7 +151,7 @@ namespace The_scroll_of_NOPE
             base.Draw(gameTime);
         }
 
-        #region jontesKollisioner
+        #region JonatansKollisioner
         private void Collisions()
         {
             // En lista med alla objekt som kan kollidera.

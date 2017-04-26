@@ -18,15 +18,16 @@ namespace The_scroll_of_NOPE.LevelObjects
             //Sets this texture to the texture it gets all the way from LevelLayout
             this.texture = texture;
 
+            this.hitbox = hitbox;
             //Needed for collision
             sourceRectangle = new Rectangle(sourceRectangle.X, sourceRectangle.Y, texture.Width, texture.Height);
 
             //Gets the position
             this.position = position;
         }
-        public void Draw(SpriteBatch spriteBatch, Camera camera)
+        public void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
         {
-            base.Draw(spriteBatch, camera);
+            base.Draw(spriteBatch, camera, GD);
         }
     }
     #endregion

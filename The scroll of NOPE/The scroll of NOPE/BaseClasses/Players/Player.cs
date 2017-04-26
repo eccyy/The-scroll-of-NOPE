@@ -9,7 +9,7 @@ using The_scroll_of_NOPE.LevelObjects;
 
 namespace The_scroll_of_NOPE.BaseClasses.Players
 {
-    #region Jonte
+    #region Jonatan
     public abstract class Player : AnimateObject
     {
         KeyboardState keyHandler = new KeyboardState();
@@ -79,8 +79,8 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             //Går man av en platform ska hasJumped sättas till true
             #endregion
 
-            #region Jontes hopp, om inte den andra skulle fungera
-            /* Jontes hopp
+            #region Jonatans hopp, om inte den andra skulle fungera
+            /* Jonatans hopp
             // Spelaren hoppar
             if (keyHandler.IsKeyDown(Keys.Space))
                 if (speed.Y == 0 && jumpTimer < jumpHeight)
@@ -94,7 +94,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                 }
             */
 
-            /* Jontes Gravitation
+            /* Jonatans Gravitation
             // Gravitationen vid hopp och ett stopp vid map height pixlar ner. 
             if(base.position.Y < mapHeight)
                 base.speed.Y += 1f;
@@ -119,7 +119,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
 
 
-       public void Collision(List<BaseClasses.PhysicalObject> collidables, LevelLayout levelLayout)
+        public void Collision(List<BaseClasses.PhysicalObject> collidables, LevelLayout levelLayout)
         {
             // Komma åt sakerna som kan kollidera med player. 
             // Om kollision med vapen, ta skada beroende på vapenSkada
@@ -127,29 +127,53 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             // Om kollision med kula, ta skada och ta bort kulan
 
             //kollar varje sak i listan och gör saker beroende på typ
-            foreach(PhysicalObject collidable in collidables)
+            foreach (PhysicalObject collidable in collidables)
             {
-               
-               if (collidable is Student1)
+                //if check itself, list created in game1 contains an instance of the instance that is checking
+
+
+                if (collidable is Student1)
                 {
                     if (CheckCollision(collidable.Hitbox))
                     {
+                        // Treat it as a student to gain access to the properties
+                        var student = collidable as Student1;
 
                     }
                 }
+                else if (collidable is Projectile)
+                {
+                    if (CheckCollision(collidable.Hitbox))
+                    {
+                        // Remove projectile and deal damage to player, but how?
+
+
+                    }
+                }
+                else if (collidable is LevelLayout)
+                {
+                    // Treat as a LevelLayout to gain access to the properties
+                    var layout = collidable as LevelLayout;
+
+                    // collion with platforms
+                    foreach (Platform platform in layout.Platforms)
+                    {
+
+                        if (CheckCollision(platform.Hitbox))
+                        {
+                            speed.Y = 0;
+                            base.speed.Y = 0;
+
+
+                        }
+                    }
+
+
+
+
+
+                }
             }
-
-            //level collisions
-           // foreach(Platform platform in levelLayout.)
-            
-            #region Kollision med plattformar
-           
-              
-
-            #endregion
-
-
-
         }
 
 

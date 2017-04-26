@@ -56,16 +56,15 @@ namespace The_scroll_of_NOPE.LevelObjects
         {
             base.texture = content.Load<Texture2D>("images/FillerPlatform");
 
-        //Positions for all platforms
-        List<Vector2> platformPositions = new List<Vector2>() {
+            //Positions for all platforms
+            #region Layout for platforms, (Alot of numbers)
+            List<Vector2> platformPositions = new List<Vector2>() {
                 new Vector2(50, 300), new Vector2(200, 200), new Vector2(400, 300), new Vector2(300, 400)
                 , new Vector2(500, 200), new Vector2(1000, 200), new Vector2(1500, 200), new Vector2(2000, 200)
                 , new Vector2(2500, 400), new Vector2(3000, 400), new Vector2(3500, 400), new Vector2(3250, 200)
-                , new Vector2(3150, -500), new Vector2(1500, 300), new Vector2(2000, 400), new Vector2(200, 200)
-                , new Vector2(200, 200), new Vector2(200, 200), new Vector2(200, 200), new Vector2(200, 200)
-                , new Vector2(200, 200), new Vector2(200, 200), new Vector2(200, 200), new Vector2(200, 200)
+                , new Vector2(3150, -500), new Vector2(1500, 300), new Vector2(2000, 400)
             };
-            
+            #endregion
 
             //Adds one platform for each Vector2 position in the positions list
             for (int n = 0; n < platformPositions.Count; n++)
@@ -90,7 +89,8 @@ namespace The_scroll_of_NOPE.LevelObjects
             for (int n = 0; n < groundAmmount.Length; n++)
             {
                 groundPosition.X += texture.Width;
-                grounds.Add(new Ground(texture, groundPosition));
+                hitbox = new Rectangle((int)groundPosition.X, (int)groundPosition.Y, texture.Width, texture.Height);
+                grounds.Add(new Ground(texture, groundPosition, hitbox));
             }
         }
         #endregion

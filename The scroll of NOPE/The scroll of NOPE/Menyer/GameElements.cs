@@ -20,7 +20,7 @@ namespace The_scroll_of_NOPE.Menyer
 
         static Texture2D menuSprite, lobbySprite;
         static Vector2 menuPos, lobbyPos;
-
+        
         public static void LoadContent(ContentManager content, GameWindow window)
         {
             menuSprite = content.Load<Texture2D>("images/menu/menu");
@@ -29,6 +29,7 @@ namespace The_scroll_of_NOPE.Menyer
             menuPos.Y = window.ClientBounds.Height - menuSprite.Height/2 + 20;
 
             //lobbySprite = content.Load<Texture2D>("images/menu/lobby");
+
         }
         //looping menustate
         public static _state MenuUpdate()

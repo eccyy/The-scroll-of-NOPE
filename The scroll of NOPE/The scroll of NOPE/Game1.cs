@@ -42,7 +42,7 @@ namespace The_scroll_of_NOPE
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            camera = new Camera(new Vector2(0,0), 1f);
+            camera = new Camera(new Vector2(0,0), 1.0f);
 
             GameElements.currentState = GameElements._state.Menu;
 
@@ -101,6 +101,12 @@ namespace The_scroll_of_NOPE
                     break;
                 case GameElements._state.Run:
                     //put Game update here
+                    KeyboardState tempHandler = Keyboard.GetState();
+                    if (tempHandler.IsKeyDown(Keys.D9))
+                        camera.ZoomFactor *= 0.95f;
+                    if (tempHandler.IsKeyDown(Keys.D0))
+                        camera.ZoomFactor *= 1.05f;
+
                     anka.Update();
                     testStudent.Update();
                     Collisions();
@@ -130,9 +136,9 @@ namespace The_scroll_of_NOPE
             {
                 case GameElements._state.Run:
                     //Draws the level design
-                    anka.Draw(spriteBatch, camera);
-                    levelLayout.Draw(spriteBatch, camera);
-                    testStudent.Draw(spriteBatch, camera);
+                    anka.Draw(spriteBatch, camera, GraphicsDevice);
+                    levelLayout.Draw(spriteBatch, camera, GraphicsDevice);
+                    testStudent.Draw(spriteBatch, camera, GraphicsDevice);
                     break;
                 case GameElements._state.Menu:
                     //Draws the menu sprite

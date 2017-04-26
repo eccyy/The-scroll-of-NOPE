@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Net;
 using System.Threading;
+using System.Security.Cryptography;
 
 namespace The_scroll_of_NOPE.Network
 {
     #region William
+    #region Networking
     public class Client
     {
         private int port;
         private string ipaddr;
-        private TcpClient client;
+        private TcpClient _internalClient;
 
-        public bool Connected { get { return client.Connected; } }
+        public bool Connected { get { return _internalClient.Connected; } }
 
         public Client(string a, int p)
         {
@@ -25,13 +27,13 @@ namespace The_scroll_of_NOPE.Network
 
             try
             {
-                client = new TcpClient(a, p);
+                _internalClient = new TcpClient(a, p);
                 Console.WriteLine("Client started and connected");
             }
             catch (SocketException e)
             {
                 LogError("Connection error: " + e.ErrorCode + ": " + e.Message);
-                client = new TcpClient();
+                _internalClient = new TcpClient();
             }
 
         }
@@ -41,9 +43,9 @@ namespace The_scroll_of_NOPE.Network
             // try/catch for error "handling"
             try
             {
-                NetworkStream stream = client.GetStream();
+                NetworkStream stream = _internalClient.GetStream();
 
-                if (client.Connected)
+                if (_internalClient.Connected)
                 {
                     byte[] d = System.Text.Encoding.ASCII.GetBytes(data);
                     stream.Write(d, 0, d.Length);
@@ -73,7 +75,7 @@ namespace The_scroll_of_NOPE.Network
 
     public class Server
     {
-        private TcpListener listener; // a server to accept connections and data
+        private TcpListener _internalServer; // a server to accept connections and data
         private Thread listenerThread; // a thread to handle incoming data, would interrupt all other operations otherwise
         private delegate void GetData(string data); //delegate to handle events
         private List<string> connectedClients = new List<string>(); // list to keep track of connected clients
@@ -86,8 +88,8 @@ namespace The_scroll_of_NOPE.Network
             this.port = p;
 
             // creates a server/listener that listens on any IP address
-            listener = new TcpListener(IPAddress.Any, p);
-            listener.Start();
+            _internalServer = new TcpListener(IPAddress.Any, p);
+            _internalServer.Start();
             Console.WriteLine("Server started");
 
             // creates the server thread and sets it up
@@ -104,7 +106,7 @@ namespace The_scroll_of_NOPE.Network
             while (true)
             {
                 Console.WriteLine("Waiting for connection");
-                TcpClient lClient = listener.AcceptTcpClient();
+                TcpClient lClient = _internalServer.AcceptTcpClient();
                 Console.WriteLine("Incoming connection from {0}", ((IPEndPoint)lClient.Client.RemoteEndPoint).Address.ToString());
                 connectedClients.Add(((IPEndPoint)lClient.Client.RemoteEndPoint).Address.ToString());
                 NetworkStream stream = lClient.GetStream();
@@ -152,7 +154,7 @@ namespace The_scroll_of_NOPE.Network
         public void StopServer()
         {
             listenerThread.Abort();
-            listener.Stop();
+            _internalServer.Stop();
         }
     }
 
@@ -160,5 +162,75 @@ namespace The_scroll_of_NOPE.Network
     {
         public string Data { get; set; }
     }
+
+    #endregion
+    #region Sessions
+
+    public abstract class NetworkSession
+    {
+        protected ulong sessionID;
+        protected SessionHost sHost;
+        protected SessionNode sNode;
+
+        protected ulong GenerateID()
+        {
+            var bytes = new byte[sizeof(UInt64)];
+            RNGCryptoServiceProvider Gen = new RNGCryptoServiceProvider();
+            Gen.GetBytes(bytes);
+            return BitConverter.ToUInt64(bytes, 0);
+        }
+    }
+
+    public class LobbySession : NetworkSession
+    {
+        public LobbySession(string ip, int p, bool host = true)
+        {
+            if (host) sHost = new SessionHost(ip, p);
+            else sNode = new SessionNode(ip, p);
+
+            sessionID = GenerateID();
+        }
+    }
+
+    public class GameSession : NetworkSession
+    {
+        public GameSession()
+        {
+
+        }
+    }
+
+    #endregion
+    #region SessionUsers
+
+    public abstract class SessionUser
+    {
+        protected Client client;
+        protected Server server;
+
+        public SessionUser(string ip, int p)
+        {
+            client = new Client(ip, p);
+            server = new Server(p);
+        }
+    }
+    
+    public class SessionHost : SessionUser
+    {
+        public SessionHost(string ip, int p) : base(ip, p)
+        {
+
+        }
+    }
+
+    public class SessionNode : SessionUser
+    {
+        public SessionNode(string ip, int p) : base(ip, p)
+        {
+
+        }
+    }
+
+    #endregion
     #endregion
 }

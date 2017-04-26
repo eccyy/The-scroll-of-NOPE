@@ -18,6 +18,7 @@ namespace The_scroll_of_NOPE.LevelObjects
             //Sets this texture to the texture it gets all the way from LevelLayout
             this.texture = texture;
 
+            hitbox = new Rectangle(sourceRectangle.X, sourceRectangle.Y, texture.Width, texture.Height);
             //Needed for collision
             sourceRectangle = new Rectangle(sourceRectangle.X, sourceRectangle.Y, texture.Width, texture.Height);
 

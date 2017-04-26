@@ -56,8 +56,6 @@ namespace The_scroll_of_NOPE.LevelObjects
         {
             base.texture = content.Load<Texture2D>("images/FillerPlatform");
 
-            base.hitbox = hitbox;
-
         //Positions for all platforms
         List<Vector2> platformPositions = new List<Vector2>() {
                 new Vector2(50, 300), new Vector2(200, 200), new Vector2(400, 300), new Vector2(300, 400)
@@ -68,9 +66,11 @@ namespace The_scroll_of_NOPE.LevelObjects
                 , new Vector2(200, 200), new Vector2(200, 200), new Vector2(200, 200), new Vector2(200, 200)
             };
             
+
             //Adds one platform for each Vector2 position in the positions list
             for (int n = 0; n < platformPositions.Count; n++)
             {
+                hitbox = new Rectangle((int)platformPositions[n].X, (int)platformPositions[n].Y, texture.Width, texture.Height);
                 platforms.Add(new Platform(texture, platformPositions[n], hitbox));
             }
         }

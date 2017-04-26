@@ -63,7 +63,8 @@ namespace The_scroll_of_NOPE
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,1000);
             testStudent = new Student1(Content.Load<Texture2D>("images/ANKA/ANKA"), new Vector2(300, 300), 7);
             // TODO: use this.Content to load your game content here
-         
+            collidables.Add(anka);
+            collidables.Add(levelLayout);
             collidables.Add(testStudent);
         }
 
@@ -157,14 +158,14 @@ namespace The_scroll_of_NOPE
             base.Draw(gameTime);
         }
 
-        #region jontesKollisioner
+        #region JonatansKollisioner
         private void Collisions()
         {
+            // Hoppas polymorfism funkar nu
             // En lista med alla objekt som kan kollidera.
             // collidables.Add(kula);
 
-
-            anka.Collision(collidables,levelLayout);
+            anka.Collision(collidables, levelLayout);
 
         }
         #endregion

@@ -119,7 +119,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
 
 
-       public void Collision(List<BaseClasses.PhysicalObject> collidables, LevelLayout levelLayout)
+        public void Collision(List<BaseClasses.PhysicalObject> collidables, LevelLayout levelLayout)
         {
             // Komma åt sakerna som kan kollidera med player. 
             // Om kollision med vapen, ta skada beroende på vapenSkada
@@ -127,29 +127,53 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             // Om kollision med kula, ta skada och ta bort kulan
 
             //kollar varje sak i listan och gör saker beroende på typ
-            foreach(PhysicalObject collidable in collidables)
+            foreach (PhysicalObject collidable in collidables)
             {
-               
-               if (collidable is Student1)
+                //if check itself, list created in game1 contains an instance of the instance that is checking
+
+
+                if (collidable is Student1)
                 {
                     if (CheckCollision(collidable.Hitbox))
                     {
+                        // Treat it as a student to gain access to the properties
+                        var student = collidable as Student1;
 
                     }
                 }
+                else if (collidable is Projectile)
+                {
+                    if (CheckCollision(collidable.Hitbox))
+                    {
+                        // Remove projectile and deal damage to player, but how?
+
+
+                    }
+                }
+                else if (collidable is LevelLayout)
+                {
+                    // Treat as a LevelLayout to gain access to the properties
+                    var layout = collidable as LevelLayout;
+
+                    // collion with platforms
+                    foreach (Platform platform in layout.Platforms)
+                    {
+
+                        if (CheckCollision(platform.Hitbox))
+                        {
+                            speed.Y = 0;
+                            base.speed.Y = 0;
+
+
+                        }
+                    }
+
+
+
+
+
+                }
             }
-
-            //level collisions
-           // foreach(Platform platform in levelLayout.)
-            
-            #region Kollision med plattformar
-           
-              
-
-            #endregion
-
-
-
         }
 
 

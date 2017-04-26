@@ -16,9 +16,16 @@ namespace The_scroll_of_NOPE.LevelObjects
         List<Platform> platforms;
         List<Ground> grounds;
 
+        TheScroll theScroll;
+
         public List<Platform> Platforms
         {
             get { return platforms; }
+        }
+
+        public List<Ground> Grounds
+        {
+            get { return grounds; }
         }
 
 
@@ -30,7 +37,6 @@ namespace The_scroll_of_NOPE.LevelObjects
             //Creates a list of platforms
             platforms = new List<Platform>();
             grounds = new List<Ground>();
-
            
             //Creates all the objects needed
             platform(content);
@@ -44,6 +50,7 @@ namespace The_scroll_of_NOPE.LevelObjects
             {
                 platform.Draw(spriteBatch, camera);
             }
+            //Draws each ground
             foreach (Ground ground in grounds)
             {
                 ground.Draw(spriteBatch, camera);
@@ -78,7 +85,7 @@ namespace The_scroll_of_NOPE.LevelObjects
         {
             base.texture = content.Load<Texture2D>("images/FillerGround");
 
-            //Set this number to the ammount of grounds you want
+            //Set this number to the ammount of grounds you want I.E Length of the map
             groundAmmount = new Array[40];
 
             //Sets position for start groundPlatform

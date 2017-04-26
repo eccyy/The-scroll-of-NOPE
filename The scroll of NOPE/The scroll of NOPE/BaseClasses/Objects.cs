@@ -22,17 +22,16 @@ namespace The_scroll_of_NOPE.BaseClasses
         public virtual void Draw(SpriteBatch spriteBatch, Camera camera)
         {
             #region Tommy
-            // spriteBatch.Draw(texture, position - camera.Position);
             Rectangle unzoomedDestination = new Rectangle(
                 new Point((int)(position - camera.Position).X, (int)(position - camera.Position).Y), 
                 new Point(texture.Width, texture.Height));
 
             Rectangle zoomedDestination = unzoomedDestination;
             zoomedDestination.Inflate(
-                zoomedDestination.Width * (camera.ZoomFactor - 1), //Zoom X
-                zoomedDestination.Height * (camera.ZoomFactor - 1)); //Zoom Y
+                zoomedDestination.Width * (camera.ZoomFactor - 1) / 2/*since it's for each side*/, //Zoom Width
+                zoomedDestination.Height * (camera.ZoomFactor - 1) / 2); //Zoom Height
 
-            spriteBatch.Draw(texture, new Rectangle(), null/*Entire texture*/, Color.White);
+            spriteBatch.Draw(texture, zoomedDestination, null/*Entire texture*/, Color.White);
             #endregion
         }
     }

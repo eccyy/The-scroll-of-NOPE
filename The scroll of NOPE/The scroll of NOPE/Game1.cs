@@ -26,8 +26,6 @@ namespace The_scroll_of_NOPE
 
         List<BaseClasses.PhysicalObject> collidables = new List<BaseClasses.PhysicalObject>();
 
-        LobbySession session = new LobbySession("127.0.0.1", 3333);
-
 
         public Game1()
         {

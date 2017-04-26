@@ -26,27 +26,34 @@ namespace The_scroll_of_NOPE.BaseClasses
             
                               
         }
-        public override void Draw(SpriteBatch sb, Camera camera)
+        public override void Draw(SpriteBatch sb, Camera camera, GraphicsDevice GD)
         {
-
             #region Tommy
+            //Set destination rectangle without scaling
             Rectangle unzoomedDestination = new Rectangle(
                 new Point((int)(position - camera.Position).X, (int)(position - camera.Position).Y),
                 new Point(texture.Width, texture.Height));
 
-            // Scale the size
-            Rectangle zoomedDestination = unzoomedDestination;
-            zoomedDestination.Inflate(
-                zoomedDestination.Width * (camera.ZoomFactor - 1) / 2/*since it's for each side*/, //Zoom Width
-                zoomedDestination.Height * (camera.ZoomFactor - 1) / 2); //Zoom Height
+            // Store center of screen
+            Point Center = new Point(GD.Viewport.X + GD.Viewport.Width / 2, GD.Viewport.Y + GD.Viewport.Height / 2);
 
-            // Scale the position
-            zoomedDestination = new Rectangle(new Point((int)(zoomedDestination.X * camera.ZoomFactor), (int)(zoomedDestination.Y * camera.ZoomFactor)), zoomedDestination.Size);
+            // Scale position and size
+            Rectangle zoomedDestination = new Rectangle(
+                (int)(unzoomedDestination.X * camera.ZoomFactor ),
+                (int)(unzoomedDestination.Y * camera.ZoomFactor ),
+                (int)(unzoomedDestination.Width * camera.ZoomFactor),
+                (int)(unzoomedDestination.Height * camera.ZoomFactor));
+            
+            // New center in accordance with the scaling
+            Point newCenter = new Point((int)(Center.X * camera.ZoomFactor), (int)(Center.Y * camera.ZoomFactor));
+
+            // Restore center
+            zoomedDestination.Location += Center - newCenter;
 
             // Draw
             sb.Draw(texture, zoomedDestination, null/*Entire texture*/, Color.White, 0f, new Vector2(texture.Width / 2, texture.Width / 2), SpriteEffects.None, 0);
             #endregion
         }
-          
+
     }
 }

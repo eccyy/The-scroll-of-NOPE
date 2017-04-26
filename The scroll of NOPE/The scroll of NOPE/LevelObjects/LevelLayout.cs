@@ -37,16 +37,16 @@ namespace The_scroll_of_NOPE.LevelObjects
             ground(content);  
         }
 
-        public void Draw(SpriteBatch spriteBatch, Camera camera)
+        public void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
         {
             //Draws each platform
             foreach (Platform platform in platforms)
             {
-                platform.Draw(spriteBatch, camera);
+                platform.Draw(spriteBatch, camera, GD);
             }
             foreach (Ground ground in grounds)
             {
-                ground.Draw(spriteBatch, camera);
+                ground.Draw(spriteBatch, camera, GD);
             }
         }
 
@@ -55,8 +55,6 @@ namespace The_scroll_of_NOPE.LevelObjects
         public void platform(ContentManager content)
         {
             base.texture = content.Load<Texture2D>("images/FillerPlatform");
-
-            base.hitbox = hitbox;
 
         //Positions for all platforms
         List<Vector2> platformPositions = new List<Vector2>() {
@@ -68,9 +66,11 @@ namespace The_scroll_of_NOPE.LevelObjects
                 , new Vector2(200, 200), new Vector2(200, 200), new Vector2(200, 200), new Vector2(200, 200)
             };
             
+
             //Adds one platform for each Vector2 position in the positions list
             for (int n = 0; n < platformPositions.Count; n++)
             {
+                hitbox = new Rectangle((int)platformPositions[n].X, (int)platformPositions[n].Y, texture.Width, texture.Height);
                 platforms.Add(new Platform(texture, platformPositions[n], hitbox));
             }
         }

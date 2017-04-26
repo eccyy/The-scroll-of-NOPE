@@ -19,9 +19,9 @@ namespace The_scroll_of_NOPE.LevelObjects
             //Gets the position
             this.position = position;
         }
-        public void Draw(SpriteBatch spriteBatch, Camera camera)
+        public void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
         {
-            base.Draw(spriteBatch, camera);
+            base.Draw(spriteBatch, camera, GD);
         }
     }
     #endregion

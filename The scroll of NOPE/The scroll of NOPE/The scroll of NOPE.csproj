@@ -65,6 +65,7 @@
     <Compile Include="LevelObjects\LevelLayout.cs" />
     <Compile Include="LevelObjects\LevelObject.cs" />
     <Compile Include="LevelObjects\Platform.cs" />
+    <Compile Include="LevelObjects\TheScroll.cs" />
     <Compile Include="Menyer\GameElements.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

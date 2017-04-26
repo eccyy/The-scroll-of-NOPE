@@ -19,18 +19,31 @@ namespace The_scroll_of_NOPE.BaseClasses
 
         // Draw(), method to draw graphics
         // Takes one parameter: SpriteBatch
-        public virtual void Draw(SpriteBatch spriteBatch, Camera camera)
+        public virtual void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
         {
             #region Tommy
+            //Set destination rectangle without scaling
             Rectangle unzoomedDestination = new Rectangle(
-                new Point((int)(position - camera.Position).X, (int)(position - camera.Position).Y), 
+                new Point((int)(position - camera.Position).X, (int)(position - camera.Position).Y),
                 new Point(texture.Width, texture.Height));
 
-            Rectangle zoomedDestination = unzoomedDestination;
-            zoomedDestination.Inflate(
-                zoomedDestination.Width * (camera.ZoomFactor - 1) / 2/*since it's for each side*/, //Zoom Width
-                zoomedDestination.Height * (camera.ZoomFactor - 1) / 2); //Zoom Height
+            // Store center of screen
+            Point Center = new Point(GD.Viewport.X + GD.Viewport.Width / 2, GD.Viewport.Y + GD.Viewport.Height / 2);
 
+            // Scale position and size
+            Rectangle zoomedDestination = new Rectangle(
+                (int)(unzoomedDestination.X * camera.ZoomFactor),
+                (int)(unzoomedDestination.Y * camera.ZoomFactor),
+                (int)(unzoomedDestination.Width * camera.ZoomFactor),
+                (int)(unzoomedDestination.Height * camera.ZoomFactor));
+
+            // New center in accordance with the scaling
+            Point newCenter = new Point((int)(Center.X * camera.ZoomFactor), (int)(Center.Y * camera.ZoomFactor));
+
+            // Restore center
+            zoomedDestination.Location += Center - newCenter;
+
+            //Draw
             spriteBatch.Draw(texture, zoomedDestination, null/*Entire texture*/, Color.White);
             #endregion
         }

@@ -18,7 +18,7 @@ namespace The_scroll_of_NOPE
         private float zoomFactor;
 
         public Vector2 Position { get { return position; } }
-        public float ZoomFactor { get { return zoomFactor; } }
+        public float ZoomFactor { get { return zoomFactor; } set { zoomFactor = value; } }
 
         /// <summary>
         /// Creates a camera with a default zoomFactor of 1

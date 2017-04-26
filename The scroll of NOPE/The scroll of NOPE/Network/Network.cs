@@ -168,19 +168,27 @@ namespace The_scroll_of_NOPE.Network
 
     public abstract class NetworkSession
     {
-        protected ulong id;
+        protected ulong sessionID;
         protected SessionHost sHost;
         protected SessionNode sNode;
+
+        protected ulong GenerateID()
+        {
+            var bytes = new byte[sizeof(UInt64)];
+            RNGCryptoServiceProvider Gen = new RNGCryptoServiceProvider();
+            Gen.GetBytes(bytes);
+            return BitConverter.ToUInt64(bytes, 0);
+        }
     }
 
     public class LobbySession : NetworkSession
     {
-        public LobbySession(bool host = true)
+        public LobbySession(string ip, int p, bool host = true)
         {
-            if (host) sHost = new SessionHost("127.0.0.1", 3333);
-            else sNode = new SessionNode("127.0.0.1", 3333);
+            if (host) sHost = new SessionHost(ip, p);
+            else sNode = new SessionNode(ip, p);
 
-            
+            sessionID = GenerateID();
         }
     }
 
@@ -202,10 +210,11 @@ namespace The_scroll_of_NOPE.Network
 
         public SessionUser(string ip, int p)
         {
-
+            client = new Client(ip, p);
+            server = new Server(p);
         }
     }
-
+    
     public class SessionHost : SessionUser
     {
         public SessionHost(string ip, int p) : base(ip, p)

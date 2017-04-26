@@ -16,7 +16,6 @@ namespace The_scroll_of_NOPE
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         LevelObjects.LevelLayout levelLayout;
-
         ANKA anka;
 
         // DEBUG PURPOISE
@@ -43,7 +42,6 @@ namespace The_scroll_of_NOPE
         {
             // TODO: Add your initialization logic here
             camera = new Camera(new Vector2(0,0), 1f);
-
             GameElements.currentState = GameElements._state.Menu;
 
             base.Initialize();

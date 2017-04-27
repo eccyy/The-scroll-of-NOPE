@@ -169,8 +169,7 @@ namespace The_scroll_of_NOPE.Network
     public abstract class NetworkSession
     {
         protected ulong sessionID;
-        protected SessionHost sHost;
-        protected SessionNode sNode;
+        protected List<SessionUser> nodes = new List<SessionUser>();
 
         protected ulong GenerateID(ulong oldid = 0)
         {
@@ -185,12 +184,22 @@ namespace The_scroll_of_NOPE.Network
 
     public class LobbySession : NetworkSession
     {
-        public LobbySession(string ip, int p, bool host = true)
-        {
-            if (host) sHost = new SessionHost(ip, p);
-            else sNode = new SessionNode(ip, p);
+        private bool PasswordProtected;
+        private string password;
 
+        public LobbySession()
+        {
             sessionID = GenerateID();
+
+            PasswordProtected = false;
+        }
+
+        public LobbySession(string password)
+        {
+            sessionID = GenerateID();
+
+            PasswordProtected = true;
+            this.password = password;
         }
     }
 
@@ -209,27 +218,45 @@ namespace The_scroll_of_NOPE.Network
     {
         protected Client client;
         protected Server server;
+        protected string Username;
+        protected LobbySession lobbySession;
+        protected GameSession gameSession;
 
-        public SessionUser(string ip, int p)
+        public SessionUser(string username)
         {
-            client = new Client(ip, p);
-            server = new Server(p);
+            this.Username = username;
         }
     }
 
     public class SessionHost : SessionUser
     {
-        public SessionHost(string ip, int p) : base(ip, p)
+        public SessionHost(string username) : base(username)
         {
 
+        }
+
+        public void CreateSession()
+        {
+            lobbySession = new LobbySession();
+            server = new Server(port);
+        }
+
+        public void CreateSession(string password)
+        {
+            lobbySession = new LobbySession(password);
         }
     }
 
     public class SessionNode : SessionUser
     {
-        public SessionNode(string ip, int p) : base(ip, p)
+        public SessionNode(string username) : base(username)
         {
 
+        }
+
+        public void JoinSession(string ip, int port)
+        {
+            client = new Client(ip, port);
         }
     }
 

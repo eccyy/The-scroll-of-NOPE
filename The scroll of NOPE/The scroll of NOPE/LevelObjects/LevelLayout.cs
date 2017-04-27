@@ -13,16 +13,18 @@ namespace The_scroll_of_NOPE.LevelObjects
     #region Lucas
     public class LevelLayout : BaseClasses.PhysicalObject
     {
+        //Lists
         List<Platform> platforms;
         List<Ground> grounds;
 
+        //One time objects
         TheScroll theScroll;
 
+        
         public List<Platform> Platforms
         {
             get { return platforms; }
         }
-
         public List<Ground> Grounds
         {
             get { return grounds; }
@@ -33,11 +35,14 @@ namespace The_scroll_of_NOPE.LevelObjects
         Vector2 groundPosition;
 
         public LevelLayout(ContentManager content)
-        {   
+        {
             //Creates a list of platforms
+            //Create the scroll
+            
+
             platforms = new List<Platform>();
             grounds = new List<Ground>();
-           
+
             //Creates all the objects needed
             platform(content);
             ground(content);  
@@ -55,6 +60,9 @@ namespace The_scroll_of_NOPE.LevelObjects
             {
                 ground.Draw(spriteBatch, camera, GD);
             }
+            
+            
+            //Add same thing for scroll
         }
 
         //In order for objects to have separate textures i put them in methods so they get them by them selves when called.
@@ -99,6 +107,11 @@ namespace The_scroll_of_NOPE.LevelObjects
                 hitbox = new Rectangle((int)groundPosition.X, (int)groundPosition.Y, texture.Width, texture.Height);
                 grounds.Add(new Ground(texture, groundPosition, hitbox));
             }
+        }
+
+        public void scroll()
+        {
+
         }
         #endregion
     }

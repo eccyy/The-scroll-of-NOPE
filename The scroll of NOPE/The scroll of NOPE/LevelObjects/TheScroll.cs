@@ -21,7 +21,6 @@ namespace The_scroll_of_NOPE.LevelObjects
         public void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
         {
             base.Draw(spriteBatch, camera, GD);
-            //Add animation for scroll, floating in the air, up and down.
         }
     }
 }

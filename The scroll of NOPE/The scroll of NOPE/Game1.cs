@@ -42,7 +42,7 @@ namespace The_scroll_of_NOPE
         {
             // TODO: Add your initialization logic here
             camera = new Camera(new Vector2(0,0), 1.0f);
-
+            this.IsMouseVisible = true;
             GameElements.currentState = GameElements._state.Menu;
 
             base.Initialize();

@@ -101,8 +101,6 @@ namespace The_scroll_of_NOPE.Network
 
         private void Listener()
         {
-            //GetData dataDelegate = HandleData;
-
             while (true)
             {
                 Console.WriteLine("Waiting for connection");
@@ -122,32 +120,12 @@ namespace The_scroll_of_NOPE.Network
                     e.Data = data;
 
                     ReceivedData?.Invoke(this, e); // that's a neat shortcut tbh
-
-                    //dataDelegate(data);
                 }
                 stream.Close();
                 lClient.Close();
                 Console.WriteLine("Connection closed");
             }
         }
-
-        /*private void HandleData(string data)
-        {
-            foreach (string c in connectedClients)
-            {
-                TcpClient cli = new TcpClient(c, Port);
-                NetworkStream stream = cli.GetStream();
-
-                if (cli.Connected)
-                {
-                    byte[] d = System.Text.Encoding.ASCII.GetBytes(data, 0, data.Length);
-
-                    stream.Write(d, 0, d.Length);
-                }
-
-                stream.Close();
-            }
-        }*/
 
         public int Port { get { return this.port; } }
 

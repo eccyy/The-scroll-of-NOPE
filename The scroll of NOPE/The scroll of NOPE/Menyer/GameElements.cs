@@ -12,7 +12,7 @@ namespace The_scroll_of_NOPE.Menyer
 {   //Anton
     static class GameElements
     {
-        public enum _state { Menu,Run,Lobby,Quit };
+        public enum _state { Menu,Lobby,Quit,Run };
 
         public static _state currentState;
         //update keyboard function

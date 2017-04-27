@@ -213,15 +213,21 @@ namespace The_scroll_of_NOPE.Network
 
         }
 
-        public void CreateSession()
+        public void CreateSession(int port)
         {
             lobbySession = new LobbySession();
             server = new Server(port);
+            server.ReceivedData += HandleIncomingData;
         }
 
         public void CreateSession(string password)
         {
             lobbySession = new LobbySession(password);
+        }
+
+        private void HandleIncomingData(object s, ReceivedDataEventArgs e)
+        {
+
         }
     }
 

@@ -110,7 +110,7 @@ namespace The_scroll_of_NOPE.LevelObjects
 
         public void scroll(ContentManager content)
         {
-            base.texture = content.Load<Texture2D>("images/FillerPlatform");
+            base.texture = content.Load<Texture2D>("images/Objects/Scroll");
 
             position = new Vector2(500,400);
 

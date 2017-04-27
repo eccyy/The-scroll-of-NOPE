@@ -172,12 +172,14 @@ namespace The_scroll_of_NOPE.Network
         protected SessionHost sHost;
         protected SessionNode sNode;
 
-        protected ulong GenerateID()
+        protected ulong GenerateID(ulong oldid = 0)
         {
             var bytes = new byte[sizeof(UInt64)];
             RNGCryptoServiceProvider Gen = new RNGCryptoServiceProvider();
             Gen.GetBytes(bytes);
-            return BitConverter.ToUInt64(bytes, 0);
+            ulong _internalID = BitConverter.ToUInt64(bytes, 0);
+
+            return _internalID == oldid ? GenerateID(_internalID) : _internalID;
         }
     }
 
@@ -214,7 +216,7 @@ namespace The_scroll_of_NOPE.Network
             server = new Server(p);
         }
     }
-    
+
     public class SessionHost : SessionUser
     {
         public SessionHost(string ip, int p) : base(ip, p)

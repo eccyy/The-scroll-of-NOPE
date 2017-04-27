@@ -28,16 +28,6 @@ namespace The_scroll_of_NOPE.LevelObjects
         public void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
         {
             base.Draw(spriteBatch, camera, GD);
-
-
-            /*
-            //Set destination rectangle without scaling
-            Rectangle unzoomedDestination = new Rectangle(
-                new Point((int)(hitbox.X - camera.Position.X), (int)(hitbox.Y - camera.Position.Y)),
-                new Point(hitbox.Width, hitbox.Height));
-
-            spriteBatch.Draw(texture, unzoomedDestination, Color.White);
-            */
         }
     }
     #endregion

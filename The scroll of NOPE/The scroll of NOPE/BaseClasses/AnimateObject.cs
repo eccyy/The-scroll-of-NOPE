@@ -26,7 +26,7 @@ namespace The_scroll_of_NOPE.BaseClasses
             
                               
         }
-        public override void Draw(SpriteBatch sb, Camera camera, GraphicsDevice GD)
+        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
         {
             #region Tommy
             //Set destination rectangle without scaling
@@ -51,7 +51,10 @@ namespace The_scroll_of_NOPE.BaseClasses
             zoomedDestination.Location += Center - newCenter;
 
             // Draw
-            sb.Draw(texture, zoomedDestination, null/*Entire texture*/, Color.White, 0f, new Vector2(texture.Width / 2, texture.Width / 2), SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, zoomedDestination, null/*Entire texture*/, Color.White, 0f, new Vector2(0,0), SpriteEffects.None, 0);
+           
+
+            
             #endregion
         }
 

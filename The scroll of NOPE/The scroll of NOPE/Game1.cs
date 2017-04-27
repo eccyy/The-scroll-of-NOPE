@@ -16,7 +16,6 @@ namespace The_scroll_of_NOPE
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         LevelObjects.LevelLayout levelLayout;
-
         ANKA anka;
 
         // DEBUG PURPOISE
@@ -43,7 +42,7 @@ namespace The_scroll_of_NOPE
         {
             // TODO: Add your initialization logic here
             camera = new Camera(new Vector2(0,0), 1.0f);
-
+            this.IsMouseVisible = true;
             GameElements.currentState = GameElements._state.Menu;
 
             base.Initialize();
@@ -61,7 +60,7 @@ namespace The_scroll_of_NOPE
 
             levelLayout = new LevelObjects.LevelLayout(Content);
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,1000);
-            testStudent = new Student1(Content.Load<Texture2D>("images/ANKA/ANKA"), new Vector2(300, 300), 7);
+            testStudent = new Student1(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(300, 300), 7);
             // TODO: use this.Content to load your game content here
             collidables.Add(anka);
             collidables.Add(levelLayout);
@@ -107,12 +106,13 @@ namespace The_scroll_of_NOPE
                     if (tempHandler.IsKeyDown(Keys.D0))
                         camera.ZoomFactor *= 1.05f;
 
+                    
                     anka.Update();
                     testStudent.Update();
                     Collisions();
 
                     Point screenSize = GraphicsDevice.Viewport.Bounds.Size; // Gets the size of the screen
-                    camera.Update(testStudent, new Vector2(screenSize.X, screenSize.Y)); // Updates camera
+                    camera.Update(anka, new Vector2(screenSize.X, screenSize.Y)); // Updates camera
                     GameElements.currentState = GameElements.RunUpdate();
                     break;
             }
@@ -165,7 +165,8 @@ namespace The_scroll_of_NOPE
             // En lista med alla objekt som kan kollidera.
             // collidables.Add(kula);
 
-            anka.Collision(collidables, levelLayout);
+            anka.Collision(collidables);
+            testStudent.Collision(collidables);
 
         }
         #endregion

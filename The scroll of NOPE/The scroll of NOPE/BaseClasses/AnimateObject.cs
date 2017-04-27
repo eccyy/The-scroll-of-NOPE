@@ -14,7 +14,7 @@ namespace The_scroll_of_NOPE.BaseClasses
         
         public virtual void Update()
         {
-            position += speed;
+           // position += speed;
             if(speed.X > 0 || speed.X < 0)
             {
                 speed.X *= 0.9f;

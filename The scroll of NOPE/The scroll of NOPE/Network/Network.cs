@@ -101,8 +101,6 @@ namespace The_scroll_of_NOPE.Network
 
         private void Listener()
         {
-            //GetData dataDelegate = HandleData;
-
             while (true)
             {
                 Console.WriteLine("Waiting for connection");
@@ -122,32 +120,12 @@ namespace The_scroll_of_NOPE.Network
                     e.Data = data;
 
                     ReceivedData?.Invoke(this, e); // that's a neat shortcut tbh
-
-                    //dataDelegate(data);
                 }
                 stream.Close();
                 lClient.Close();
                 Console.WriteLine("Connection closed");
             }
         }
-
-        /*private void HandleData(string data)
-        {
-            foreach (string c in connectedClients)
-            {
-                TcpClient cli = new TcpClient(c, Port);
-                NetworkStream stream = cli.GetStream();
-
-                if (cli.Connected)
-                {
-                    byte[] d = System.Text.Encoding.ASCII.GetBytes(data, 0, data.Length);
-
-                    stream.Write(d, 0, d.Length);
-                }
-
-                stream.Close();
-            }
-        }*/
 
         public int Port { get { return this.port; } }
 
@@ -169,26 +147,37 @@ namespace The_scroll_of_NOPE.Network
     public abstract class NetworkSession
     {
         protected ulong sessionID;
-        protected SessionHost sHost;
-        protected SessionNode sNode;
+        protected List<SessionUser> nodes = new List<SessionUser>();
 
-        protected ulong GenerateID()
+        protected ulong GenerateID(ulong oldid = 0)
         {
             var bytes = new byte[sizeof(UInt64)];
             RNGCryptoServiceProvider Gen = new RNGCryptoServiceProvider();
             Gen.GetBytes(bytes);
-            return BitConverter.ToUInt64(bytes, 0);
+            ulong _internalID = BitConverter.ToUInt64(bytes, 0);
+
+            return _internalID == oldid ? GenerateID(_internalID) : _internalID;
         }
     }
 
     public class LobbySession : NetworkSession
     {
-        public LobbySession(string ip, int p, bool host = true)
-        {
-            if (host) sHost = new SessionHost(ip, p);
-            else sNode = new SessionNode(ip, p);
+        private bool PasswordProtected;
+        private string password;
 
+        public LobbySession()
+        {
             sessionID = GenerateID();
+
+            PasswordProtected = false;
+        }
+
+        public LobbySession(string password)
+        {
+            sessionID = GenerateID();
+
+            PasswordProtected = true;
+            this.password = password;
         }
     }
 
@@ -207,17 +196,36 @@ namespace The_scroll_of_NOPE.Network
     {
         protected Client client;
         protected Server server;
+        protected string Username;
+        protected LobbySession lobbySession;
+        protected GameSession gameSession;
 
-        public SessionUser(string ip, int p)
+        public SessionUser(string username)
         {
-            client = new Client(ip, p);
-            server = new Server(p);
+            this.Username = username;
         }
     }
-    
+
     public class SessionHost : SessionUser
     {
-        public SessionHost(string ip, int p) : base(ip, p)
+        public SessionHost(string username) : base(username)
+        {
+
+        }
+
+        public void CreateSession(int port)
+        {
+            lobbySession = new LobbySession();
+            server = new Server(port);
+            server.ReceivedData += HandleIncomingData;
+        }
+
+        public void CreateSession(string password)
+        {
+            lobbySession = new LobbySession(password);
+        }
+
+        private void HandleIncomingData(object s, ReceivedDataEventArgs e)
         {
 
         }
@@ -225,9 +233,14 @@ namespace The_scroll_of_NOPE.Network
 
     public class SessionNode : SessionUser
     {
-        public SessionNode(string ip, int p) : base(ip, p)
+        public SessionNode(string username) : base(username)
         {
 
+        }
+
+        public void JoinSession(string ip, int port)
+        {
+            client = new Client(ip, port);
         }
     }
 

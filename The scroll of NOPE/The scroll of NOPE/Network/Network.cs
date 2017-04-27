@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading;
 using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace The_scroll_of_NOPE.Network
 {
@@ -77,8 +78,7 @@ namespace The_scroll_of_NOPE.Network
     {
         private TcpListener _internalServer; // a server to accept connections and data
         private Thread listenerThread; // a thread to handle incoming data, would interrupt all other operations otherwise
-        private delegate void GetData(string data); //delegate to handle events
-        private List<string> connectedClients = new List<string>(); // list to keep track of connected clients
+        // private List<string> connectedClients = new List<string>(); // list to keep track of connected clients
         private int port;
         public event EventHandler<ReceivedDataEventArgs> ReceivedData;
 
@@ -106,7 +106,7 @@ namespace The_scroll_of_NOPE.Network
                 Console.WriteLine("Waiting for connection");
                 TcpClient lClient = _internalServer.AcceptTcpClient();
                 Console.WriteLine("Incoming connection from {0}", ((IPEndPoint)lClient.Client.RemoteEndPoint).Address.ToString());
-                connectedClients.Add(((IPEndPoint)lClient.Client.RemoteEndPoint).Address.ToString());
+                //connectedClients.Add(((IPEndPoint)lClient.Client.RemoteEndPoint).Address.ToString());
                 NetworkStream stream = lClient.GetStream();
                 byte[] bytes = new byte[256];
                 string data = null;
@@ -146,38 +146,44 @@ namespace The_scroll_of_NOPE.Network
 
     public abstract class NetworkSession
     {
+        // ID might be useless on second thought, but I'll keep it in here for now.
         protected ulong sessionID;
         protected List<SessionUser> nodes = new List<SessionUser>();
-
-        protected ulong GenerateID(ulong oldid = 0)
-        {
-            var bytes = new byte[sizeof(UInt64)];
-            RNGCryptoServiceProvider Gen = new RNGCryptoServiceProvider();
-            Gen.GetBytes(bytes);
-            ulong _internalID = BitConverter.ToUInt64(bytes, 0);
-
-            return _internalID == oldid ? GenerateID(_internalID) : _internalID;
-        }
     }
 
     public class LobbySession : NetworkSession
     {
         private bool PasswordProtected;
-        private string password;
+        private string lobbyPassword;
 
         public LobbySession()
         {
-            sessionID = GenerateID();
+            sessionID = IDGenerator.GenerateID();
 
             PasswordProtected = false;
         }
 
         public LobbySession(string password)
         {
-            sessionID = GenerateID();
+            sessionID = IDGenerator.GenerateID();
 
             PasswordProtected = true;
-            this.password = password;
+            this.lobbyPassword = password;
+        }
+
+        public bool UserJoin(SessionNode node, string password = "")
+        {
+            if (!PasswordProtected) nodes.Add(node);
+            else if (PasswordProtected && AuthorizeUser(password)) nodes.Add(node);
+            else return false;
+
+            return true;
+        }
+
+        private bool AuthorizeUser(string password)
+        {
+            if (password == lobbyPassword) return true;
+            else return false;
         }
     }
 
@@ -199,10 +205,12 @@ namespace The_scroll_of_NOPE.Network
         protected string Username;
         protected LobbySession lobbySession;
         protected GameSession gameSession;
+        protected ulong userID;
 
         public SessionUser(string username)
         {
             this.Username = username;
+            userID = IDGenerator.GenerateID();
         }
     }
 
@@ -220,9 +228,11 @@ namespace The_scroll_of_NOPE.Network
             server.ReceivedData += HandleIncomingData;
         }
 
-        public void CreateSession(string password)
+        public void CreateSession(int port, string password)
         {
             lobbySession = new LobbySession(password);
+            server = new Server(port);
+            server.ReceivedData += HandleIncomingData;
         }
 
         private void HandleIncomingData(object s, ReceivedDataEventArgs e)
@@ -240,10 +250,33 @@ namespace The_scroll_of_NOPE.Network
 
         public void JoinSession(string ip, int port)
         {
-            client = new Client(ip, port);
+            if (lobbySession.UserJoin(this))
+                client = new Client(ip, port);
+            else
+                MessageBox.Show("Coudn't join session");
+        }
+
+        public void JoinSession(string ip, int port, string password)
+        {
+          if (lobbySession.UserJoin(this, password))
+              client = new Client(ip, port);
+          else
+              MessageBox.Show("Coudn't join session");
         }
     }
 
     #endregion
+    public static class IDGenerator
+    {
+        public static ulong GenerateID(ulong oldid = 0)
+        {
+            var bytes = new byte[sizeof(UInt64)];
+            RNGCryptoServiceProvider Gen = new RNGCryptoServiceProvider();
+            Gen.GetBytes(bytes);
+            ulong _internalID = BitConverter.ToUInt64(bytes, 0);
+
+            return _internalID == oldid ? GenerateID(_internalID) : _internalID;
+        }
+    }
     #endregion
 }

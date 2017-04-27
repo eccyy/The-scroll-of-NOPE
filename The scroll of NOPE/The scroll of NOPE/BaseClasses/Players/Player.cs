@@ -125,7 +125,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
 
             // Updaterar hitboxen, kan bli fel med kollisioner pga hur hitbox updateras
-            
+
             hitbox.X = (int)base.position.X;
             hitbox.Y = (int)base.position.Y;
             

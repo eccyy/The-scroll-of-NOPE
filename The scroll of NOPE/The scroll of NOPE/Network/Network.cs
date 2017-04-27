@@ -177,6 +177,11 @@ namespace The_scroll_of_NOPE.Network
             else if (PasswordProtected && AuthorizeUser(password)) nodes.Add(node);
             else return false;
 
+            foreach (SessionUser user in nodes)
+            {
+                if (node.UserID == user.UserID && node.Username == user.Username) node.UserID = IDGenerator.GenerateID(node.UserID);
+            }
+
             return true;
         }
 
@@ -202,10 +207,12 @@ namespace The_scroll_of_NOPE.Network
     {
         protected Client client;
         protected Server server;
-        protected string Username;
+        public string Username;
         protected LobbySession lobbySession;
         protected GameSession gameSession;
         protected ulong userID;
+
+        public ulong UserID { get { return userID; } set { this.userID = value; } }
 
         public SessionUser(string username)
         {

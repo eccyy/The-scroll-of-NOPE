@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Input;
 
 namespace The_scroll_of_NOPE.BaseClasses.Players
 {
@@ -70,13 +71,32 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
     public abstract class Ranged : Student
     {
-        public Ranged(Texture2D texture, Vector2 position, int speed) : base(texture, position, speed)
+        Texture2D projectileTexture1;
+
+        public Ranged(Texture2D texture, Vector2 position, int speed, Texture2D projectileTexture1) : base(texture, position, speed)
         {
+            this.projectileTexture1 = projectileTexture1;
         }
 
         protected override void AttackBasic()
         {
+            float absoluteSpeed = 2.0f;
 
+            Vector2 Direction = Mouse.GetState().Position.ToVector2() - this.Position; // Gets the position of the mouse relative to the player
+            Direction.Normalize();
+
+            this.projectiles.Add(new Projectile(this.position, projectileTexture1, absoluteSpeed * Direction)); // Create new projectile
+        }
+
+        public override void Update()
+        {
+            // Check if player clicks mouse (if he shoots)
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                AttackBasic();
+            }
+
+            base.Update();
         }
     }
 
@@ -90,7 +110,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
     public class Student2 : Ranged
     {
-        public Student2(Texture2D texture, Vector2 position, int speed) : base(texture, position, speed)
+        public Student2(Texture2D texture, Vector2 position, int speed, Texture2D projectileTexture1) : base(texture, position, speed, projectileTexture1)
         {
 
         }

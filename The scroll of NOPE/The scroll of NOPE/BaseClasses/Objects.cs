@@ -44,7 +44,7 @@ namespace The_scroll_of_NOPE.BaseClasses
             zoomedDestination.Location += Center - newCenter;
 
             //Draw
-            spriteBatch.Draw(texture, zoomedDestination, null/*Entire texture*/, Color.White);
+            spriteBatch.Draw(texture, zoomedDestination, null/*Entire texture*/, Color.White, 0f, new Vector2(0,0), SpriteEffects.None, 0);
             #endregion
         }
     }

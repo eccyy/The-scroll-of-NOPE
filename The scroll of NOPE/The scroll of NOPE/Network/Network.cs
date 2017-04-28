@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading;
 using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace The_scroll_of_NOPE.Network
 {
@@ -20,24 +21,35 @@ namespace The_scroll_of_NOPE.Network
 
         public bool Connected { get { return _internalClient.Connected; } }
 
-        public Client(string a, int p)
+        /// <summary>
+        /// Constructor.
+        /// Connects the client to a server
+        /// </summary>
+        /// <param name="address"> The IP Address to connect to </param>
+        /// <param name="port"> The network port to connect to </param>
+        public Client(string address, int port)
         {
-            this.port = p;
-            this.ipaddr = a;
+            this.port = port;
+            this.ipaddr = address;
 
             try
             {
-                _internalClient = new TcpClient(a, p);
+                _internalClient = new TcpClient(address, port);
                 Console.WriteLine("Client started and connected");
             }
             catch (SocketException e)
             {
-                LogError("Connection error: " + e.ErrorCode + ": " + e.Message);
+                LogError(e.Message, e.ErrorCode.ToString());
                 _internalClient = new TcpClient();
             }
 
         }
 
+        /// <summary>
+        /// Opens a stream and sends data to a server
+        /// </summary>
+        /// <param name="data"> Data to send. My suggestion is a string parsed with Newtonsoft JSON. </param>
+        /// <returns>A bool</returns>
         public bool SendData(string data)
         {
             // try/catch for error "handling"
@@ -57,19 +69,19 @@ namespace The_scroll_of_NOPE.Network
             }
             catch (ArgumentNullException e)
             {
-                LogError("Write error: " + e.Message);
+                LogError(e.Message);
                 return false;
             }
             catch (SocketException e)
             {
-                LogError("Write error: " + e.ErrorCode + ": " + e.Message);
+                LogError(e.Message, e.ErrorCode.ToString());
                 return false;
             }
         }
 
-        private void LogError(string e)
+        private void LogError(string message, string code = "")
         {
-            Console.WriteLine(e);
+            Console.WriteLine("Network Error: " + code + " " + message);
         }
     }
 
@@ -77,12 +89,15 @@ namespace The_scroll_of_NOPE.Network
     {
         private TcpListener _internalServer; // a server to accept connections and data
         private Thread listenerThread; // a thread to handle incoming data, would interrupt all other operations otherwise
-        private delegate void GetData(string data); //delegate to handle events
-        private List<string> connectedClients = new List<string>(); // list to keep track of connected clients
+        // private List<string> connectedClients = new List<string>(); // list to keep track of connected clients
         private int port;
         public event EventHandler<ReceivedDataEventArgs> ReceivedData;
 
-        // konstruktor, tar en string och en int
+        /// <summary>
+        /// Constructor.
+        /// Starts a new thread for handling incoming connections
+        /// </summary>
+        /// <param name="p"> Port used to listen for incoming connections </param>
         public Server(int p)
         {
             this.port = p;
@@ -106,7 +121,7 @@ namespace The_scroll_of_NOPE.Network
                 Console.WriteLine("Waiting for connection");
                 TcpClient lClient = _internalServer.AcceptTcpClient();
                 Console.WriteLine("Incoming connection from {0}", ((IPEndPoint)lClient.Client.RemoteEndPoint).Address.ToString());
-                connectedClients.Add(((IPEndPoint)lClient.Client.RemoteEndPoint).Address.ToString());
+                //connectedClients.Add(((IPEndPoint)lClient.Client.RemoteEndPoint).Address.ToString());
                 NetworkStream stream = lClient.GetStream();
                 byte[] bytes = new byte[256];
                 string data = null;
@@ -129,6 +144,9 @@ namespace The_scroll_of_NOPE.Network
 
         public int Port { get { return this.port; } }
 
+        /// <summary>
+        /// Stops the server and server thread
+        /// </summary>
         public void StopServer()
         {
             listenerThread.Abort();
@@ -146,38 +164,71 @@ namespace The_scroll_of_NOPE.Network
 
     public abstract class NetworkSession
     {
+        // ID might be useless on second thought, but I'll keep it in here for now.
         protected ulong sessionID;
         protected List<SessionUser> nodes = new List<SessionUser>();
-
-        protected ulong GenerateID(ulong oldid = 0)
-        {
-            var bytes = new byte[sizeof(UInt64)];
-            RNGCryptoServiceProvider Gen = new RNGCryptoServiceProvider();
-            Gen.GetBytes(bytes);
-            ulong _internalID = BitConverter.ToUInt64(bytes, 0);
-
-            return _internalID == oldid ? GenerateID(_internalID) : _internalID;
-        }
     }
 
     public class LobbySession : NetworkSession
     {
-        private bool PasswordProtected;
-        private string password;
+        private bool PasswordProtected = false;
+        private string lobbyPassword;
 
+        /// <summary>
+        /// Constructor.
+        /// Creates a new Lobby Session to handle all lobby events and users joining the game.
+        /// </summary>
         public LobbySession()
         {
-            sessionID = GenerateID();
-
-            PasswordProtected = false;
+            sessionID = IDGenerator.GenerateID();
         }
 
-        public LobbySession(string password)
+        /// <summary>
+        /// Constructor.
+        /// Creates a new password protected Lobby Session to handle all lobby events and users joining the game.
+        /// </summary>
+        /// <param name="password">Password to secure the lobby.</param>
+        public LobbySession(string password) : this()
         {
-            sessionID = GenerateID();
-
             PasswordProtected = true;
-            this.password = password;
+            this.lobbyPassword = password;
+        }
+
+        /// <summary>
+        /// Connects the user to the session.
+        /// </summary>
+        /// <param name="node">The SessionNode joining the session</param>
+        /// <param name="password">Optional parameter. Password to authenticate the user.</param>
+        /// <returns>A bool</returns>
+        public bool UserJoin(SessionNode node, string password = "")
+        {
+            CheckUserId(node);
+
+            if (!PasswordProtected) nodes.Add(node);
+            else if (PasswordProtected && AuthorizeUser(password)) nodes.Add(node);
+            else return false;
+
+            return true;
+        }
+
+        private bool CheckUserId(SessionNode node)
+        {
+            foreach (SessionUser user in nodes)
+            {
+                if (node.UserID == user.UserID)
+                {
+                    node.UserID = IDGenerator.GenerateID(node.UserID);
+                    CheckUserId(node);
+                }
+            }
+
+            return true;
+        }
+
+        private bool AuthorizeUser(string password)
+        {
+            if (password == lobbyPassword) return true;
+            else return false;
         }
     }
 
@@ -196,23 +247,41 @@ namespace The_scroll_of_NOPE.Network
     {
         protected Client client;
         protected Server server;
-        protected string Username;
+        public string Username;
         protected LobbySession lobbySession;
         protected GameSession gameSession;
+        protected ulong userID;
 
+        public ulong UserID { get { return userID; } set { this.userID = value; } }
+
+        /// <summary>
+        /// Constructor.
+        /// Gives the user a username and gives them an ID.
+        /// </summary>
+        /// <param name="username">The user's username.</param>
         public SessionUser(string username)
         {
             this.Username = username;
+            userID = IDGenerator.GenerateID();
         }
     }
 
     public class SessionHost : SessionUser
     {
+        /// <summary>
+        /// Constructor.
+        /// Gives the user a username and gives them an ID.
+        /// </summary>
+        /// <param name="username">The user's username.</param>
         public SessionHost(string username) : base(username)
         {
 
         }
 
+        /// <summary>
+        /// Creates a new session.
+        /// </summary>
+        /// <param name="port">Port for the session/server.</param>
         public void CreateSession(int port)
         {
             lobbySession = new LobbySession();
@@ -220,9 +289,16 @@ namespace The_scroll_of_NOPE.Network
             server.ReceivedData += HandleIncomingData;
         }
 
-        public void CreateSession(string password)
+        /// <summary>
+        /// Creates a password protected session.
+        /// </summary>
+        /// <param name="port">Port for the session/server.</param>
+        /// <param name="password">Password to protect the session with.</param>
+        public void CreateSession(int port, string password)
         {
             lobbySession = new LobbySession(password);
+            server = new Server(port);
+            server.ReceivedData += HandleIncomingData;
         }
 
         private void HandleIncomingData(object s, ReceivedDataEventArgs e)
@@ -233,17 +309,60 @@ namespace The_scroll_of_NOPE.Network
 
     public class SessionNode : SessionUser
     {
+        /// <summary>
+        /// Constructor.
+        /// Gives the user a username and gives them an ID.
+        /// </summary>
+        /// <param name="username">The user's username.</param>
         public SessionNode(string username) : base(username)
         {
 
         }
 
+        /// <summary>
+        /// Connects the user to a session.
+        /// </summary>
+        /// <param name="ip">IP Address to connect to.</param>
+        /// <param name="port">Port to connect to.</param>
         public void JoinSession(string ip, int port)
         {
-            client = new Client(ip, port);
+            if (lobbySession.UserJoin(this))
+                client = new Client(ip, port);
+            else
+                MessageBox.Show("Coudn't join session");
+        }
+
+        /// <summary>
+        /// Connects the user to a session.
+        /// </summary>
+        /// <param name="ip">IP Address to connect to.</param>
+        /// <param name="port">Port to connect to.</param>
+        /// <param name="password">Password for authentication.</param>
+        public void JoinSession(string ip, int port, string password)
+        {
+          if (lobbySession.UserJoin(this, password))
+              client = new Client(ip, port);
+          else
+              MessageBox.Show("Coudn't join session");
         }
     }
 
     #endregion
+    public static class IDGenerator
+    {
+        /// <summary>
+        /// Generates an unsigned int64 that can be used for ID's and similar.
+        /// </summary>
+        /// <param name="oldid"> The old id if any, optional </param>
+        public static ulong GenerateID(ulong oldid = 0)
+        {
+            var bytes = new byte[sizeof(UInt64)];
+            RNGCryptoServiceProvider Gen = new RNGCryptoServiceProvider();
+            Gen.GetBytes(bytes);
+            ulong _internalID = BitConverter.ToUInt64(bytes, 0);
+
+            return _internalID == oldid ? GenerateID(_internalID) : _internalID;
+        }
+    }
     #endregion
 }

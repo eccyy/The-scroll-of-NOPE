@@ -11,50 +11,57 @@ using Microsoft.Xna.Framework.Graphics;
 namespace The_scroll_of_NOPE.LevelObjects
 {
     #region Lucas
+    //This class handles objects on the map, where they are and makes em appear at start
     public class LevelLayout : BaseClasses.PhysicalObject
     {
+        //Lists
         List<Platform> platforms;
         List<Ground> grounds;
 
+        //One time objects
         TheScroll theScroll;
+
 
         public List<Platform> Platforms
         {
             get { return platforms; }
         }
-
         public List<Ground> Grounds
         {
             get { return grounds; }
         }
 
-
         Array groundAmmount;
         Vector2 groundPosition;
 
         public LevelLayout(ContentManager content)
-        {   
+        {
             //Creates a list of platforms
+            //Create the scroll
+
             platforms = new List<Platform>();
             grounds = new List<Ground>();
-           
+
+            scroll(content);
             //Creates all the objects needed
             platform(content);
-            ground(content);  
+            ground(content);
+            
         }
 
         public void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
         {
-            //Draws each platform
             foreach (Platform platform in platforms)
             {
                 platform.Draw(spriteBatch, camera, GD);
             }
-            //Draws each ground
+
             foreach (Ground ground in grounds)
             {
                 ground.Draw(spriteBatch, camera, GD);
             }
+
+            theScroll.Draw(spriteBatch, camera, GD);
         }
 
         //In order for objects to have separate textures i put them in methods so they get them by them selves when called.
@@ -100,6 +107,18 @@ namespace The_scroll_of_NOPE.LevelObjects
                 grounds.Add(new Ground(texture, groundPosition, hitbox));
             }
         }
+
+        public void scroll(ContentManager content)
+        {
+            base.texture = content.Load<Texture2D>("images/Objects/Scroll");
+
+            position = new Vector2(500,400);
+
+            hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+
+            theScroll = new TheScroll(texture, position, hitbox);
+        }
+
         #endregion
     }
     #endregion

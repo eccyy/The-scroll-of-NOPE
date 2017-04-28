@@ -25,11 +25,17 @@ namespace The_scroll_of_NOPE
 
         List<BaseClasses.PhysicalObject> collidables = new List<BaseClasses.PhysicalObject>();
 
+        // ignore me, just used for ez testing
+        //SessionNode node = new SessionNode("kungbore");
+
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            // ignore me, just used for ez testing
+            //node.JoinSession("127.0.0.1", 3333);
         }
 
         /// <summary>
@@ -42,7 +48,7 @@ namespace The_scroll_of_NOPE
         {
             // TODO: Add your initialization logic here
             camera = new Camera(new Vector2(0,0), 1.0f);
-
+            this.IsMouseVisible = true;
             GameElements.currentState = GameElements._state.Menu;
 
             base.Initialize();
@@ -106,7 +112,7 @@ namespace The_scroll_of_NOPE
                     if (tempHandler.IsKeyDown(Keys.D0))
                         camera.ZoomFactor *= 1.05f;
 
-                    
+
                     anka.Update();
                     testStudent.Update();
                     Collisions();

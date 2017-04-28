@@ -79,6 +79,11 @@ namespace The_scroll_of_NOPE.Network
             }
         }
 
+        /// <summary>
+        /// Logs the error to console
+        /// </summary>
+        /// <param name="message">The error message.</param>
+        /// <param name="code">Optional. The error code.</param>
         private void LogError(string message, string code = "")
         {
             Console.WriteLine("Network Error: " + code + " " + message);
@@ -114,6 +119,9 @@ namespace The_scroll_of_NOPE.Network
             listenerThread.Start();
         }
 
+        /// <summary>
+        /// Listens for and handles all incoming transmissions.
+        /// </summary>
         private void Listener()
         {
             while (true)
@@ -211,6 +219,11 @@ namespace The_scroll_of_NOPE.Network
             return true;
         }
 
+        /// <summary>
+        /// Checks the new user's ID to the other connected clients so they don't collide
+        /// </summary>
+        /// <param name="node">The new user.</param>
+        /// <returns>A bool</returns>
         private bool CheckUserId(SessionNode node)
         {
             foreach (SessionUser user in nodes)
@@ -225,6 +238,11 @@ namespace The_scroll_of_NOPE.Network
             return true;
         }
 
+        /// <summary>
+        /// Compares the password the user entered to the lobbys password.
+        /// </summary>
+        /// <param name="password">The password from the user</param>
+        /// <returns>A bool</returns>
         private bool AuthorizeUser(string password)
         {
             if (password == lobbyPassword) return true;
@@ -301,6 +319,11 @@ namespace The_scroll_of_NOPE.Network
             server.ReceivedData += HandleIncomingData;
         }
 
+        /// <summary>
+        /// Handle the incoming data, sends the data to the other nodes.
+        /// </summary>
+        /// <param name="s">The sender object.</param>
+        /// <param name="e">Event arguments</param>
         private void HandleIncomingData(object s, ReceivedDataEventArgs e)
         {
 
@@ -353,7 +376,8 @@ namespace The_scroll_of_NOPE.Network
         /// <summary>
         /// Generates an unsigned int64 that can be used for ID's and similar.
         /// </summary>
-        /// <param name="oldid"> The old id if any, optional </param>
+        /// <param name="oldid">Optional. The old ID if any.</param>
+        /// <returns>An unsigned int64</returns>
         public static ulong GenerateID(ulong oldid = 0)
         {
             var bytes = new byte[sizeof(UInt64)];

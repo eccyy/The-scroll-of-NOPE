@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using The_scroll_of_NOPE.LevelObjects;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace The_scroll_of_NOPE.BaseClasses.Players
 {
@@ -25,7 +26,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         public Player()
         {
-            
+            projectiles = new List<Projectile>();
         }
 
         protected float health;
@@ -35,6 +36,14 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         public override void Update()
         {
+            #region Tommy
+            // Update projectiles
+            foreach (Projectile projectile in projectiles)
+            {
+                projectile.Update();
+            }
+            #endregion
+
             // Rörelsen på spelaren och acceleration på rörelsen.
             keyHandler = Keyboard.GetState();
 

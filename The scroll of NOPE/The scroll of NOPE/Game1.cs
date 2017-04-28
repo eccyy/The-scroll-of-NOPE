@@ -19,8 +19,8 @@ namespace The_scroll_of_NOPE
         ANKA anka;
 
         // DEBUG PURPOISE
-        Projectile kula = new Projectile();
-        Student1 testStudent;
+        //Projectile kula = new Projectile();
+        Student2 testStudent;
         Camera camera;
 
         List<BaseClasses.PhysicalObject> collidables = new List<BaseClasses.PhysicalObject>();
@@ -60,7 +60,7 @@ namespace The_scroll_of_NOPE
 
             levelLayout = new LevelObjects.LevelLayout(Content);
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,1000);
-            testStudent = new Student1(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(300, 300), 7);
+            testStudent = new Student2(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(300, 300), 7, Content.Load<Texture2D>("images/Students/tempProjectile"));
             // TODO: use this.Content to load your game content here
             collidables.Add(anka);
             collidables.Add(levelLayout);

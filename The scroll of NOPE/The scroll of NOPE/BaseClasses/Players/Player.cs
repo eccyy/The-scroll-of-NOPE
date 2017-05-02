@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using The_scroll_of_NOPE.LevelObjects;
+using System.Windows;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace The_scroll_of_NOPE.BaseClasses.Players
 {
@@ -25,7 +27,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         public Player()
         {
-            
+            projectiles = new List<Projectile>();
         }
 
         protected float health;
@@ -35,6 +37,14 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         public override void Update()
         {
+            #region Tommy
+            // Update projectiles
+            foreach (Projectile projectile in projectiles)
+            {
+                projectile.Update();
+            }
+            #endregion
+
             // Rörelsen på spelaren och acceleration på rörelsen.
             keyHandler = Keyboard.GetState();
 
@@ -171,6 +181,8 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                 {
                     // Treat as a LevelLayout to gain access to the properties
                     var layout = collidable as LevelLayout;
+                    
+                   
 
                     // collion with platforms
                     foreach (Platform platformObject in layout.Platforms)
@@ -183,19 +195,30 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                             // Player is now touching the platform and can therefore jump
                             canJump = true;
 
-                            // Check where it is using rectangles
-                            if (Hitbox.Bottom > platform.Hitbox.Top)
+                            // Check where it is colliding using trigonometry? the angle decides where it collided. if greater than arctan(o/a)
+                            double playerAngle = Math.Atan2((double)(platform.Hitbox.Center.Y - this.Hitbox.Center.Y), (double)(platform.Hitbox.Center.X - this.hitbox.Center.X));
+
+                            double cornerAngle = Math.Atan2(platform.Hitbox.Height / 2 + hitbox.Height / 2, platform.Hitbox.Width / 2 + Hitbox.Width);
+
+
+                            double platformAngle = Math.Atan2(Hitbox.Center.Y-platform.Hitbox.Center.Y,Hitbox.Center.X-platform.Hitbox.Center.X);
+
+                            //    double relativeAngle = Math.Atan2(hitbox.Center.Y - platform.Hitbox.Center.Y, hitbox.Center.X - platform.Hitbox.Center.X);
+                            //    double anotherRelativeAngle = Math.Atan2(platform.Hitbox.Center.Y - Hitbox.Center.Y, platform.Hitbox.Center.X - Hitbox.Center.X);
+
+                            // Above
+                            if (playerAngle > cornerAngle && playerAngle < (Math.PI - cornerAngle))
                             {
                                 speed.Y = 0;
                             }
-                            if (Hitbox.Top < platform.Hitbox.Bottom)
+                            // Left
+                            else if (playerAngle > (Math.PI - cornerAngle) && playerAngle < (Math.PI + cornerAngle))
                             {
-                                speed.Y = 0;
+                                speed.X = 0;
                             }
 
 
-                            
-                            
+
                             // If it is on left or right stop X position
                         }
 

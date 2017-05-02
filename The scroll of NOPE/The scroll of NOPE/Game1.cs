@@ -27,6 +27,7 @@ namespace The_scroll_of_NOPE
 
         // ignore me, just used for ez testing
         //SessionNode node = new SessionNode("kungbore");
+        //SessionHost host = new SessionHost("slkajflkdsj");
 
 
         public Game1()
@@ -35,7 +36,8 @@ namespace The_scroll_of_NOPE
             Content.RootDirectory = "Content";
 
             // ignore me, just used for ez testing
-            //node.JoinSession("127.0.0.1", 3333);
+            //host.CreateNewSession(3333);
+            //node.JoinSession("127.0.0.1", 3333, host.Session);
         }
 
         /// <summary>

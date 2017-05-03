@@ -104,7 +104,7 @@ namespace The_scroll_of_NOPE
                     GameElements.currentState = GameElements.LobbyUpdate();
                     break;
                 case GameElements._state.Menu:
-                    GameElements.currentState = GameElements.MenuUpdate();
+                    GameElements.currentState = GameElements.MenuUpdate(gameTime);
                     break;
                 case GameElements._state.Run:
                     //put Game update here

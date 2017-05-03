@@ -249,10 +249,21 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         protected abstract void AttackH();           
         protected abstract void AttackJ();           
         protected abstract void AttackK();           
-        protected abstract void AttackL();           
-       
+        protected abstract void AttackL();
 
 
+
+        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
+        {
+            // Draw projectiles
+            foreach (Projectile projectile in projectiles)
+            {
+                projectile.Draw(spriteBatch, camera, GD);
+            }
+
+            // Draw this
+            base.Draw(spriteBatch, camera, GD);
+        }
     }
     #endregion
 }

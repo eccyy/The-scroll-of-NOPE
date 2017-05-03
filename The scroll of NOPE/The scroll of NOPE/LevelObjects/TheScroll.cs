@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace The_scroll_of_NOPE.LevelObjects
 {
-    class TheScroll : LevelObject
+    public class TheScroll : LevelObject
     {
         public TheScroll(Texture2D texture, Vector2 position, Rectangle hitbox)
         {

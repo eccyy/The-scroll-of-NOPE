@@ -213,7 +213,6 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                             // Player is now touching the ground and can therefore jump
                             canJump = true;
                         }
-                   
                     }
                 }
                

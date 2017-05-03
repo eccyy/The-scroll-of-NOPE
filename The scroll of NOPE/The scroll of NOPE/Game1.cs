@@ -19,17 +19,25 @@ namespace The_scroll_of_NOPE
         ANKA anka;
 
         // DEBUG PURPOISE
-        Projectile kula = new Projectile();
-        Student1 testStudent;
+        //Projectile kula = new Projectile();
+        Student2 testStudent;
         Camera camera;
 
         List<BaseClasses.PhysicalObject> collidables = new List<BaseClasses.PhysicalObject>();
+
+        // ignore me, just used for ez testing
+        //SessionNode node = new SessionNode("kungbore");
+        //SessionHost host = new SessionHost("slkajflkdsj");
 
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            // ignore me, just used for ez testing
+            //host.CreateNewSession(3333);
+            //node.JoinSession("127.0.0.1", 3333, host.Session);
         }
 
         /// <summary>
@@ -60,7 +68,7 @@ namespace The_scroll_of_NOPE
 
             levelLayout = new LevelObjects.LevelLayout(Content);
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,1000);
-            testStudent = new Student1(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(300, 300), 7);
+            testStudent = new Student2(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(300, 300), 7, Content.Load<Texture2D>("images/Students/tempProjectile"));
             // TODO: use this.Content to load your game content here
             collidables.Add(anka);
             collidables.Add(levelLayout);
@@ -96,7 +104,7 @@ namespace The_scroll_of_NOPE
                     GameElements.currentState = GameElements.LobbyUpdate();
                     break;
                 case GameElements._state.Menu:
-                    GameElements.currentState = GameElements.MenuUpdate();
+                    GameElements.currentState = GameElements.MenuUpdate(gameTime);
                     break;
                 case GameElements._state.Run:
                     //put Game update here
@@ -106,7 +114,7 @@ namespace The_scroll_of_NOPE
                     if (tempHandler.IsKeyDown(Keys.D0))
                         camera.ZoomFactor *= 1.05f;
 
-                    
+
                     anka.Update();
                     testStudent.Update();
                     Collisions();
@@ -166,7 +174,7 @@ namespace The_scroll_of_NOPE
             // collidables.Add(kula);
 
             anka.Collision(collidables);
-            testStudent.Collision(collidables);
+           // testStudent.Collision(collidables);
 
         }
         #endregion

@@ -211,11 +211,24 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                             {
                                 speed.Y = 0;
                             }
-                            // Left
+                            // Below
+                            if (playerAngle < (-cornerAngle) && playerAngle > (-Math.PI + cornerAngle))
+                            {
+                                speed.Y = 0;
+                            }
+                            // Right
                             else if (playerAngle > (Math.PI - cornerAngle) && playerAngle < (Math.PI + cornerAngle))
                             {
                                 speed.X = 0;
                             }
+                            // Left
+                            else if (playerAngle > (-cornerAngle) && playerAngle < cornerAngle)
+                            {
+                                speed.X = 0;
+                            }
+
+
+
 
 
 
@@ -236,7 +249,6 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                             // Player is now touching the ground and can therefore jump
                             canJump = true;
                         }
-                   
                     }
                 }
                

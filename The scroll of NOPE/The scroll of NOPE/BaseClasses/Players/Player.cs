@@ -181,8 +181,6 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                 {
                     // Treat as a LevelLayout to gain access to the properties
                     var layout = collidable as LevelLayout;
-                    
-                   
 
                     // collion with platforms
                     foreach (Platform platformObject in layout.Platforms)
@@ -250,6 +248,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                             canJump = true;
                         }
                     }
+                    
                 }
                
             }

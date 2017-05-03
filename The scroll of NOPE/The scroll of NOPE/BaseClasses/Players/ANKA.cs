@@ -50,8 +50,6 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         }
 
-
-
         private void BuffCalculator(int studentCount)
         {
             health *= (studentCount * 1f);

@@ -24,6 +24,7 @@ namespace The_scroll_of_NOPE.Menyer
             menu = new List<MenuItem>();
             this.defaultMenuState = defaultMenuState;
         }
+
         public void AddItem(Texture2D itemTexture, int state)
         {
             float X = 0;
@@ -34,5 +35,58 @@ namespace The_scroll_of_NOPE.Menyer
             MenuItem temp = new MenuItem(itemTexture, new Vector2(X, Y), state);
             menu.Add(temp);
         }
+
+        public int Update(GameTime gameTime)
+        {
+            KeyboardState keyboardState = Keyboard.GetState();
+
+            if (lastChange + 130 < gameTime.TotalGameTime.TotalMilliseconds)
+            {
+                if (keyboardState.IsKeyDown(Keys.Down))
+                {
+                    selected++;
+                    if (selected > menu.Count - 1)
+                    {
+                        selected = 0;
+                    }
+
+                }
+
+                if (keyboardState.IsKeyDown(Keys.Up))
+                {
+                    selected--;
+                    if (selected < 0)
+                    {
+                        selected = menu.Count - 1;
+                    }
+
+                }
+                lastChange = gameTime.TotalGameTime.TotalMilliseconds;
+            }
+
+            if (keyboardState.IsKeyDown(Keys.Enter))
+            {
+                return menu[selected].State;
+            }
+
+            return defaultMenuState;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            for (int i = 0; i< menu.Count; i++)
+            {
+                if(i == selected)
+                {
+                    spriteBatch.Draw(menu[i].Texture, menu[i].Position, Color.AliceBlue);
+                }
+                else
+                {
+                    spriteBatch.Draw(menu[i].Texture, menu[i].Position, Color.White);
+                }
+            }
+        }
+
+
     }
 }

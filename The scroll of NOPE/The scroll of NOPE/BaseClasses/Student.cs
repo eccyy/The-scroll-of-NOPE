@@ -12,6 +12,11 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 #region Tommy
     public abstract class Student : Player
     {
+        private long chargeDelayBasicAttack_ms = 500;
+        private long cooldownBasicAttack_ms = 1000;
+
+        private DateTime lastBasicAttack = DateTime.Now;
+
         public Student(Texture2D texture, Vector2 position, int ppfMaxSpeed)
         {
             // Sets the necessary variables of the baseclass which are given as inputs to the contructor
@@ -30,12 +35,12 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             this.health = health;
         }
 
-        public override void Update()
+        public virtual void Update(Camera camera)
         {
             base.Update();
         }
 
-        protected override void AttackBasic()
+        protected override void AttackBasic(Camera camera)
         {
 
         }
@@ -63,7 +68,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         {
         }
 
-        protected override void AttackBasic()
+        protected override void AttackBasic(Camera camera)
         {
 
         }
@@ -78,22 +83,23 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             this.projectileTexture1 = projectileTexture1;
         }
 
-        protected override void AttackBasic()
+        // Is called to make a basic attack
+        protected override void AttackBasic(Camera camera)
         {
-            float absoluteSpeed = 2.0f;
+            float absoluteSpeed = 4.0f;
 
-            Vector2 Direction = Mouse.GetState().Position.ToVector2() - this.Position; // Gets the position of the mouse relative to the player
+            Vector2 Direction = Mouse.GetState().Position.ToVector2() - (this.Position-camera.Position); // Gets the position of the mouse relative to the player
             Direction.Normalize();
 
             this.projectiles.Add(new Projectile(this.position, projectileTexture1, absoluteSpeed * Direction)); // Create new projectile
         }
 
-        public override void Update()
+        public override void Update(Camera camera)
         {
             // Check if player clicks mouse (if he shoots)
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                AttackBasic();
+                AttackBasic(camera);
             }
 
             base.Update();

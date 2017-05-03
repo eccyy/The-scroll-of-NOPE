@@ -245,7 +245,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
 
 
-        protected abstract void AttackBasic();            
+        protected abstract void AttackBasic(Camera camera);            
         protected abstract void AttackH();           
         protected abstract void AttackJ();           
         protected abstract void AttackK();           

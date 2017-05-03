@@ -323,8 +323,6 @@ namespace The_scroll_of_NOPE.Network
 
     public abstract class SessionUser
     {
-        protected Client client; // obsolete, move over to NetworkInterface
-        protected Server server; // obsolete, move over to NetworkInterface
         protected NetworkInterface netiface;
         public string Username;
         protected LobbySession lobbySession;

@@ -36,6 +36,7 @@ namespace The_scroll_of_NOPE.Menyer
 
             menu.AddItem(content.Load<Texture2D>("images/menu/start"), (int)_state.Run);
             menu.AddItem(content.Load<Texture2D>("images/menu/lobby"), (int)_state.Lobby);
+            menu.AddItem(content.Load<Texture2D>("images/menu/exit"), (int)_state.Quit);
 
         }
         //looping menustate

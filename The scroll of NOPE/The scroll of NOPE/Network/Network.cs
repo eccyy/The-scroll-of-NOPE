@@ -79,6 +79,19 @@ namespace The_scroll_of_NOPE.Network
             }
         }
 
+        /// <summary>
+        /// Closes all connections and kills the client.
+        /// </summary>
+        public void StopClient()
+        {
+            _internalClient.Close();
+        }
+
+        /// <summary>
+        /// Logs the error to console
+        /// </summary>
+        /// <param name="message">The error message.</param>
+        /// <param name="code">Optional. The error code.</param>
         private void LogError(string message, string code = "")
         {
             Console.WriteLine("Network Error: " + code + " " + message);
@@ -114,6 +127,9 @@ namespace The_scroll_of_NOPE.Network
             listenerThread.Start();
         }
 
+        /// <summary>
+        /// Listens for and handles all incoming transmissions.
+        /// </summary>
         private void Listener()
         {
             while (true)
@@ -159,6 +175,43 @@ namespace The_scroll_of_NOPE.Network
         public string Data { get; set; }
     }
 
+    public class NetworkInterface
+    {
+        private Client client;
+        private Server server;
+
+        /// <summary>
+        /// Constructor.
+        /// Creates a new client and server.
+        /// </summary>
+        /// <param name="ipaddr">IP Address for the client.</param>
+        /// <param name="port">Port for client and server.</param>
+        public NetworkInterface(string ipaddr, int port)
+        {
+            client = new Client(ipaddr, port);
+            server = new Server(port);
+        }
+
+        /// <summary>
+        /// Sends data to a server.
+        /// </summary>
+        /// <param name="data">Data to send.</param>
+        /// <returns>A bool</returns>
+        public bool SendData(string data)
+        {
+            return client.SendData(data);
+        }
+
+        /// <summary>
+        /// Stops the server and the client.
+        /// </summary>
+        public void KillInterface()
+        {
+            server.StopServer();
+            client.StopClient();
+        }
+    }
+
     #endregion
     #region Sessions
 
@@ -166,21 +219,25 @@ namespace The_scroll_of_NOPE.Network
     {
         // ID might be useless on second thought, but I'll keep it in here for now.
         protected ulong sessionID;
-        protected List<SessionUser> nodes = new List<SessionUser>();
+        protected List<SessionNode> nodes = new List<SessionNode>();
     }
 
     public class LobbySession : NetworkSession
     {
         private bool PasswordProtected = false;
         private string lobbyPassword;
+        public enum _lobbyType {Pre_game, Post_game};
+        public _lobbyType current;
 
         /// <summary>
         /// Constructor.
         /// Creates a new Lobby Session to handle all lobby events and users joining the game.
         /// </summary>
-        public LobbySession()
+        /// <param name="state">The lobby state.</param>
+        public LobbySession(_lobbyType state)
         {
             sessionID = IDGenerator.GenerateID();
+            this.current = state;
         }
 
         /// <summary>
@@ -188,7 +245,8 @@ namespace The_scroll_of_NOPE.Network
         /// Creates a new password protected Lobby Session to handle all lobby events and users joining the game.
         /// </summary>
         /// <param name="password">Password to secure the lobby.</param>
-        public LobbySession(string password) : this()
+        /// <param name="state">The lobby state.</param>
+        public LobbySession(_lobbyType state, string password) : this(state)
         {
             PasswordProtected = true;
             this.lobbyPassword = password;
@@ -211,6 +269,11 @@ namespace The_scroll_of_NOPE.Network
             return true;
         }
 
+        /// <summary>
+        /// Checks the new user's ID to the other connected clients so they don't collide
+        /// </summary>
+        /// <param name="node">The new user.</param>
+        /// <returns>A bool</returns>
         private bool CheckUserId(SessionNode node)
         {
             foreach (SessionUser user in nodes)
@@ -225,6 +288,11 @@ namespace The_scroll_of_NOPE.Network
             return true;
         }
 
+        /// <summary>
+        /// Compares the password the user entered to the lobbys password.
+        /// </summary>
+        /// <param name="password">The password from the user</param>
+        /// <returns>A bool</returns>
         private bool AuthorizeUser(string password)
         {
             if (password == lobbyPassword) return true;
@@ -268,6 +336,7 @@ namespace The_scroll_of_NOPE.Network
 
     public class SessionHost : SessionUser
     {
+        public LobbySession Session { get { return this.lobbySession; } }
         /// <summary>
         /// Constructor.
         /// Gives the user a username and gives them an ID.
@@ -282,9 +351,9 @@ namespace The_scroll_of_NOPE.Network
         /// Creates a new session.
         /// </summary>
         /// <param name="port">Port for the session/server.</param>
-        public void CreateSession(int port)
+        public void CreateNewSession(int port)
         {
-            lobbySession = new LobbySession();
+            lobbySession = new LobbySession(LobbySession._lobbyType.Post_game);
             server = new Server(port);
             server.ReceivedData += HandleIncomingData;
         }
@@ -294,13 +363,18 @@ namespace The_scroll_of_NOPE.Network
         /// </summary>
         /// <param name="port">Port for the session/server.</param>
         /// <param name="password">Password to protect the session with.</param>
-        public void CreateSession(int port, string password)
+        public void CreateNewSession(int port, string password)
         {
-            lobbySession = new LobbySession(password);
+            lobbySession = new LobbySession(LobbySession._lobbyType.Post_game, password);
             server = new Server(port);
             server.ReceivedData += HandleIncomingData;
         }
 
+        /// <summary>
+        /// Handle the incoming data, sends the data to the other nodes.
+        /// </summary>
+        /// <param name="s">The sender object.</param>
+        /// <param name="e">Event arguments</param>
         private void HandleIncomingData(object s, ReceivedDataEventArgs e)
         {
 
@@ -327,7 +401,9 @@ namespace The_scroll_of_NOPE.Network
         public void JoinSession(string ip, int port)
         {
             if (lobbySession.UserJoin(this))
+            {
                 client = new Client(ip, port);
+            }
             else
                 MessageBox.Show("Coudn't join session");
         }
@@ -341,10 +417,17 @@ namespace The_scroll_of_NOPE.Network
         public void JoinSession(string ip, int port, string password)
         {
           if (lobbySession.UserJoin(this, password))
-              client = new Client(ip, port);
+            {
+                client = new Client(ip, port);
+            }
           else
               MessageBox.Show("Coudn't join session");
         }
+
+        //private LobbySession GetSession(string ip, int port)
+        //{
+
+        //}
     }
 
     #endregion
@@ -353,11 +436,12 @@ namespace The_scroll_of_NOPE.Network
         /// <summary>
         /// Generates an unsigned int64 that can be used for ID's and similar.
         /// </summary>
-        /// <param name="oldid"> The old id if any, optional </param>
+        /// <param name="oldid">Optional. The old ID if any.</param>
+        /// <returns>An unsigned int64</returns>
         public static ulong GenerateID(ulong oldid = 0)
         {
             var bytes = new byte[sizeof(UInt64)];
-            RNGCryptoServiceProvider Gen = new RNGCryptoServiceProvider();
+            RNGCryptoServiceProvider Gen = new RNGCryptoServiceProvider(); // Better rng than Random()
             Gen.GetBytes(bytes);
             ulong _internalID = BitConverter.ToUInt64(bytes, 0);
 

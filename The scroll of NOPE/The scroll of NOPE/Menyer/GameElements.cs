@@ -12,27 +12,34 @@ namespace The_scroll_of_NOPE.Menyer
 {   //Anton
     static class GameElements
     {
-        public enum _state { Menu,Lobby,Quit,Run };
+        public enum _state { Run, Lobby, Menu,Quit, };
 
         public static _state currentState;
         //update keyboard function
         static KeyboardState oldKeyboardState;
+
+        static Menu menu;
 
         static Texture2D menuSprite, lobbySprite;
         static Vector2 menuPos, lobbyPos;
         
         public static void LoadContent(ContentManager content, GameWindow window)
         {
-            menuSprite = content.Load<Texture2D>("images/menu/menu");
+            //menuSprite = content.Load<Texture2D>("images/menu/menu");
             //Centeres the image
-            menuPos.X = window.ClientBounds.Width - menuSprite.Width/2 + 80;
-            menuPos.Y = window.ClientBounds.Height - menuSprite.Height/2 + 20;
+            //menuPos.X = window.ClientBounds.Width - menuSprite.Width/2 + 80;
+            //menuPos.Y = window.ClientBounds.Height - menuSprite.Height/2 + 20;
 
             //lobbySprite = content.Load<Texture2D>("images/menu/lobby");
 
+            menu = new Menu((int)_state.Menu);
+
+            menu.AddItem(content.Load<Texture2D>("images/menu/start"), (int)_state.Run);
+            menu.AddItem(content.Load<Texture2D>("images/menu/lobby"), (int)_state.Lobby);
+
         }
         //looping menustate
-        public static _state MenuUpdate()
+        public static _state MenuUpdate(GameTime gameTime)
         {
             //Keyboardstates
             //Logic for new and oldstate
@@ -40,21 +47,15 @@ namespace The_scroll_of_NOPE.Menyer
             if (newKeyboardState != oldKeyboardState)
             {
                 oldKeyboardState = newKeyboardState;
-                if (newKeyboardState.IsKeyDown(Keys.S))
-                {
-                    return _state.Run;
-                }
-                if (newKeyboardState.IsKeyDown(Keys.H))
-                {
-                    return _state.Lobby;
-                }
                 if (newKeyboardState.IsKeyDown(Keys.Escape))
                 {
                     return _state.Quit;
                 }
             }
 
-            return _state.Menu;
+            //return _state.Menu;
+
+            return (_state)menu.Update(gameTime);
         }
         //looping lobbystate
         public static _state LobbyUpdate()
@@ -90,7 +91,7 @@ namespace The_scroll_of_NOPE.Menyer
         public static void MenuDraw(SpriteBatch spriteBatch)
         {
             //scaling
-            spriteBatch.Draw(menuSprite, menuPos, null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+            menu.Draw(spriteBatch);
         }
         //draw method for lobby
         public static void LobbyDraw(SpriteBatch spriteBatch)

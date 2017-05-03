@@ -8,6 +8,7 @@ using System.Net;
 using System.Threading;
 using System.Security.Cryptography;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace The_scroll_of_NOPE.Network
 {
@@ -61,6 +62,10 @@ namespace The_scroll_of_NOPE.Network
                 {
                     byte[] d = System.Text.Encoding.ASCII.GetBytes(data);
                     stream.Write(d, 0, d.Length);
+                }
+                else
+                {
+                    Console.WriteLine("Coudn't send data, not connected to host.");
                 }
 
                 stream.Close();
@@ -179,6 +184,7 @@ namespace The_scroll_of_NOPE.Network
     {
         private Client client;
         private Server server;
+        public event EventHandler<ReceivedDataEventArgs> ReceivedData;
 
         /// <summary>
         /// Constructor.
@@ -190,6 +196,8 @@ namespace The_scroll_of_NOPE.Network
         {
             client = new Client(ipaddr, port);
             server = new Server(port);
+            //server.ReceivedData += HandleIncomingData;
+            server.ReceivedData += ReceivedData;
         }
 
         /// <summary>
@@ -224,20 +232,19 @@ namespace The_scroll_of_NOPE.Network
 
     public class LobbySession : NetworkSession
     {
-        private bool PasswordProtected = false;
+        private bool passwordProtected = false;
         private string lobbyPassword;
-        public enum _lobbyType {Pre_game, Post_game};
-        public _lobbyType current;
+
+        public bool PasswordProtected { get { return this.passwordProtected; } }
 
         /// <summary>
         /// Constructor.
         /// Creates a new Lobby Session to handle all lobby events and users joining the game.
         /// </summary>
         /// <param name="state">The lobby state.</param>
-        public LobbySession(_lobbyType state)
+        public LobbySession()
         {
             sessionID = IDGenerator.GenerateID();
-            this.current = state;
         }
 
         /// <summary>
@@ -246,9 +253,9 @@ namespace The_scroll_of_NOPE.Network
         /// </summary>
         /// <param name="password">Password to secure the lobby.</param>
         /// <param name="state">The lobby state.</param>
-        public LobbySession(_lobbyType state, string password) : this(state)
+        public LobbySession(string password) : this()
         {
-            PasswordProtected = true;
+            passwordProtected = true;
             this.lobbyPassword = password;
         }
 
@@ -262,8 +269,8 @@ namespace The_scroll_of_NOPE.Network
         {
             CheckUserId(node);
 
-            if (!PasswordProtected) nodes.Add(node);
-            else if (PasswordProtected && AuthorizeUser(password)) nodes.Add(node);
+            if (!passwordProtected) nodes.Add(node);
+            else if (passwordProtected && AuthorizeUser(password)) nodes.Add(node);
             else return false;
 
             return true;
@@ -313,8 +320,7 @@ namespace The_scroll_of_NOPE.Network
 
     public abstract class SessionUser
     {
-        protected Client client;
-        protected Server server;
+        protected NetworkInterface netiface;
         public string Username;
         protected LobbySession lobbySession;
         protected GameSession gameSession;
@@ -327,22 +333,38 @@ namespace The_scroll_of_NOPE.Network
         /// Gives the user a username and gives them an ID.
         /// </summary>
         /// <param name="username">The user's username.</param>
-        public SessionUser(string username)
+        /// <param name="ip">IP address of the host.</param>
+        /// <param name="port">Port of the host/server listening port.</param>
+        public SessionUser(string username, string ip, int port)
         {
             this.Username = username;
             userID = IDGenerator.GenerateID();
+            netiface = new NetworkInterface(ip, port);
+            netiface.ReceivedData += HandleIncomingData;
+        }
+
+        /// <summary>
+        /// Handle the incoming data.
+        /// </summary>
+        /// <param name="s">The sender object.</param>
+        /// <param name="e">Event arguments</param>
+        protected void HandleIncomingData(object s, ReceivedDataEventArgs e)
+        {
+
         }
     }
 
     public class SessionHost : SessionUser
     {
-        public LobbySession Session { get { return this.lobbySession; } }
+        
         /// <summary>
         /// Constructor.
         /// Gives the user a username and gives them an ID.
         /// </summary>
         /// <param name="username">The user's username.</param>
-        public SessionHost(string username) : base(username)
+        /// <param name="ip">IP address of the host.</param>
+        /// <param name="port">Port of the host/server listening port.</param>
+        public SessionHost(string username, string ip, int port) : base(username, ip, port)
         {
 
         }
@@ -350,34 +372,18 @@ namespace The_scroll_of_NOPE.Network
         /// <summary>
         /// Creates a new session.
         /// </summary>
-        /// <param name="port">Port for the session/server.</param>
-        public void CreateNewSession(int port)
+        public void CreateNewSession()
         {
-            lobbySession = new LobbySession(LobbySession._lobbyType.Post_game);
-            server = new Server(port);
-            server.ReceivedData += HandleIncomingData;
+            lobbySession = new LobbySession();
         }
 
         /// <summary>
         /// Creates a password protected session.
         /// </summary>
-        /// <param name="port">Port for the session/server.</param>
         /// <param name="password">Password to protect the session with.</param>
-        public void CreateNewSession(int port, string password)
+        public void CreateNewSession(string password)
         {
-            lobbySession = new LobbySession(LobbySession._lobbyType.Post_game, password);
-            server = new Server(port);
-            server.ReceivedData += HandleIncomingData;
-        }
-
-        /// <summary>
-        /// Handle the incoming data, sends the data to the other nodes.
-        /// </summary>
-        /// <param name="s">The sender object.</param>
-        /// <param name="e">Event arguments</param>
-        private void HandleIncomingData(object s, ReceivedDataEventArgs e)
-        {
-
+            lobbySession = new LobbySession(password);
         }
     }
 
@@ -388,7 +394,9 @@ namespace The_scroll_of_NOPE.Network
         /// Gives the user a username and gives them an ID.
         /// </summary>
         /// <param name="username">The user's username.</param>
-        public SessionNode(string username) : base(username)
+        /// <param name="ip">IP address of the host.</param>
+        /// <param name="port">Port of the host/server listening port.</param>
+        public SessionNode(string username, string ip, int port) : base(username, ip, port)
         {
 
         }
@@ -396,13 +404,12 @@ namespace The_scroll_of_NOPE.Network
         /// <summary>
         /// Connects the user to a session.
         /// </summary>
-        /// <param name="ip">IP Address to connect to.</param>
-        /// <param name="port">Port to connect to.</param>
-        public void JoinSession(string ip, int port)
+        public void JoinSession()
         {
+            lobbySession = GetHostSession();
             if (lobbySession.UserJoin(this))
             {
-                client = new Client(ip, port);
+                // do stuff
             }
             else
                 MessageBox.Show("Coudn't join session");
@@ -411,23 +418,26 @@ namespace The_scroll_of_NOPE.Network
         /// <summary>
         /// Connects the user to a session.
         /// </summary>
-        /// <param name="ip">IP Address to connect to.</param>
-        /// <param name="port">Port to connect to.</param>
         /// <param name="password">Password for authentication.</param>
-        public void JoinSession(string ip, int port, string password)
+        public void JoinSession(string password)
         {
-          if (lobbySession.UserJoin(this, password))
+            lobbySession = GetHostSession();
+            if (lobbySession.UserJoin(this, password))
             {
-                client = new Client(ip, port);
+                // do stuff
             }
-          else
-              MessageBox.Show("Coudn't join session");
+            else
+                MessageBox.Show("Coudn't join session");
         }
 
-        //private LobbySession GetSession(string ip, int port)
-        //{
-
-        //}
+        /// <summary>
+        /// Does a "handshake" with the host to retrieve the lobby session data.
+        /// </summary>
+        /// <returns>The Host's lobby session data</returns>
+        private LobbySession GetHostSession()
+        {
+            return new LobbySession();
+        }
     }
 
     #endregion

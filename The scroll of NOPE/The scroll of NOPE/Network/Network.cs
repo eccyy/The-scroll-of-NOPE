@@ -9,6 +9,8 @@ using System.Threading;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using The_scroll_of_NOPE.BaseClasses;
+using The_scroll_of_NOPE.BaseClasses.Players;
 
 namespace The_scroll_of_NOPE.Network
 {
@@ -325,8 +327,9 @@ namespace The_scroll_of_NOPE.Network
         protected LobbySession lobbySession;
         protected GameSession gameSession;
         protected ulong userID;
+        // protected Player player;
 
-        public ulong UserID { get { return userID; } set { this.userID = value; } }
+        public ulong UserID { get { return this.userID; } set { this.userID = value; } }
 
         /// <summary>
         /// Constructor.
@@ -348,7 +351,7 @@ namespace The_scroll_of_NOPE.Network
         /// </summary>
         /// <param name="s">The sender object.</param>
         /// <param name="e">Event arguments</param>
-        protected void HandleIncomingData(object s, ReceivedDataEventArgs e)
+        private void HandleIncomingData(object s, ReceivedDataEventArgs e)
         {
 
         }
@@ -356,7 +359,7 @@ namespace The_scroll_of_NOPE.Network
 
     public class SessionHost : SessionUser
     {
-        
+
         /// <summary>
         /// Constructor.
         /// Gives the user a username and gives them an ID.

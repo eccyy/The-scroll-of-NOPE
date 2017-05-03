@@ -19,8 +19,12 @@ namespace The_scroll_of_NOPE.LevelObjects
         List<Ground> grounds;
 
         //One time objects
-        public TheScroll theScroll;
+        TheScroll theScroll;
 
+        public TheScroll thescroll
+        {
+            get { return thescroll; }
+        }
 
         public List<Platform> Platforms
         {

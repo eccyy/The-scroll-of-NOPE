@@ -116,7 +116,7 @@ namespace The_scroll_of_NOPE
 
 
                     anka.Update();
-                    testStudent.Update();
+                    testStudent.Update(camera);
                     Collisions();
 
                     Point screenSize = GraphicsDevice.Viewport.Bounds.Size; // Gets the size of the screen

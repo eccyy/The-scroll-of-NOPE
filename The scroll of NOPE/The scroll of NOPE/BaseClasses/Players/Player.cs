@@ -136,11 +136,11 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
             // Updaterar hitboxen, kan bli fel med kollisioner pga hur hitbox updateras
 
-            hitbox.X = (int)base.position.X;
-            hitbox.Y = (int)base.position.Y;
+            hitbox.X = (int)base.position.X -1;
+            hitbox.Y = (int)base.position.Y -1;
             
-            hitbox.Height = texture.Height;
-            hitbox.Width = texture.Width;
+            hitbox.Height = texture.Height +2;
+            hitbox.Width = texture.Width +2;
             base.Update();
         }
 
@@ -181,8 +181,6 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                 {
                     // Treat as a LevelLayout to gain access to the properties
                     var layout = collidable as LevelLayout;
-                    
-                   
 
                     // collion with platforms
                     foreach (Platform platformObject in layout.Platforms)
@@ -192,8 +190,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                         // if it collides
                         if (CheckCollision(platform.Hitbox))
                         {
-                            // Player is now touching the platform and can therefore jump
-                            canJump = true;
+                            
 
                             // Check where it is colliding using trigonometry? the angle decides where it collided. if greater than arctan(o/a)
                             double playerAngle = Math.Atan2((double)(platform.Hitbox.Center.Y - this.Hitbox.Center.Y), (double)(platform.Hitbox.Center.X - this.hitbox.Center.X));
@@ -209,21 +206,32 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                             // Above
                             if (playerAngle > cornerAngle && playerAngle < (Math.PI - cornerAngle))
                             {
+                                // Set position of player to the left of the platform so that it is not inside of the platform once it draws
+                                // +2: player hitbox is bigger than the texture because collision is when hitboxes intersects which would make the textures intersect
+                                position.Y = platform.Position.Y - Hitbox.Height + 2; 
+                                // Set speed to 0 so that the player does not move into the platform 
                                 speed.Y = 0;
+
+                                // Player is now touching the platform and can therefore jump
+                                canJump = true;
                             }
                             // Below
                             if (playerAngle < (-cornerAngle) && playerAngle > (-Math.PI + cornerAngle))
                             {
+
+                                position.Y = platform.Position.Y + platform.Hitbox.Height +1;
                                 speed.Y = 0;
                             }
                             // Right
-                            else if (playerAngle > (Math.PI - cornerAngle) && playerAngle < (Math.PI + cornerAngle))
+                            else if (playerAngle > (Math.PI - cornerAngle) && playerAngle < -(Math.PI - cornerAngle))
                             {
+                                position.X = (platform.Position.X + platform.Hitbox.Width) +4;
                                 speed.X = 0;
                             }
                             // Left
                             else if (playerAngle > (-cornerAngle) && playerAngle < cornerAngle)
                             {
+                                this.position.X = (platform.Position.X - this.Hitbox.Width) +2;
                                 speed.X = 0;
                             }
 
@@ -245,11 +253,14 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                             
                             // reduce the speed
                             speed.Y = 0;
+                            // Move the player onto the ground(actually 1 pixel in)
+                            this.position.Y = ground.Position.Y - this.Hitbox.Height +2;
                             
                             // Player is now touching the ground and can therefore jump
                             canJump = true;
                         }
                     }
+                    
                 }
                
             }
@@ -257,7 +268,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
 
 
-        protected abstract void AttackBasic();            
+        protected abstract void AttackBasic(Camera camera);            
         protected abstract void AttackH();           
         protected abstract void AttackJ();           
         protected abstract void AttackK();           

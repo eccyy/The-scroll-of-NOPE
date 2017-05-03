@@ -21,7 +21,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         public override void Update()
         {
-            base.Update();
+            this.position += this.speed;
         }
     }
 }

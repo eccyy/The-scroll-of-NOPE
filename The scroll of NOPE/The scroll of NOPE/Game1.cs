@@ -172,7 +172,7 @@ namespace The_scroll_of_NOPE
             // collidables.Add(kula);
 
             anka.Collision(collidables);
-            testStudent.Collision(collidables);
+           // testStudent.Collision(collidables);
 
         }
         #endregion

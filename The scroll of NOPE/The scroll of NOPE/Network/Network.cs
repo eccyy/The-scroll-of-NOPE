@@ -234,8 +234,6 @@ namespace The_scroll_of_NOPE.Network
     {
         private bool passwordProtected = false;
         private string lobbyPassword;
-        public enum _lobbyType {Pre_game, Post_game};
-        public _lobbyType current;
 
         public bool PasswordProtected { get { return this.passwordProtected; } }
 
@@ -244,10 +242,9 @@ namespace The_scroll_of_NOPE.Network
         /// Creates a new Lobby Session to handle all lobby events and users joining the game.
         /// </summary>
         /// <param name="state">The lobby state.</param>
-        public LobbySession(_lobbyType state)
+        public LobbySession()
         {
             sessionID = IDGenerator.GenerateID();
-            this.current = state;
         }
 
         /// <summary>
@@ -256,7 +253,7 @@ namespace The_scroll_of_NOPE.Network
         /// </summary>
         /// <param name="password">Password to secure the lobby.</param>
         /// <param name="state">The lobby state.</param>
-        public LobbySession(_lobbyType state, string password) : this(state)
+        public LobbySession(string password) : this()
         {
             passwordProtected = true;
             this.lobbyPassword = password;
@@ -323,8 +320,6 @@ namespace The_scroll_of_NOPE.Network
 
     public abstract class SessionUser
     {
-        protected Client client; // obsolete, move over to NetworkInterface
-        protected Server server; // obsolete, move over to NetworkInterface
         protected NetworkInterface netiface;
         public string Username;
         protected LobbySession lobbySession;
@@ -361,7 +356,7 @@ namespace The_scroll_of_NOPE.Network
 
     public class SessionHost : SessionUser
     {
-        public LobbySession Session { get { return this.lobbySession; } }
+        
         /// <summary>
         /// Constructor.
         /// Gives the user a username and gives them an ID.
@@ -379,7 +374,7 @@ namespace The_scroll_of_NOPE.Network
         /// </summary>
         public void CreateNewSession()
         {
-            lobbySession = new LobbySession(LobbySession._lobbyType.Post_game);
+            lobbySession = new LobbySession();
         }
 
         /// <summary>
@@ -388,7 +383,7 @@ namespace The_scroll_of_NOPE.Network
         /// <param name="password">Password to protect the session with.</param>
         public void CreateNewSession(string password)
         {
-            lobbySession = new LobbySession(LobbySession._lobbyType.Post_game, password);
+            lobbySession = new LobbySession(password);
         }
     }
 
@@ -441,7 +436,7 @@ namespace The_scroll_of_NOPE.Network
         /// <returns>The Host's lobby session data</returns>
         private LobbySession GetHostSession()
         {
-            return new LobbySession(LobbySession._lobbyType.Post_game);
+            return new LobbySession();
         }
     }
 

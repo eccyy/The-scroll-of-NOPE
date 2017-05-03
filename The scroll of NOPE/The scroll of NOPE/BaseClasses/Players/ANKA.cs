@@ -29,7 +29,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         }
 
-        protected override void AttackBasic()
+        protected override void AttackBasic(Camera camera)
         {
 
         }

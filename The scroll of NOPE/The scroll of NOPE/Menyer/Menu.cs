@@ -27,8 +27,8 @@ namespace The_scroll_of_NOPE.Menyer
 
         public void AddItem(Texture2D itemTexture, int state)
         {
-            float X = 0;
-            float Y = 0 + currentHeight;
+            float X = 290;
+            float Y = 160 + currentHeight;
 
             currentHeight += itemTexture.Height + 20;
 
@@ -78,11 +78,11 @@ namespace The_scroll_of_NOPE.Menyer
             {
                 if(i == selected)
                 {
-                    spriteBatch.Draw(menu[i].Texture, menu[i].Position, Color.AliceBlue);
+                    spriteBatch.Draw(menu[i].Texture, menu[i].Position, Color.BlueViolet);
                 }
                 else
                 {
-                    spriteBatch.Draw(menu[i].Texture, menu[i].Position, Color.White);
+                    spriteBatch.Draw(menu[i].Texture, menu[i].Position, Color.AntiqueWhite);
                 }
             }
         }

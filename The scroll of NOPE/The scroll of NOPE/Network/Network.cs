@@ -15,7 +15,6 @@ using The_scroll_of_NOPE.BaseClasses.Players;
 namespace The_scroll_of_NOPE.Network
 {
     #region William
-    #region Networking
     public class Client
     {
         private int port;
@@ -245,7 +244,6 @@ namespace The_scroll_of_NOPE.Network
         }
     }
 
-    #endregion
     public static class IDGenerator
     {
         /// <summary>

@@ -29,12 +29,15 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         }
 
+      
         // Override to be able to do ANKA specific collision
         public override void Collision(List<BaseClasses.PhysicalObject> collidables)
         {
             base.Collision(collidables);
 
-           foreach(PhysicalObject collidable in collidables)
+            
+
+            foreach (PhysicalObject collidable in collidables)
             {
                 if (collidable is LevelObjects.LevelLayout)
                 {

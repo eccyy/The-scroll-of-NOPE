@@ -40,7 +40,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                 {
                     LevelObjects.LevelLayout levelLayout = collidable as LevelObjects.LevelLayout;
 
-                    if (CheckCollision(levelLayout.thescroll.Hitbox))
+                    if (CheckCollision(levelLayout.theScroll.Hitbox))
                     {
                         throw new Exception("Anka won, not implemented yet so we crash, neat huh?");
                     }

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace The_scroll_of_NOPE.LevelObjects
 {
-    class HeartPickup : LevelObject
+    public class HeartPickup : LevelObject
     {
         public HeartPickup(Texture2D texture, Vector2 position, Rectangle hitbox)
         {

@@ -189,7 +189,7 @@ namespace The_scroll_of_NOPE.Network
         public event EventHandler<ReceivedDataEventArgs> ReceivedData;
         private bool isInstantiated = false;
 
-        public bool IsInstantiated { get { return this.isInstantiated; } }
+        public bool IsInstantiated { get { return this.isInstantiated; } } // probably misspelled instantiated
 
         /// <summary>
         /// Constructor.
@@ -215,6 +215,17 @@ namespace The_scroll_of_NOPE.Network
         }
 
         /// <summary>
+        /// Creates a new client.
+        /// </summary>
+        /// <param name="port"></param>
+        /// <param name="ipaddr"></param>
+        public void CreateNewClient(int port, string ipaddr)
+        {
+            if (client.Connected) client.StopClient();
+            client = new Client(ipaddr, port);
+        }
+
+        /// <summary>
         /// Sends data to a server.
         /// </summary>
         /// <param name="data">Data to send.</param>
@@ -231,243 +242,6 @@ namespace The_scroll_of_NOPE.Network
         {
             server.StopServer();
             client.StopClient();
-        }
-    }
-
-    #endregion
-    #region Sessions
-
-    public abstract class NetworkSession
-    {
-        // ID might be useless on second thought, but I'll keep it in here for now.
-        protected ulong sessionID;
-        protected List<SessionNode> nodes = new List<SessionNode>();
-    }
-
-    public class LobbySession : NetworkSession
-    {
-        private bool passwordProtected = false;
-        private string lobbyPassword;
-
-        public bool PasswordProtected { get { return this.passwordProtected; } }
-
-        /// <summary>
-        /// Constructor.
-        /// Creates a new Lobby Session to handle all lobby events and users joining the game.
-        /// </summary>
-        /// <param name="state">The lobby state.</param>
-        public LobbySession()
-        {
-            sessionID = IDGenerator.GenerateID();
-        }
-
-        /// <summary>
-        /// Constructor.
-        /// Creates a new password protected Lobby Session to handle all lobby events and users joining the game.
-        /// </summary>
-        /// <param name="password">Password to secure the lobby.</param>
-        /// <param name="state">The lobby state.</param>
-        public LobbySession(string password) : this()
-        {
-            passwordProtected = true;
-            this.lobbyPassword = password;
-        }
-
-        /// <summary>
-        /// Connects the user to the session.
-        /// </summary>
-        /// <param name="node">The SessionNode joining the session</param>
-        /// <param name="password">Optional parameter. Password to authenticate the user.</param>
-        /// <returns>A bool</returns>
-        public bool UserJoin(SessionNode node, string password = "")
-        {
-            CheckUserId(node);
-
-            if (!passwordProtected) nodes.Add(node);
-            else if (passwordProtected && AuthorizeUser(password)) nodes.Add(node);
-            else return false;
-
-            return true;
-        }
-
-        /// <summary>
-        /// Checks the new user's ID to the other connected clients so they don't collide
-        /// </summary>
-        /// <param name="node">The new user.</param>
-        /// <returns>A bool</returns>
-        private bool CheckUserId(SessionNode node)
-        {
-            foreach (SessionUser user in nodes)
-            {
-                if (node.UserID == user.UserID)
-                {
-                    node.UserID = IDGenerator.GenerateID(node.UserID);
-                    CheckUserId(node);
-                }
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Compares the password the user entered to the lobbys password.
-        /// </summary>
-        /// <param name="password">The password from the user</param>
-        /// <returns>A bool</returns>
-        private bool AuthorizeUser(string password)
-        {
-            if (password == lobbyPassword) return true;
-            else return false;
-        }
-    }
-
-    public class GameSession : NetworkSession
-    {
-        public GameSession()
-        {
-
-        }
-    }
-
-    #endregion
-    #region SessionUsers
-
-    public abstract class SessionUser
-    {
-        protected NetworkInterface netiface;
-        public string Username;
-        protected LobbySession lobbySession;
-        protected GameSession gameSession;
-        protected ulong userID;
-        // protected Player player;
-
-        public ulong UserID { get { return this.userID; } set { this.userID = value; } }
-
-        /// <summary>
-        /// Constructor.
-        /// Gives the user a username and an ID.
-        /// </summary>
-        /// <param name="username">The user's username.</param>
-        /// <param name="port">Port of the host/server listening port.</param>
-        public SessionUser(string username, int port)
-        {
-            this.Username = username;
-            userID = IDGenerator.GenerateID();
-
-            if (!netiface.IsInstantiated)
-            {
-                netiface = new NetworkInterface(port);
-                netiface.ReceivedData += HandleIncomingData;
-            }
-
-        }
-
-        /// <summary>
-        /// Constructor.
-        /// Gives the user a username and an ID.
-        /// </summary>
-        /// <param name="username">The user's username.</param>
-        /// <param name="port">Port of the host/server listening port.</param>
-        /// <param name="ip">IP address of the host.</param>
-        public SessionUser(string username, int port, string ip): this(username, port)
-        {
-            netiface = new NetworkInterface(port, ip);
-            netiface.ReceivedData += HandleIncomingData;
-        }
-
-        /// <summary>
-        /// Handle the incoming data.
-        /// </summary>
-        /// <param name="s">The sender object.</param>
-        /// <param name="e">Event arguments</param>
-        private void HandleIncomingData(object s, ReceivedDataEventArgs e)
-        {
-
-        }
-    }
-
-    public class SessionHost : SessionUser
-    {
-
-        /// <summary>
-        /// Constructor.
-        /// Gives the user a username and gives them an ID.
-        /// </summary>
-        /// <param name="username">The user's username.</param>
-        /// <param name="port">Port of the host/server listening port.</param>
-        public SessionHost(string username, int port) : base(username, port)
-        {
-
-        }
-
-        /// <summary>
-        /// Creates a new session.
-        /// </summary>
-        public void CreateNewSession()
-        {
-            lobbySession = new LobbySession();
-        }
-
-        /// <summary>
-        /// Creates a password protected session.
-        /// </summary>
-        /// <param name="password">Password to protect the session with.</param>
-        public void CreateNewSession(string password)
-        {
-            lobbySession = new LobbySession(password);
-        }
-    }
-
-    public class SessionNode : SessionUser
-    {
-        /// <summary>
-        /// Constructor.
-        /// Gives the user a username and gives them an ID.
-        /// </summary>
-        /// <param name="username">The user's username.</param>
-        /// <param name="ip">IP address of the host.</param>
-        /// <param name="port">Port of the host/server listening port.</param>
-        public SessionNode(string username, string ip, int port) : base(username, port, ip)
-        {
-
-        }
-
-        /// <summary>
-        /// Connects the user to a session.
-        /// </summary>
-        public void JoinSession()
-        {
-            lobbySession = GetHostSession();
-            if (lobbySession.UserJoin(this))
-            {
-                // do stuff
-            }
-            else
-                MessageBox.Show("Coudn't join session");
-        }
-
-        /// <summary>
-        /// Connects the user to a session.
-        /// </summary>
-        /// <param name="password">Password for authentication.</param>
-        public void JoinSession(string password)
-        {
-            lobbySession = GetHostSession();
-            if (lobbySession.UserJoin(this, password))
-            {
-                // do stuff
-            }
-            else
-                MessageBox.Show("Coudn't join session");
-        }
-
-        /// <summary>
-        /// Does a "handshake" with the host to retrieve the lobby session data.
-        /// </summary>
-        /// <returns>The Host's lobby session data</returns>
-        private LobbySession GetHostSession()
-        {
-            return new LobbySession();
         }
     }
 

@@ -17,6 +17,8 @@ namespace The_scroll_of_NOPE.LevelObjects
         //Lists
         List<Platform> platforms;
         List<Ground> grounds;
+        List<HeartPickup> hearts;
+
 
         //One time objects
         public TheScroll theScroll;
@@ -29,6 +31,11 @@ namespace The_scroll_of_NOPE.LevelObjects
         {
             get { return grounds; }
         }
+        public List<HeartPickup> Hearts
+        {
+            get { return hearts; }
+        }
+
 
         Array groundAmmount;
         Vector2 groundPosition;
@@ -75,7 +82,7 @@ namespace The_scroll_of_NOPE.LevelObjects
                 new Vector2(50, 300), new Vector2(200, 200), new Vector2(400, 300), new Vector2(300, 400)
                 , new Vector2(500, 200), new Vector2(1000, 200), new Vector2(1500, 200), new Vector2(2000, 200)
                 , new Vector2(2500, 400), new Vector2(3000, 400), new Vector2(3500, 400), new Vector2(3250, 200)
-                , new Vector2(3150, -500), new Vector2(1500, 300), new Vector2(2000, 400)
+                , new Vector2(3150, -500), new Vector2(1500, 300), new Vector2(2000, 400) , new Vector2(-50, 600)
             };
             #endregion
 

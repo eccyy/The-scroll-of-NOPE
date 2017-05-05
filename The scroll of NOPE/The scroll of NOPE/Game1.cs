@@ -25,19 +25,11 @@ namespace The_scroll_of_NOPE
 
         List<BaseClasses.PhysicalObject> collidables = new List<BaseClasses.PhysicalObject>();
 
-        // ignore me, just used for ez testing
-        //SessionNode node = new SessionNode("kungbore");
-        //SessionHost host = new SessionHost("slkajflkdsj");
-
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
-            // ignore me, just used for ez testing
-            //host.CreateNewSession(3333);
-            //node.JoinSession("127.0.0.1", 3333, host.Session);
         }
 
         /// <summary>
@@ -101,6 +93,7 @@ namespace The_scroll_of_NOPE
                     Exit();
                     break;
                 case GameElements._state.Lobby:
+                    //CreateNewLobbySession();
                     GameElements.currentState = GameElements.LobbyUpdate();
                     break;
                 case GameElements._state.Menu:
@@ -177,6 +170,34 @@ namespace The_scroll_of_NOPE
             testStudent.Collision(collidables);
            // testStudent.Collision(collidables);
 
+        }
+        #endregion
+
+        #region William, lobby thingys
+        /// <summary>
+        /// Creates a new network session for users to join.
+        /// </summary>
+        /// <param name="username">The username the user wants.</param>
+        /// <paramm name="port">Port to host the server on</param>
+        // TODO: Take in parameters from user
+        private void CreateNewLobbySession(string username, int port)
+        {
+            SessionHost host = new SessionHost(username, port);
+            host.CreateNewSession();
+
+        }
+
+        /// <summary>
+        /// Join a network session lobby
+        /// </summary>
+        /// <param name="username">The username the user wants.</param>
+        /// <param name="ip">IP address</param>
+        /// <paramm name="port">Port to join the host on and to host the server on</param>
+        // TODO: Take in parameters from user
+        private void JoinLobbySession(string username, string ip, int port)
+        {
+            SessionNode user = new SessionNode(username, ip, port);
+            user.JoinSession();
         }
         #endregion
     }

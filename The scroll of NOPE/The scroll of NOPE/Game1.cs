@@ -188,20 +188,6 @@ namespace The_scroll_of_NOPE
         }
 
         /// <summary>
-        /// Creates a new network session for users to join.
-        /// </summary>
-        /// <param name="username">The username the user wants.</param>
-        /// <paramm name="port">Port to host the server on</param>
-        /// <param name="ip">Optional IP address.</param>
-        // TODO: Take in parameters from user
-        private void CreateNewLobbySession(string username, int port, string ip)
-        {
-            SessionHost host = new SessionHost(username, port, ip);
-            host.CreateNewSession();
-
-        }
-
-        /// <summary>
         /// Join a network session lobby
         /// </summary>
         /// <param name="username">The username the user wants.</param>

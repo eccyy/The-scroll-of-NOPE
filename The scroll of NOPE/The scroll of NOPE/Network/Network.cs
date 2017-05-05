@@ -401,18 +401,6 @@ namespace The_scroll_of_NOPE.Network
         }
 
         /// <summary>
-        /// Constructor.
-        /// Gives the user a username and gives them an ID.
-        /// </summary>
-        /// <param name="username">The user's username.</param>
-        /// <param name="port">Port of the host/server listening port.</param>
-        /// <param name="ip">IP address of the host.</param>
-        public SessionHost(string username, int port, string ip) : base(username, port, ip)
-        {
-
-        }
-
-        /// <summary>
         /// Creates a new session.
         /// </summary>
         public void CreateNewSession()

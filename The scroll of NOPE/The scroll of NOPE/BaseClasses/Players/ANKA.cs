@@ -29,6 +29,25 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         }
 
+        // Override to be able to do ANKA specific collision
+        public override void Collision(List<BaseClasses.PhysicalObject> collidables)
+        {
+            base.Collision(collidables);
+
+           foreach(PhysicalObject collidable in collidables)
+            {
+                if (collidable is LevelObjects.LevelLayout)
+                {
+                    LevelObjects.LevelLayout levelLayout = collidable as LevelObjects.LevelLayout;
+
+                    if (CheckCollision(levelLayout.thescroll.Hitbox))
+                    {
+                        throw new Exception("Anka won, not implemented yet so we crash, neat huh?");
+                    }
+                }
+            }
+        }
+
         protected override void AttackBasic(Camera camera)
         {
 

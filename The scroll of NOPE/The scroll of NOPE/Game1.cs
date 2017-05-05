@@ -73,6 +73,7 @@ namespace The_scroll_of_NOPE
             collidables.Add(anka);
             collidables.Add(levelLayout);
             collidables.Add(testStudent);
+           
         }
 
         /// <summary>

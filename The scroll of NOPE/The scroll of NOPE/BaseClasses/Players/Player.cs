@@ -148,7 +148,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         // Anka har ingen kollision
         // Kanske kan skriva ut allting till en klass   
         
-        public void Collision(List<BaseClasses.PhysicalObject> collidables)
+        public virtual void Collision(List<BaseClasses.PhysicalObject> collidables)
         {
             // Komma åt sakerna som kan kollidera med player. 
             // Om kollision med vapen, ta skada beroende på vapenSkada

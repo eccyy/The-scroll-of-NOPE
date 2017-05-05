@@ -187,19 +187,31 @@ namespace The_scroll_of_NOPE.Network
         private Client client;
         private Server server;
         public event EventHandler<ReceivedDataEventArgs> ReceivedData;
+        private bool isInstantiated = false;
+
+        public bool IsInstantiated { get { return this.isInstantiated; } }
+
+        /// <summary>
+        /// Constructor.
+        /// Creates a new server.
+        /// </summary>
+        /// <param name="port">Port for client and server.</param>
+        public NetworkInterface(int port)
+        {
+            server = new Server(port);
+            server.ReceivedData += ReceivedData;
+            isInstantiated = true;
+        }
 
         /// <summary>
         /// Constructor.
         /// Creates a new client and server.
         /// </summary>
-        /// <param name="ipaddr">IP Address for the client.</param>
         /// <param name="port">Port for client and server.</param>
-        public NetworkInterface(string ipaddr, int port)
+        /// <param name="ipaddr">IP Address for the client.</param>
+        public NetworkInterface(int port, string ipaddr): this(port)
         {
             client = new Client(ipaddr, port);
-            server = new Server(port);
-            //server.ReceivedData += HandleIncomingData;
-            server.ReceivedData += ReceivedData;
         }
 
         /// <summary>
@@ -333,16 +345,33 @@ namespace The_scroll_of_NOPE.Network
 
         /// <summary>
         /// Constructor.
-        /// Gives the user a username and gives them an ID.
+        /// Gives the user a username and an ID.
         /// </summary>
         /// <param name="username">The user's username.</param>
-        /// <param name="ip">IP address of the host.</param>
         /// <param name="port">Port of the host/server listening port.</param>
-        public SessionUser(string username, string ip, int port)
+        public SessionUser(string username, int port)
         {
             this.Username = username;
             userID = IDGenerator.GenerateID();
-            netiface = new NetworkInterface(ip, port);
+
+            if (!netiface.IsInstantiated)
+            {
+                netiface = new NetworkInterface(port);
+                netiface.ReceivedData += HandleIncomingData;
+            }
+
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// Gives the user a username and an ID.
+        /// </summary>
+        /// <param name="username">The user's username.</param>
+        /// <param name="port">Port of the host/server listening port.</param>
+        /// <param name="ip">IP address of the host.</param>
+        public SessionUser(string username, int port, string ip): this(username, port)
+        {
+            netiface = new NetworkInterface(port, ip);
             netiface.ReceivedData += HandleIncomingData;
         }
 
@@ -365,9 +394,20 @@ namespace The_scroll_of_NOPE.Network
         /// Gives the user a username and gives them an ID.
         /// </summary>
         /// <param name="username">The user's username.</param>
-        /// <param name="ip">IP address of the host.</param>
         /// <param name="port">Port of the host/server listening port.</param>
-        public SessionHost(string username, string ip, int port) : base(username, ip, port)
+        public SessionHost(string username, int port) : base(username, port)
+        {
+
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// Gives the user a username and gives them an ID.
+        /// </summary>
+        /// <param name="username">The user's username.</param>
+        /// <param name="port">Port of the host/server listening port.</param>
+        /// <param name="ip">IP address of the host.</param>
+        public SessionHost(string username, int port, string ip) : base(username, port, ip)
         {
 
         }
@@ -399,7 +439,7 @@ namespace The_scroll_of_NOPE.Network
         /// <param name="username">The user's username.</param>
         /// <param name="ip">IP address of the host.</param>
         /// <param name="port">Port of the host/server listening port.</param>
-        public SessionNode(string username, string ip, int port) : base(username, ip, port)
+        public SessionNode(string username, string ip, int port) : base(username, port, ip)
         {
 
         }

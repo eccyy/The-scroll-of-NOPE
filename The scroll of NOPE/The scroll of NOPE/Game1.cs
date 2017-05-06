@@ -1,6 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using The_scroll_of_NOPE.Menyer;
+using System.Collections.Generic;
+using The_scroll_of_NOPE.BaseClasses.Players;
+using The_scroll_of_NOPE.Network;
 
 namespace The_scroll_of_NOPE
 {
@@ -11,6 +15,19 @@ namespace The_scroll_of_NOPE
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        LevelObjects.LevelLayout levelLayout;
+        ANKA anka;
+
+        // For drawing text
+        private SpriteFont font;
+
+        // DEBUG PURPOISE
+        //Projectile kula = new Projectile();
+        Student2 testStudent;
+        Camera camera;
+
+        List<BaseClasses.PhysicalObject> collidables = new List<BaseClasses.PhysicalObject>();
+
 
         public Game1()
         {
@@ -27,6 +44,9 @@ namespace The_scroll_of_NOPE
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            camera = new Camera(new Vector2(0,0), 1.0f);
+            this.IsMouseVisible = true;
+            GameElements.currentState = GameElements._state.Menu;
 
             base.Initialize();
         }
@@ -39,8 +59,20 @@ namespace The_scroll_of_NOPE
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            GameElements.LoadContent(Content, Window);
 
+            levelLayout = new LevelObjects.LevelLayout(Content);
+            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,1000);
+            testStudent = new Student2(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(0, 0), 7, Content.Load<Texture2D>("images/Students/tempProjectile"));
             // TODO: use this.Content to load your game content here
+            collidables.Add(anka);
+            collidables.Add(levelLayout);
+            collidables.Add(testStudent);
+
+            // For drawing text
+            font = Content.Load<SpriteFont>("Text/Score");
+
+
         }
 
         /// <summary>
@@ -59,10 +91,43 @@ namespace The_scroll_of_NOPE
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            //   Exit();
 
-            // TODO: Add your update logic here
+
+            switch (GameElements.currentState)
+            {
+                case GameElements._state.Quit:
+                    Exit();
+                    break;
+                case GameElements._state.Lobby:
+                    //CreateNewLobbySession();
+                    GameElements.currentState = GameElements.LobbyUpdate();
+                    break;
+                case GameElements._state.Menu:
+                    GameElements.currentState = GameElements.MenuUpdate(gameTime);
+                    break;
+                case GameElements._state.Run:
+                    //put Game update here
+                    KeyboardState tempHandler = Keyboard.GetState();
+                    if (tempHandler.IsKeyDown(Keys.D9))
+                        camera.ZoomFactor *= 0.95f;
+                    if (tempHandler.IsKeyDown(Keys.D0))
+                        camera.ZoomFactor *= 1.05f;
+
+
+                    anka.Update();
+                    testStudent.Update(camera);
+                    Collisions();
+                           
+                    Point screenSize = GraphicsDevice.Viewport.Bounds.Size; // Gets the size of the screen
+                    camera.Update(anka, new Vector2(screenSize.X, screenSize.Y)); // Updates camera
+                    GameElements.currentState = GameElements.RunUpdate();
+                    break;
+            }
+
+
+
 
             base.Update(gameTime);
         }
@@ -74,10 +139,77 @@ namespace The_scroll_of_NOPE
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin();
 
+            switch (GameElements.currentState)
+            {
+                case GameElements._state.Run:
+                    //Draws the level design
+                    anka.Draw(spriteBatch, camera, GraphicsDevice);
+                    levelLayout.Draw(spriteBatch, camera, GraphicsDevice);
+                    testStudent.Draw(spriteBatch, camera, GraphicsDevice);
+
+                    // Drawing the colission angle for debug pusposes, may be used for other things later
+                    spriteBatch.DrawString(font, "Collision angle: " + anka.tempPlayerAngle, new Vector2(anka.Hitbox.X, anka.Hitbox.Y - 10), Color.White);
+                    break;
+                case GameElements._state.Menu:
+                    //Draws the menu sprite
+                    GameElements.MenuDraw(spriteBatch);
+                    break;
+                case GameElements._state.Lobby:
+                    GameElements.LobbyDraw(spriteBatch);
+                    break;
+                case GameElements._state.Quit:
+                    Exit();
+                    break;
+            }
+
+            spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }
+
+        #region JonatansKollisioner
+        private void Collisions()
+        {
+            // Hoppas polymorfism funkar nu
+            // En lista med alla objekt som kan kollidera.
+            // collidables.Add(kula);
+
+            anka.Collision(collidables);
+            testStudent.Collision(collidables);
+           // testStudent.Collision(collidables);
+
+        }
+        #endregion
+
+        #region William, lobby thingys
+        /// <summary>
+        /// Creates a new network session for users to join.
+        /// </summary>
+        /// <param name="username">The username the user wants.</param>
+        /// <paramm name="port">Port to host the server on</param>
+        // TODO: Take in parameters from user
+        private void CreateNewLobbySession(string username, int port)
+        {
+            SessionHost host = new SessionHost(username, port);
+            host.CreateNewSession();
+
+        }
+
+        /// <summary>
+        /// Join a network session lobby
+        /// </summary>
+        /// <param name="username">The username the user wants.</param>
+        /// <param name="ip">IP address</param>
+        /// <paramm name="port">Port to join the host on and to host the server on</param>
+        // TODO: Take in parameters from user
+        private void JoinLobbySession(string username, string ip, int port)
+        {
+            SessionNode user = new SessionNode(username, ip, port);
+            user.JoinSession();
+        }
+        #endregion
     }
 }

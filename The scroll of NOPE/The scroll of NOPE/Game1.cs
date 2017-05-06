@@ -5,6 +5,7 @@ using The_scroll_of_NOPE.Menyer;
 using System.Collections.Generic;
 using The_scroll_of_NOPE.BaseClasses.Players;
 using The_scroll_of_NOPE.Network;
+using System;
 
 namespace The_scroll_of_NOPE
 {
@@ -20,6 +21,7 @@ namespace The_scroll_of_NOPE
 
         // For drawing text
         private SpriteFont font;
+        private SpriteFont winFont;
 
         // DEBUG PURPOISE
         //Projectile kula = new Projectile();
@@ -63,10 +65,11 @@ namespace The_scroll_of_NOPE
             spriteBatch = new SpriteBatch(GraphicsDevice);
             GameElements.LoadContent(Content, Window);
 
+            // FOR DEBUG PUSPOSES
             tmpTexture = Content.Load<Texture2D>("images/ANKA/ANKA");
 
             levelLayout = new LevelObjects.LevelLayout(Content);
-            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,1000);
+            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,100);
             testStudent = new Student2(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(0, 0), 7, Content.Load<Texture2D>("images/Students/tempProjectile"));
             // TODO: use this.Content to load your game content here
             collidables.Add(anka);
@@ -75,7 +78,7 @@ namespace The_scroll_of_NOPE
 
             // For drawing text
             font = Content.Load<SpriteFont>("Text/Score");
-
+            winFont = Content.Load<SpriteFont>("Text/Win");
             // for drawing whatever
 
         }
@@ -124,6 +127,8 @@ namespace The_scroll_of_NOPE
                     anka.Update();
                     testStudent.Update(camera);
                     Collisions();
+
+                   
                            
                     Point screenSize = GraphicsDevice.Viewport.Bounds.Size; // Gets the size of the screen
                     camera.Update(anka, new Vector2(screenSize.X, screenSize.Y)); // Updates camera
@@ -174,12 +179,31 @@ namespace The_scroll_of_NOPE
                         spriteBatch.Draw(tmpTexture, proj.Hitbox, Color.Purple);
                         spriteBatch.DrawString(font, "Bullet", new Vector2(proj.Hitbox.X,proj.Hitbox.Y), Color.Black);
                     }
-                    // SCroll of nope hitbox
+                    // Scroll of nope hitbox
                     spriteBatch.Draw(tmpTexture, levelLayout.theScroll.Hitbox, Color.Blue);
                     spriteBatch.DrawString(font, "The scroll of NOPE", new Vector2(levelLayout.theScroll.Hitbox.X, levelLayout.theScroll.Hitbox.Y-10), Color.Black);
 
                     #endregion
+                    //Check if ANKA is dead and if so the player won
+                    if (anka.Health <= 0)
+                    {
+                        
 
+                        Random rng = new Random();
+                        float r = rng.Next(0, 100) / 100f;
+                        float g = rng.Next(0, 100) / 100f;
+                        float b = rng.Next(0, 100) / 100f;
+                       
+
+
+                        Color randomColor = new Color(r, g, b, 1);
+
+
+                        spriteBatch.DrawString(winFont, "Congratulations you get to end the lession earlier!1!1111!!1", new Vector2(0, 250), randomColor);
+
+
+                       
+                    }
 
 
                     break;

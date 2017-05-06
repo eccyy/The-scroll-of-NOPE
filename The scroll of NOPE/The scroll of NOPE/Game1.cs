@@ -159,7 +159,7 @@ namespace The_scroll_of_NOPE
                     levelLayout.Draw(spriteBatch, camera, GraphicsDevice);
                     testStudent.Draw(spriteBatch, camera, GraphicsDevice);
 
-                    #region Debug Stuff, safe to remove
+                    #region jonatans Debug Stuff, safe to remove
                     // Drawing the colission angle for debug pusposes, may be used for other things later
                     spriteBatch.DrawString(font, "Collision angle: " + anka.tempPlayerAngle, new Vector2(50, 50), Color.White);
                     spriteBatch.DrawString(font, "HP " + anka.Health, new Vector2(50, 70), Color.White);
@@ -184,6 +184,8 @@ namespace The_scroll_of_NOPE
                     spriteBatch.DrawString(font, "The scroll of NOPE", new Vector2(levelLayout.theScroll.Hitbox.X, levelLayout.theScroll.Hitbox.Y-10), Color.Black);
 
                     #endregion
+
+                    #region jonatans winconditions
                     //Check if ANKA is dead and if so the player won
                     if (anka.Health <= 0)
                     {
@@ -205,6 +207,7 @@ namespace The_scroll_of_NOPE
                        
                     }
 
+                    #endregion
 
                     break;
                 case GameElements._state.Menu:

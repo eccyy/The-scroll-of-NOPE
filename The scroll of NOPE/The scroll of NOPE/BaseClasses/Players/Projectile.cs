@@ -36,6 +36,9 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         public override void Update()
         {
             this.position += this.speed;
+
+            // Important otherwise the bullet will not actually hit
+            this.Hitbox = new Rectangle((int)position.X, (int)position.Y, Hitbox.Height, Hitbox.Width);
         }
 
         public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)

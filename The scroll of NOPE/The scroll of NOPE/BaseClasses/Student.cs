@@ -12,8 +12,8 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 #region Tommy
     public abstract class Student : Player
     {
-        protected int chargeDelayBasicAttack_ms = 500;
-        protected int cooldownBasicAttack_ms = 1000;
+        protected int chargeDelayBasicAttack_ms = 25;
+        protected int cooldownBasicAttack_ms = 25;
 
         protected DateTime lastBasicAttack = DateTime.Now;
         protected DateTime beginOfChargeBasicAttack = DateTime.Now; // Last time the player initialized the basic attack
@@ -88,7 +88,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         // Is called to make a basic attack
         protected override void AttackBasic(Camera camera)
         {
-            float absoluteSpeed = 4.0f;
+            float absoluteSpeed = 10.0f;
 
             Vector2 Direction = Mouse.GetState().Position.ToVector2() - (this.Position-camera.Position); // Gets the position of the mouse relative to the player
             Direction.Normalize();

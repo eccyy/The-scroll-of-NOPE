@@ -12,10 +12,12 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 #region Tommy
     public abstract class Student : Player
     {
-        private long chargeDelayBasicAttack_ms = 500;
-        private long cooldownBasicAttack_ms = 1000;
+        protected int chargeDelayBasicAttack_ms = 500;
+        protected int cooldownBasicAttack_ms = 1000;
 
-        private DateTime lastBasicAttack = DateTime.Now;
+        protected DateTime lastBasicAttack = DateTime.Now;
+        protected DateTime beginOfChargeBasicAttack = DateTime.Now; // Last time the player initialized the basic attack
+        protected bool chargingBasicAttack = false;
 
         public Student(Texture2D texture, Vector2 position, int ppfMaxSpeed)
         {
@@ -96,13 +98,42 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         public override void Update(Camera camera)
         {
-            // Check if player clicks mouse (if he shoots)
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            // Basic Attack
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed /*If the mouse is clicked*/)
             {
-                AttackBasic(camera);
+                // If the player can shoot
+                if (lastBasicAttack.AddMilliseconds(cooldownBasicAttack_ms) <= DateTime.Now /*Checks if the cooldown has passed*/)
+                {
+                    if (!chargingBasicAttack) // Sets the begin time of the charge
+                    {
+                        chargingBasicAttack = true;
+                        beginOfChargeBasicAttack = DateTime.Now; // Starts charging
+                    }
+                    else if (beginOfChargeBasicAttack.AddMilliseconds(chargeDelayBasicAttack_ms) <= DateTime.Now) // If the attack is fully charged
+                    {
+                        AttackBasic(camera); // Perform basic attack
+                        lastBasicAttack = DateTime.Now; // Reset when the last attack was performed
+                    }
+                }
+                else
+                {
+                    chargingBasicAttack = false; // Reset charging when cooldown is active
+                }
+            }
+            else
+            {
+                chargingBasicAttack = false;
             }
 
             base.Update();
+        }
+
+        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
+        {
+            base.Draw(spriteBatch, camera, GD);
+
+            if (chargingBasicAttack)
+                spriteBatch.Draw(texture, new Rectangle(0,0,10,10), Color.Red);
         }
     }
 

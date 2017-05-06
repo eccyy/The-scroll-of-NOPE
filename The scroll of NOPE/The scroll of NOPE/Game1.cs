@@ -18,6 +18,9 @@ namespace The_scroll_of_NOPE
         LevelObjects.LevelLayout levelLayout;
         ANKA anka;
 
+        // For drawing text
+        private SpriteFont font;
+
         // DEBUG PURPOISE
         //Projectile kula = new Projectile();
         Student2 testStudent;
@@ -65,7 +68,11 @@ namespace The_scroll_of_NOPE
             collidables.Add(anka);
             collidables.Add(levelLayout);
             collidables.Add(testStudent);
-           
+
+            // For drawing text
+            font = Content.Load<SpriteFont>("Text/Score");
+
+
         }
 
         /// <summary>
@@ -112,7 +119,7 @@ namespace The_scroll_of_NOPE
                     anka.Update();
                     testStudent.Update(camera);
                     Collisions();
-
+                           
                     Point screenSize = GraphicsDevice.Viewport.Bounds.Size; // Gets the size of the screen
                     camera.Update(anka, new Vector2(screenSize.X, screenSize.Y)); // Updates camera
                     GameElements.currentState = GameElements.RunUpdate();
@@ -141,6 +148,9 @@ namespace The_scroll_of_NOPE
                     anka.Draw(spriteBatch, camera, GraphicsDevice);
                     levelLayout.Draw(spriteBatch, camera, GraphicsDevice);
                     testStudent.Draw(spriteBatch, camera, GraphicsDevice);
+
+                    // Drawing the colission angle for debug pusposes, may be used for other things later
+                    spriteBatch.DrawString(font, "Collision angle: " + anka.tempPlayerAngle, new Vector2(anka.Hitbox.X, anka.Hitbox.Y - 10), Color.White);
                     break;
                 case GameElements._state.Menu:
                     //Draws the menu sprite

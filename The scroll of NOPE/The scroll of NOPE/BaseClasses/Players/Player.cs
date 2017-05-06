@@ -23,6 +23,8 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         bool hasJumped;
         float jumpTimer = 0;
 
+        public double tempPlayerAngle;
+
         bool canJump;
 
         public Player()
@@ -187,18 +189,24 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                     {
                         var platform = platformObject as Platform;
 
+
+
                         // if it collides
                         if (CheckCollision(platform.Hitbox))
                         {
-                            
+
 
                             // Check where it is colliding using trigonometry? the angle decides where it collided. if greater than arctan(o/a)
                             double playerAngle = Math.Atan2((double)(platform.Hitbox.Center.Y - this.Hitbox.Center.Y), (double)(platform.Hitbox.Center.X - this.hitbox.Center.X));
 
                             double cornerAngle = Math.Atan2(platform.Hitbox.Height / 2 + hitbox.Height / 2, platform.Hitbox.Width / 2 + Hitbox.Width);
 
+                            tempPlayerAngle = playerAngle;
 
-                            double platformAngle = Math.Atan2(Hitbox.Center.Y-platform.Hitbox.Center.Y,Hitbox.Center.X-platform.Hitbox.Center.X);
+                            double a = -Math.PI + cornerAngle;
+                            double b = Math.PI - cornerAngle;
+
+                            //  double platformAngle = Math.Atan2(Hitbox.Center.Y-platform.Hitbox.Center.Y,Hitbox.Center.X-platform.Hitbox.Center.X);
 
                             //    double relativeAngle = Math.Atan2(hitbox.Center.Y - platform.Hitbox.Center.Y, hitbox.Center.X - platform.Hitbox.Center.X);
                             //    double anotherRelativeAngle = Math.Atan2(platform.Hitbox.Center.Y - Hitbox.Center.Y, platform.Hitbox.Center.X - Hitbox.Center.X);
@@ -208,7 +216,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                             {
                                 // Set position of player to the left of the platform so that it is not inside of the platform once it draws
                                 // +2: player hitbox is bigger than the texture because collision is when hitboxes intersects which would make the textures intersect
-                                position.Y = platform.Position.Y - Hitbox.Height + 2; 
+                                position.Y = platform.Position.Y - Hitbox.Height + 2;
                                 // Set speed to 0 so that the player does not move into the platform 
                                 speed.Y = 0;
 
@@ -219,21 +227,25 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                             if (playerAngle < (-cornerAngle) && playerAngle > (-Math.PI + cornerAngle))
                             {
 
-                                position.Y = platform.Position.Y + platform.Hitbox.Height +1;
+                                position.Y = platform.Position.Y + platform.Hitbox.Height + 1;
                                 speed.Y = 0;
                             }
                             // Right
-                            else if (playerAngle > (Math.PI - cornerAngle) && playerAngle < -(Math.PI - cornerAngle))
-                            {
-                                position.X = (platform.Position.X + platform.Hitbox.Width) +4;
-                                speed.X = 0;
-                            }
-                            // Left
-                            else if (playerAngle > (-cornerAngle) && playerAngle < cornerAngle)
-                            {
-                                this.position.X = (platform.Position.X - this.Hitbox.Width) +2;
-                                speed.X = 0;
-                            }
+
+                            
+                        
+
+                        else if (playerAngle < a || playerAngle > b)
+                        {
+                            position.X = (platform.Position.X + platform.Hitbox.Width);
+                            speed.X = 0;
+                        }
+                        // Left
+                        else if (playerAngle > (-cornerAngle) && playerAngle < cornerAngle)
+                        {
+                            this.position.X = (platform.Position.X - this.Hitbox.Width) + 2;
+                            speed.X = 0;
+                        }
 
 
 

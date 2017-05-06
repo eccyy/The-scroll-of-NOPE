@@ -12,6 +12,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
     class ANKA : Player
     {
         float buffMultiplier;
+       
 
         public ANKA(int studentCount,Texture2D texture, Vector2 position, float maxSpeed, float health):base()
         {
@@ -36,13 +37,15 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             base.Collision(collidables);
 
             
-
+            // Anka specific collisions
             foreach (PhysicalObject collidable in collidables)
             {
+                // Level collisions
                 if (collidable is LevelObjects.LevelLayout)
                 {
                     LevelObjects.LevelLayout levelLayout = collidable as LevelObjects.LevelLayout;
 
+                    // Collision with The scroll of NOPE / ANKA wins
                     if (CheckCollision(levelLayout.theScroll.Hitbox))
                     {
                         throw new Exception("Anka won, not implemented yet so we crash, neat huh?");

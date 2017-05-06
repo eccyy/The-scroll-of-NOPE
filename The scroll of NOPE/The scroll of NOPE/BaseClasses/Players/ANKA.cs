@@ -57,6 +57,8 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                 {
                     var student = collidable as Student2;
 
+
+/* Bullet collisions now in another method                   
                     // Don't check if there's no bullets
                     if(student.projectiles.Count != 0)
                     {
@@ -67,14 +69,37 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                             {
                                 this.Health -= projectile.dmg;
                                 
+                                
                             }
                         }
                     }
-                    
+ */                   
                 }
             }
 
             
+        }
+        public int bulletCollision(List<Projectile> projectiles)
+        {
+            if(projectiles != null)
+            {
+                int bulletIndex = 0;
+                foreach(Projectile projectile in projectiles)
+                {
+                    // if hit deal damage
+                    if (CheckCollision(projectile.Hitbox))
+                    {
+                        Health -= projectile.dmg;
+
+                        // return bullet with bulletIndex for destruction
+                        return bulletIndex;
+                    }
+                    bulletIndex++;
+                }
+            }
+
+            // if no bullet collision
+            return -1;
         }
 
         protected override void AttackBasic(Camera camera)

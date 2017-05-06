@@ -51,7 +51,30 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                         throw new Exception("Anka won, not implemented yet so we crash, neat huh?");
                     }
                 }
+
+                // Attack collisions with student1
+                if(collidable is Student2)
+                {
+                    var student = collidable as Student2;
+
+                    // Don't check if there's no bullets
+                    if(student.projectiles.Count != 0)
+                    {
+                        foreach (Projectile projectile in student.projectiles)
+                        {
+                            // If it collides deal damage and remove the bullet
+                            if (CheckCollision(projectile.Hitbox))
+                            {
+                                this.Health -= projectile.dmg;
+                                
+                            }
+                        }
+                    }
+                    
+                }
             }
+
+            
         }
 
         protected override void AttackBasic(Camera camera)

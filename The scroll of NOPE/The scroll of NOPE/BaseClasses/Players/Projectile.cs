@@ -12,6 +12,19 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
     #region Tommy
     public class Projectile : AnimateObject
     {
+        private float _dmg = 50;
+        public float dmg
+        {
+            get
+            {
+                return _dmg;
+            }
+            protected set
+            {
+                _dmg = value;
+            }
+        }
+
         public Projectile(Vector2 position, Texture2D texture, Vector2 speed) : base()
         {
             this.texture = texture;

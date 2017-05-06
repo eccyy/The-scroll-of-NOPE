@@ -38,9 +38,13 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             get { return _Health; }
             protected set { _Health = value; }
         }
-        
-              
-        protected List<Projectile> projectiles { get; set; }
+
+        private List<Projectile> _projectiles;
+
+        public List<Projectile> projectiles {
+            get {return _projectiles; }
+            protected set { _projectiles = value; }
+        }
 
 
         public override void Update()

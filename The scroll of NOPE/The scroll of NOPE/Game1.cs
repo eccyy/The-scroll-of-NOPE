@@ -150,7 +150,9 @@ namespace The_scroll_of_NOPE
                     testStudent.Draw(spriteBatch, camera, GraphicsDevice);
 
                     // Drawing the colission angle for debug pusposes, may be used for other things later
-                    spriteBatch.DrawString(font, "Collision angle: " + anka.tempPlayerAngle, new Vector2(anka.Hitbox.X, anka.Hitbox.Y - 10), Color.White);
+                    spriteBatch.DrawString(font, "Collision angle: " + anka.tempPlayerAngle, new Vector2(50,50), Color.White);
+                    spriteBatch.DrawString(font, "HP " + anka.Health, new Vector2(50, 70), Color.White);
+
                     break;
                 case GameElements._state.Menu:
                     //Draws the menu sprite

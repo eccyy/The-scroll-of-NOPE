@@ -28,13 +28,13 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
             // Sets non-input variables in the baseclass
             this.projectiles = new List<Projectile>(); // Initialize of list
-            this.health      = 1000; // Sets health since it's not specified
+            this.Health      = 1000; // Sets Health since it's not specified
         }
 
-        // If you want to specify health
-        public Student(Texture2D texture, Vector2 position, int speed, float health) : this(texture, position, speed)
+        // If you want to specify Health
+        public Student(Texture2D texture, Vector2 position, int speed, float Health) : this(texture, position, speed)
         {
-            this.health = health;
+            this.Health = Health;
         }
 
         public virtual void Update(Camera camera)

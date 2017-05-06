@@ -31,8 +31,14 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         {
             projectiles = new List<Projectile>();
         }
+        private float _Health;
 
-        protected float health;
+        public float Health
+        {
+            get { return _Health; }
+            protected set { _Health = value; }
+        }
+        
               
         protected List<Projectile> projectiles { get; set; }
 

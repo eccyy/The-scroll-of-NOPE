@@ -40,7 +40,7 @@ namespace The_scroll_of_NOPE.Menyer
         {
             KeyboardState keyboardState = Keyboard.GetState();
 
-            if (lastChange + 130 < gameTime.TotalGameTime.TotalMilliseconds)
+            if (lastChange + 200 < gameTime.TotalGameTime.TotalMilliseconds)
             {
                 if (keyboardState.IsKeyDown(Keys.Down))
                 {

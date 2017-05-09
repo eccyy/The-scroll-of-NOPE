@@ -28,6 +28,9 @@ namespace The_scroll_of_NOPE
         Student2 testStudent;
         Camera camera;
 
+        bool debug = false;
+
+
         Texture2D tmpTexture;
 
         List<BaseClasses.PhysicalObject> collidables = new List<BaseClasses.PhysicalObject>();
@@ -123,6 +126,18 @@ namespace The_scroll_of_NOPE
                     if (tempHandler.IsKeyDown(Keys.D0))
                         camera.ZoomFactor *= 1.05f;
 
+                    // Turn debug on/off
+                    if (tempHandler.IsKeyDown(Keys.Z))
+                    {
+                        if(debug == false)
+                        {
+                            debug = true;
+                        }                            
+                        else
+                        {
+                            debug = false;
+                        }
+                    }
 
                     anka.Update();
                     testStudent.Update(camera);
@@ -159,29 +174,34 @@ namespace The_scroll_of_NOPE
                     levelLayout.Draw(spriteBatch, camera, GraphicsDevice);
                     testStudent.Draw(spriteBatch, camera, GraphicsDevice);
 
+
                     #region jonatans Debug Stuff, safe to remove
-                    // Drawing the colission angle for debug pusposes, may be used for other things later
-                    spriteBatch.DrawString(font, "Collision angle: " + anka.tempPlayerAngle, new Vector2(50, 50), Color.White);
-                    spriteBatch.DrawString(font, "HP " + anka.Health, new Vector2(50, 70), Color.White);
-
-                    // Drawing ANKA hitbox
-                    spriteBatch.Draw(tmpTexture, anka.Hitbox, Color.Blue);
-                    spriteBatch.DrawString(font, "Anka hitbox", new Vector2(anka.Hitbox.X, anka.Hitbox.Y-20), Color.Black);
-
-
-                    //Drawing student hitbox
-                    spriteBatch.Draw(tmpTexture, testStudent.Hitbox, Color.Blue);
-                    spriteBatch.DrawString(font, "student hitbox", new Vector2(testStudent.Hitbox.X, testStudent.Hitbox.Y - 20), Color.Black);
-
-                    //Drawing bullet hitbox
-                    foreach (Projectile proj in testStudent.projectiles)
+                    if (debug)
                     {
-                        spriteBatch.Draw(tmpTexture, proj.Hitbox, Color.Purple);
-                        spriteBatch.DrawString(font, "Bullet", new Vector2(proj.Hitbox.X,proj.Hitbox.Y), Color.Black);
+                        // Drawing the colission angle for debug pusposes, may be used for other things later
+                        spriteBatch.DrawString(font, "Collision angle: " + anka.tempPlayerAngle, new Vector2(50, 50), Color.White);
+                        spriteBatch.DrawString(font, "HP " + anka.Health, new Vector2(50, 70), Color.White);
+
+                        // Drawing ANKA hitbox
+                        spriteBatch.Draw(tmpTexture, anka.Hitbox, Color.Blue);
+                        spriteBatch.DrawString(font, "Anka hitbox", new Vector2(anka.Hitbox.X, anka.Hitbox.Y - 20), Color.Black);
+
+
+                        //Drawing student hitbox
+                        spriteBatch.Draw(tmpTexture, testStudent.Hitbox, Color.Blue);
+                        spriteBatch.DrawString(font, "student hitbox", new Vector2(testStudent.Hitbox.X, testStudent.Hitbox.Y - 20), Color.Black);
+
+                        //Drawing bullet hitbox
+                        foreach (Projectile proj in testStudent.projectiles)
+                        {
+                            spriteBatch.Draw(tmpTexture, proj.Hitbox, Color.Purple);
+                            spriteBatch.DrawString(font, "Bullet", new Vector2(proj.Hitbox.X, proj.Hitbox.Y), Color.Black);
+                        }
+                        // Scroll of nope hitbox
+                        spriteBatch.Draw(tmpTexture, levelLayout.theScroll.Hitbox, Color.Blue);
+                        spriteBatch.DrawString(font, "The scroll of NOPE", new Vector2(levelLayout.theScroll.Hitbox.X, levelLayout.theScroll.Hitbox.Y - 10), Color.Black);
+
                     }
-                    // Scroll of nope hitbox
-                    spriteBatch.Draw(tmpTexture, levelLayout.theScroll.Hitbox, Color.Blue);
-                    spriteBatch.DrawString(font, "The scroll of NOPE", new Vector2(levelLayout.theScroll.Hitbox.X, levelLayout.theScroll.Hitbox.Y-10), Color.Black);
 
                     #endregion
 

@@ -23,6 +23,8 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         bool hasJumped;
         float jumpTimer = 0;
 
+        
+
         public double tempPlayerAngle;
 
         bool canJump;

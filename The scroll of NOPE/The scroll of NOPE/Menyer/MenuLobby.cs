@@ -12,5 +12,79 @@ namespace The_scroll_of_NOPE.Menyer
 {
     class MenuLobby
     {
+        List<MenuItem> lobbymeny;
+        int selected = 0;
+
+        float currentHeight = 0;
+        double lastChange = 0;
+        int defaultMenuState;
+
+        public MenuLobby(int defaultMenuState)
+        {
+            lobbymeny = new List<MenuItem>();
+            this.defaultMenuState = defaultMenuState;
+        }
+
+        public void AddItem(Texture2D itemTexture, int state)
+        {
+            float X = 290;
+            float Y = 160 + currentHeight;
+
+            currentHeight += itemTexture.Height + 20;
+
+            MenuItem temp = new MenuItem(itemTexture, new Vector2(X, Y), state);
+            lobbymeny.Add(temp);
+        }
+
+        public int Update(GameTime gameTime)
+        {
+            KeyboardState keyboardState = Keyboard.GetState();
+
+            if (lastChange + 200 < gameTime.TotalGameTime.TotalMilliseconds)
+            {
+                if (keyboardState.IsKeyDown(Keys.Down))
+                {
+                    selected++;
+                    if (selected > lobbymeny.Count - 1)
+                    {
+                        selected = 0;
+                    }
+
+                }
+
+                if (keyboardState.IsKeyDown(Keys.Up))
+                {
+                    selected--;
+                    if (selected < 0)
+                    {
+                        selected = lobbymeny.Count - 1;
+                    }
+
+                }
+                lastChange = gameTime.TotalGameTime.TotalMilliseconds;
+            }
+
+            if (keyboardState.IsKeyDown(Keys.Enter))
+            {
+                return lobbymeny[selected].State;
+            }
+
+            return defaultMenuState;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            for (int i = 0; i < lobbymeny.Count; i++)
+            {
+                if (i == selected)
+                {
+                    spriteBatch.Draw(lobbymeny[i].Texture, lobbymeny[i].Position, Color.BlueViolet);
+                }
+                else
+                {
+                    spriteBatch.Draw(lobbymeny[i].Texture, lobbymeny[i].Position, Color.AntiqueWhite);
+                }
+            }
+        }
     }
 }

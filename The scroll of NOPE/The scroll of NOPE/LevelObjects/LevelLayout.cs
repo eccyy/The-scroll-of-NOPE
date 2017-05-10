@@ -18,7 +18,10 @@ namespace The_scroll_of_NOPE.LevelObjects
         List<Platform> platforms;
         List<Ground> grounds;
         List<HeartPickup> hearts;
-        
+
+        //Variables
+        int heartRespRate = 5000;
+        double HeartElapsed;
 
         //One time objects
         public TheScroll theScroll;
@@ -37,20 +40,23 @@ namespace The_scroll_of_NOPE.LevelObjects
             get { return hearts; }
         }
 
+        //For the ground
         Array groundAmmount;
         Vector2 groundPosition;
 
+        //Needed thing
+        ContentManager content;
+
         public LevelLayout(ContentManager content)
         {
-            //Creates a list of platforms
-            //Create the scroll
-
+            this.content = content;
             
+            //Spawns the neccessary objects
             platforms = new List<Platform>();
             grounds = new List<Ground>();
             hearts = new List<HeartPickup>();
 
-
+            //Runs the methoods for each object
             scroll(content);
             platform(content);
             ground(content);
@@ -60,6 +66,7 @@ namespace The_scroll_of_NOPE.LevelObjects
 
         public void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
         {
+            //Draws all objects, in the correct order
             foreach (Platform platform in platforms)
             {
                 platform.Draw(spriteBatch, camera, GD);
@@ -76,6 +83,17 @@ namespace The_scroll_of_NOPE.LevelObjects
             }
 
             theScroll.Draw(spriteBatch, camera, GD);
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            HeartElapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if(HeartElapsed >= heartRespRate) //If heartElapsed reaches above 5000ms (heartRespRate), it spawns a new heart.
+            {
+                heart(content, platforms);
+                HeartElapsed = 0;
+            }
         }
 
         //In order for objects to have separate textures i put them in methods so they get them by them selves when called.
@@ -106,7 +124,7 @@ namespace The_scroll_of_NOPE.LevelObjects
         {
             base.texture = content.Load<Texture2D>("images/FillerGround");
 
-            //Set this number to the ammount of grounds you want I.E Length of the map
+            //Set this number to the ammount of grounds you want I.E Length of the map, Each ground is 100px atm
             groundAmmount = new Array[40];
 
             //Sets position for start groundPlatform
@@ -138,13 +156,16 @@ namespace The_scroll_of_NOPE.LevelObjects
             base.texture = content.Load<Texture2D>("images/Objects/pixelHeart");
 
             Random rng = new Random();
+
             //i is used to find which platform to spawn a heart at.
             int i = rng.Next(0, platforms.Count);
 
+            //Sets the position so that it spawns above the platform of origin
             position = new Vector2(platforms[i].Position.X + 34, platforms[i].Position.Y - 32);
 
             hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
 
+            //May be temporary solution, but it works..
             int n = 1;
             if (n == 1)
             {

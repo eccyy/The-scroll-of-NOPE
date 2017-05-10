@@ -101,7 +101,7 @@ namespace The_scroll_of_NOPE.Menyer
         public static void LobbyDraw(SpriteBatch spriteBatch)
         {
             //spriteBatch.Draw();
-            lobbymenu.Draw(spriteBatch);
+            //lobbymenu.Draw(spriteBatch);
         }
     }
 }

@@ -18,11 +18,12 @@ namespace The_scroll_of_NOPE.LevelObjects
         List<Platform> platforms;
         List<Ground> grounds;
         List<HeartPickup> hearts;
-
+        
 
         //One time objects
         public TheScroll theScroll;
 
+        //To be retrieved from another class
         public List<Platform> Platforms
         {
             get { return platforms; }
@@ -36,7 +37,6 @@ namespace The_scroll_of_NOPE.LevelObjects
             get { return hearts; }
         }
 
-
         Array groundAmmount;
         Vector2 groundPosition;
 
@@ -45,14 +45,17 @@ namespace The_scroll_of_NOPE.LevelObjects
             //Creates a list of platforms
             //Create the scroll
 
+            
             platforms = new List<Platform>();
             grounds = new List<Ground>();
+            hearts = new List<HeartPickup>();
+
 
             scroll(content);
-            //Creates all the objects needed
             platform(content);
             ground(content);
-            
+            heart(content, platforms);
+
         }
 
         public void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
@@ -65,6 +68,11 @@ namespace The_scroll_of_NOPE.LevelObjects
             foreach (Ground ground in grounds)
             {
                 ground.Draw(spriteBatch, camera, GD);
+            }
+            
+            foreach (HeartPickup heart in hearts)
+            {
+                heart.Draw(spriteBatch, camera, GD);
             }
 
             theScroll.Draw(spriteBatch, camera, GD);
@@ -124,7 +132,26 @@ namespace The_scroll_of_NOPE.LevelObjects
 
             theScroll = new TheScroll(texture, position, hitbox);
         }
+        
+        public void heart(ContentManager content,List<Platform> platforms)
+        {
+            base.texture = content.Load<Texture2D>("images/Objects/pixelHeart");
 
+            Random rng = new Random();
+            //i is used to find which platform to spawn a heart at.
+            int i = rng.Next(0, platforms.Count);
+
+            position = new Vector2(platforms[i].Position.X + 34, platforms[i].Position.Y - 32);
+
+            hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+
+            int n = 1;
+            if (n == 1)
+            {
+                hearts.Add(new HeartPickup(texture, position, hitbox));
+                n++;
+            }
+        }
         #endregion
     }
     #endregion

@@ -52,8 +52,6 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                         throw new Exception("Anka won, not implemented yet so we crash, neat huh?");
                     }
                     //Anka picks up heart, should be made for player aswell.
-                    try
-                    {
                         foreach (HeartPickup heart in new List<HeartPickup>(levelLayout.Hearts))
                         {
                             if (CheckCollision(heart.Hitbox))
@@ -62,11 +60,6 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                                 levelLayout.Hearts.Remove(heart);
                             }
                         }
-                    }
-                    catch
-                    {
-
-                    }
                 }
 
                 // Attack collisions with student1

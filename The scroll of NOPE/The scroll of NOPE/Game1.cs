@@ -28,7 +28,7 @@ namespace The_scroll_of_NOPE
         Student2 testStudent;
         Camera camera;
 
-        bool debug = false;
+        bool debug, alreadyExecuted = false;
 
 
         Texture2D tmpTexture;
@@ -53,6 +53,7 @@ namespace The_scroll_of_NOPE
             // TODO: Add your initialization logic here
             camera = new Camera(new Vector2(0,0), 1.0f);
             this.IsMouseVisible = true;
+            List<BaseClasses.PhysicalObject> collidables = new List<BaseClasses.PhysicalObject>();
             GameElements.currentState = GameElements._state.Menu;
 
             base.Initialize();
@@ -117,9 +118,16 @@ namespace The_scroll_of_NOPE
                     break;
                 case GameElements._state.Menu:
                     GameElements.currentState = GameElements.MenuUpdate(gameTime);
+                    if (!alreadyExecuted)
+                    {
+                        base.Initialize();
+                        alreadyExecuted = true;
+                    }
+
                     break;
                 case GameElements._state.Run:
                     //put Game update here
+                    alreadyExecuted = false;
                     KeyboardState tempHandler = Keyboard.GetState();
                     if (tempHandler.IsKeyDown(Keys.D9))
                         camera.ZoomFactor *= 0.95f;

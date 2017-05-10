@@ -8,6 +8,6 @@ namespace The_scroll_of_NOPE.Network
 {
     public class LobbySettings
     {
-        
+
     }
 }

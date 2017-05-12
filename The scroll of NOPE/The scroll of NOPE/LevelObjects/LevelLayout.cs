@@ -84,16 +84,21 @@ namespace The_scroll_of_NOPE.LevelObjects
 
             theScroll.Draw(spriteBatch, camera, GD);
         }
+        
+        //Counts how many hearts are on the map, max ammount is 15
+        public int heartCounter;
 
         public void Update(GameTime gameTime)
         {
+            #region PickupHearts
             HeartElapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-            if(HeartElapsed >= heartRespRate) //If heartElapsed reaches above 5000ms (heartRespRate), it spawns a new heart.
+            if (HeartElapsed >= heartRespRate && heartCounter <= 15) //If heartElapsed reaches above 5000ms (heartRespRate), it spawns a new heart.
             {
                 heart(content, platforms);
                 HeartElapsed = 0;
+                heartCounter++;
             }
+            #endregion
         }
 
         //In order for objects to have separate textures i put them in methods so they get them by them selves when called.

@@ -79,6 +79,14 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             {
                 projectile.Update();
             }
+
+            // Remove dead (decayed) projectiles
+            List<Projectile> tempList = new List<Projectile>(projectiles);
+            for (int i = 0; i < tempList.Count; i++)
+            {
+                if (tempList[i].IsDead)
+                    projectiles.RemoveAt(i);
+            }
             #endregion
 
             // Rörelsen på spelaren och acceleration på rörelsen.

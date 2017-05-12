@@ -29,10 +29,32 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         bool canJump;
 
+        #region AnimationThings
+        /*
+        Rectangle hitbox, sourceRectangle;
+
+        public Rectangle Hitbox
+        {
+            get
+            {
+                hitbox.X = (int)position.X;
+                hitbox.Y = (int)position.Y;
+                hitbox.Width = sourceRectangle.Width;
+                hitbox.Height = sourceRectangle.Height;
+                return hitbox;
+            }
+        }
+        */
+        #endregion
+
         public Player()
         {
             projectiles = new List<Projectile>();
+            /*
+            sourceRectangle = new Rectangle(sourceRectangle.X, sourceRectangle.Y, 50, 100);
+            */
         }
+
         private float _Health;
 
         public float Health
@@ -149,7 +171,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
 
             // Updaterar hitboxen, kan bli fel med kollisioner pga hur hitbox updateras
-
+            
             hitbox.X = (int)base.position.X -1;
             hitbox.Y = (int)base.position.Y -1;
             
@@ -157,10 +179,6 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             hitbox.Width = texture.Width +2;
             base.Update();
         }
-
-
-        // Anka har ingen kollision
-        // Kanske kan skriva ut allting till en klass   
         
         public virtual void Collision(List<BaseClasses.PhysicalObject> collidables)
         {
@@ -296,15 +314,11 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             }
         }
 
-
-
         protected abstract void AttackBasic(Camera camera);            
         protected abstract void AttackH();           
         protected abstract void AttackJ();           
         protected abstract void AttackK();           
         protected abstract void AttackL();
-
-
 
         public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
         {

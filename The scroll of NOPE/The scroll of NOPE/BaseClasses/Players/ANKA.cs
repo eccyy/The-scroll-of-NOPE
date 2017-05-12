@@ -54,6 +54,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                     //Anka picks up heart, should be made for player aswell.
                     try
                     {
+                        
                         foreach (HeartPickup heart in new List<HeartPickup>(levelLayout.Hearts))
                         {
                             if (CheckCollision(heart.Hitbox))

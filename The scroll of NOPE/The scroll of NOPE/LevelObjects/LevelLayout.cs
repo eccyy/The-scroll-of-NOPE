@@ -113,7 +113,16 @@ namespace The_scroll_of_NOPE.LevelObjects
                 new Vector2(50, 300), new Vector2(200, 200), new Vector2(400, 300), new Vector2(300, 400)
                 , new Vector2(500, 200), new Vector2(1000, 200), new Vector2(1500, 200), new Vector2(2000, 200)
                 , new Vector2(2500, 400), new Vector2(3000, 400), new Vector2(3500, 400), new Vector2(3250, 200)
-                , new Vector2(3150, -500), new Vector2(1500, 300), new Vector2(2000, 400) , new Vector2(-50, 600)
+                , new Vector2(3150, -500), new Vector2(1500, 300), new Vector2(2000, 400) , new Vector2(0,-500), new Vector2()
+                , new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2()
+                , new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2()
+                , new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2()
+                , new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2()
+                , new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2()
+                , new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2()
+                , new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2()
+                , new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2()
+                , new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2()
             };
             #endregion
 
@@ -156,7 +165,7 @@ namespace The_scroll_of_NOPE.LevelObjects
         {
             base.texture = content.Load<Texture2D>("images/Objects/Scroll");
 
-            position = new Vector2(500,400);
+            position = new Vector2(500, 1000);
 
             hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
 

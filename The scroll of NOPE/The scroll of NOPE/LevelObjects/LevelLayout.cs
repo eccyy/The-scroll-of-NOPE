@@ -100,8 +100,8 @@ namespace The_scroll_of_NOPE.LevelObjects
         #region Methods For Drawing Objects
         public void platform(ContentManager content)
         {
-            base.texture = content.Load<Texture2D>("images/FillerPlatform");
 
+            Random rng = new Random();
             //Positions for all platforms
             #region Layout for platforms, (Alot of numbers)
             List<Vector2> platformPositions = new List<Vector2>() {
@@ -115,6 +115,13 @@ namespace The_scroll_of_NOPE.LevelObjects
             //Adds one platform for each Vector2 position in the positions list
             for (int n = 0; n < platformPositions.Count; n++)
             {
+                
+                int i = rng.Next(1, 4);
+
+                if (i == 1) base.texture = content.Load<Texture2D>("images/Objects/platform1");
+                if (i == 2) base.texture = content.Load<Texture2D>("images/Objects/platform2");
+                if (i == 3) base.texture = content.Load<Texture2D>("images/Objects/platform3");
+
                 hitbox = new Rectangle((int)platformPositions[n].X, (int)platformPositions[n].Y, texture.Width, texture.Height);
                 platforms.Add(new Platform(texture, platformPositions[n], hitbox));
             }

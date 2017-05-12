@@ -18,7 +18,7 @@ namespace The_scroll_of_NOPE.Menyer
         //update keyboard function
         static KeyboardState oldKeyboardState;
 
-        static Menu menu,lobby;
+        static Menu menu,lobbymenu;
 
         static Texture2D menuSprite, lobbySprite;
         static Vector2 menuPos, lobbyPos;
@@ -38,7 +38,7 @@ namespace The_scroll_of_NOPE.Menyer
             menu.AddItem(content.Load<Texture2D>("images/menu/lobby"), (int)_state.Lobby);
             menu.AddItem(content.Load<Texture2D>("images/menu/exit"), (int)_state.Quit);
 
-            lobby = new Menu((int)_state.Lobby);
+            lobbymenu = new Menu((int)_state.Lobby);
             //lobby.AddItem()
 
         }
@@ -101,7 +101,7 @@ namespace The_scroll_of_NOPE.Menyer
         public static void LobbyDraw(SpriteBatch spriteBatch)
         {
             //spriteBatch.Draw();
-            //lobbymenu.Draw(spriteBatch);
+            lobbymenu.Draw(spriteBatch);
         }
     }
 }

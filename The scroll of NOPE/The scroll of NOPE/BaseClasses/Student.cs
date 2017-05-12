@@ -93,39 +93,45 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             Vector2 Direction = Mouse.GetState().Position.ToVector2() - (this.Position-camera.Position); // Gets the position of the mouse relative to the player
             Direction.Normalize();
 
-            this.projectiles.Add(new Projectile(this.position, projectileTexture1, absoluteSpeed * Direction)); // Create new projectile
+            this.projectiles.Add(new Projectile(this.position, projectileTexture1, absoluteSpeed * Direction, 10 * 1000 /*10 Seconds*/)); // Create new projectile
         }
 
         public override void Update(Camera camera)
         {
             // Basic Attack
+            UpdateRangedAttack(camera, chargeDelayBasicAttack_ms, cooldownBasicAttack_ms, ref lastBasicAttack, ref chargingBasicAttack, ref beginOfChargeBasicAttack, AttackBasic);
+
+            base.Update();
+        }
+
+        private void UpdateRangedAttack(Camera camera, int chargeDelay_ms, int cooldownAttack_ms, ref DateTime lastAttack, ref bool chargingAttack, ref DateTime beginOfChargeAttack, Action<Camera> Attack)
+        {
+            // Basic Attack
             if (Mouse.GetState().LeftButton == ButtonState.Pressed /*If the mouse is clicked*/)
             {
                 // If the player can shoot
-                if (lastBasicAttack.AddMilliseconds(cooldownBasicAttack_ms) <= DateTime.Now /*Checks if the cooldown has passed*/)
+                if (lastAttack.AddMilliseconds(cooldownAttack_ms) <= DateTime.Now /*Checks if the cooldown has passed*/)
                 {
-                    if (!chargingBasicAttack) // Sets the begin time of the charge
+                    if (!chargingAttack) // Sets the begin time of the charge
                     {
-                        chargingBasicAttack = true;
-                        beginOfChargeBasicAttack = DateTime.Now; // Starts charging
+                        chargingAttack = true;
+                        beginOfChargeAttack = DateTime.Now; // Starts charging
                     }
-                    else if (beginOfChargeBasicAttack.AddMilliseconds(chargeDelayBasicAttack_ms) <= DateTime.Now) // If the attack is fully charged
+                    else if (beginOfChargeAttack.AddMilliseconds(chargeDelay_ms) <= DateTime.Now) // If the attack is fully charged
                     {
-                        AttackBasic(camera); // Perform basic attack
-                        lastBasicAttack = DateTime.Now; // Reset when the last attack was performed
+                        Attack(camera); // Perform basic attack
+                        lastAttack = DateTime.Now; // Reset when the last attack was performed
                     }
                 }
                 else
                 {
-                    chargingBasicAttack = false; // Reset charging when cooldown is active
+                    chargingAttack = false; // Reset charging when cooldown is active
                 }
             }
             else
             {
-                chargingBasicAttack = false;
+                chargingAttack = false;
             }
-
-            base.Update();
         }
 
         public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
@@ -139,9 +145,26 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
     public class Student1 : Melee
     {
-        public Student1(Texture2D texture, Vector2 position, int speed) : base(texture, position, speed)
-        {
+        Texture2D textureAttackSpecial1;
 
+        public Student1(Texture2D texture, Vector2 position, int speed, Texture2D textureAttackSpecial1) : base(texture, position, speed)
+        {
+            this.textureAttackSpecial1 = textureAttackSpecial1;
+        }
+
+        protected override void AttackBasic(Camera camera)
+        {
+            base.AttackBasic(camera);
+        }
+
+        protected void AttackSpecial1(Camera camera)
+        {
+            float absoluteSpeed = 10.0f;
+
+            Vector2 Direction = Mouse.GetState().Position.ToVector2() - (this.Position - camera.Position); // Gets the position of the mouse relative to the player
+            Direction.Normalize();
+
+            this.projectiles.Add(new Projectile(this.position, this.textureAttackSpecial1, absoluteSpeed * Direction, 10 * 1000 /*10 Seconds*/)); // Create new projectile
         }
     }
 

@@ -27,7 +27,7 @@ namespace The_scroll_of_NOPE
 
         // DEBUG PURPOISE
         //Projectile kula = new Projectile();
-        Student2 testStudent;
+        Student1 testStudent;
         Camera camera;
 
         bool debug, alreadyExecuted = false;

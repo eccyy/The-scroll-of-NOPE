@@ -18,6 +18,8 @@ namespace The_scroll_of_NOPE.Network
     {
         private bool passwordProtected = false;
         private string lobbyPassword;
+        private LobbySettings settings;
+        // public event EventHandler<LobbyUpdateEventArgs> SettingsChanged; // hmm, where should I put this...
 
         public bool PasswordProtected { get { return this.passwordProtected; } }
 

@@ -28,7 +28,7 @@ namespace The_scroll_of_NOPE
         Student1 testStudent;
         Camera camera;
 
-        bool debug = false;
+        bool debug, alreadyExecuted = false;
 
 
         Texture2D tmpTexture;
@@ -53,6 +53,7 @@ namespace The_scroll_of_NOPE
             // TODO: Add your initialization logic here
             camera = new Camera(new Vector2(0,0), 1.0f);
             this.IsMouseVisible = true;
+            List<BaseClasses.PhysicalObject> collidables = new List<BaseClasses.PhysicalObject>();
             GameElements.currentState = GameElements._state.Menu;
 
             base.Initialize();
@@ -72,8 +73,10 @@ namespace The_scroll_of_NOPE
             tmpTexture = Content.Load<Texture2D>("images/ANKA/ANKA");
 
             levelLayout = new LevelObjects.LevelLayout(Content);
+
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,10000);
-            testStudent = new Student1(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(0, 0), 7, Content.Load<Texture2D>("images/Students/tempProjectile"));
+            testStudent = new Student2(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(0, 0), 7, Content.Load<Texture2D>("images/Students/tempProjectile"));
+            
             // TODO: use this.Content to load your game content here
             collidables.Add(anka);
             collidables.Add(levelLayout);
@@ -117,9 +120,16 @@ namespace The_scroll_of_NOPE
                     break;
                 case GameElements._state.Menu:
                     GameElements.currentState = GameElements.MenuUpdate(gameTime);
+                    if (!alreadyExecuted)
+                    {
+                        base.Initialize();
+                        alreadyExecuted = true;
+                    }
+
                     break;
                 case GameElements._state.Run:
                     //put Game update here
+                    alreadyExecuted = false;
                     KeyboardState tempHandler = Keyboard.GetState();
                     if (tempHandler.IsKeyDown(Keys.D9))
                         camera.ZoomFactor *= 0.95f;
@@ -139,6 +149,7 @@ namespace The_scroll_of_NOPE
                         }
                     }
 
+                    levelLayout.Update(gameTime);
                     anka.Update();
                     testStudent.Update(camera);
                     Collisions();

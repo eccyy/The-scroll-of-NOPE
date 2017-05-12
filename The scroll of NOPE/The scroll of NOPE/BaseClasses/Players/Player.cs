@@ -219,6 +219,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                             // Check where it is colliding using trigonometry? the angle decides where it collided. if greater than arctan(o/a)
                             double playerAngle = Math.Atan2((double)(platform.Hitbox.Center.Y - this.Hitbox.Center.Y), (double)(platform.Hitbox.Center.X - this.hitbox.Center.X));
 
+
                             double cornerAngle = Math.Atan2(platform.Hitbox.Height / 2 + hitbox.Height / 2, platform.Hitbox.Width / 2 + Hitbox.Width);
 
                             tempPlayerAngle = playerAngle;
@@ -241,7 +242,12 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                                 speed.Y = 0;
 
                                 // Player is now touching the platform and can therefore jump
-                                canJump = true;
+                                decimal aasd = Math.Round((decimal)playerAngle, 4);
+                                if(Math.Round(playerAngle,4) != 0.4412)
+                                {
+                                    canJump = true;
+                                }
+                               
                             }
                             // Below
                             if (playerAngle < (-cornerAngle) && playerAngle > (-Math.PI + cornerAngle))

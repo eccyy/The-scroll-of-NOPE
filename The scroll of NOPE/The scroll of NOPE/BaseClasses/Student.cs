@@ -104,6 +104,16 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             base.Update();
         }
 
+        /// <summary>
+        /// Performes a ranged attack if the player tries to shoot and is permitted to do so
+        /// </summary>
+        /// <param name="camera">The camera in use</param>
+        /// <param name="chargeDelay_ms">The number of milliseconds to charge the attack</param>
+        /// <param name="cooldownAttack_ms">The number of milliseconds to wait after the attack before a new charge can be performed</param>
+        /// <param name="lastAttack">The time when the last attack of the same type was performed</param>
+        /// <param name="chargingAttack">A boolean indicating whether the attack is charging or not</param>
+        /// <param name="beginOfChargeAttack">The time when the charging of the attack started</param>
+        /// <param name="Attack">The type of attack (should be the method of which the attack will use to perform the attack)</param>
         private void UpdateRangedAttack(Camera camera, int chargeDelay_ms, int cooldownAttack_ms, ref DateTime lastAttack, ref bool chargingAttack, ref DateTime beginOfChargeAttack, Action<Camera> Attack)
         {
             // Basic Attack

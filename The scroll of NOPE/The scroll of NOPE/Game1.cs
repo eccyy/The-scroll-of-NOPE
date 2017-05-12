@@ -19,6 +19,8 @@ namespace The_scroll_of_NOPE
         LevelObjects.LevelLayout levelLayout;
         ANKA anka;
 
+        MouseState mouseState; 
+
         // For drawing text
         private SpriteFont font;
         private SpriteFont winFont;
@@ -154,6 +156,13 @@ namespace The_scroll_of_NOPE
                     testStudent.Update(camera);
                     Collisions();
 
+                    //update mouse input
+                   // mouseState = Mouse.GetState();
+                    // If + button is clicked while debug is on a new platforn spawns
+                    if (debug)
+                    {
+                        
+                    }
                    
                            
                     Point screenSize = GraphicsDevice.Viewport.Bounds.Size; // Gets the size of the screen

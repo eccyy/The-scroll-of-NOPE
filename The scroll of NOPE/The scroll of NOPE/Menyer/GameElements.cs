@@ -12,13 +12,14 @@ namespace The_scroll_of_NOPE.Menyer
 {   //Anton
     static class GameElements
     {
-        public enum _state { Run, Lobby, Menu,Quit, };
+        public enum _state { Run, Lobby, Menu,Quit,End };
 
         public static _state currentState;
         //update keyboard function
         static KeyboardState oldKeyboardState;
 
-        static Menu menu,lobbymenu;
+        static Menu menu;
+        static MenuLobby lobbymenu;
 
         static Texture2D menuSprite, lobbySprite;
         static Vector2 menuPos, lobbyPos;
@@ -38,7 +39,7 @@ namespace The_scroll_of_NOPE.Menyer
             menu.AddItem(content.Load<Texture2D>("images/menu/lobby"), (int)_state.Lobby);
             menu.AddItem(content.Load<Texture2D>("images/menu/exit"), (int)_state.Quit);
 
-            lobbymenu = new Menu((int)_state.Lobby);
+            lobbymenu = new MenuLobby((int)_state.Lobby);
 
             lobbymenu.AddItem(content.Load<Texture2D>("images/menu/start"), (int)_state.Run);
             lobbymenu.AddItem(content.Load<Texture2D>("images/menu/exit"), (int)_state.Menu);

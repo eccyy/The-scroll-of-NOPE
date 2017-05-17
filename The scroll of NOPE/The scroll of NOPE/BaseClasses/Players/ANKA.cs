@@ -13,6 +13,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
     class ANKA : Player
     {
         float buffMultiplier;
+        public bool ankaHasWon = false;
        
 
         public ANKA(int studentCount,Texture2D texture, Vector2 position, float maxSpeed, float Health):base()
@@ -49,7 +50,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                     // Collision with The scroll of NOPE / ANKA wins
                     if (CheckCollision(levelLayout.theScroll.Hitbox))
                     {
-                        throw new Exception("Anka won, not implemented yet so we crash, neat huh?");
+                        ankaHasWon = true;
                     }
                     //Anka picks up heart, should be made for player aswell.
                     //Exists in player.cs, might not be needed here

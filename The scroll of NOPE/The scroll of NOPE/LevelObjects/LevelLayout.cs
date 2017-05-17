@@ -64,25 +64,25 @@ namespace The_scroll_of_NOPE.LevelObjects
 
         }
 
-        public void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
+        public void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime)
         {
             //Draws all objects, in the correct order
             foreach (Platform platform in platforms)
             {
-                platform.Draw(spriteBatch, camera, GD);
+                platform.Draw(spriteBatch, camera, GD, gameTime);
             }
 
             foreach (Ground ground in grounds)
             {
-                ground.Draw(spriteBatch, camera, GD);
+                ground.Draw(spriteBatch, camera, GD, gameTime);
             }
             
             foreach (HeartPickup heart in hearts)
             {
-                heart.Draw(spriteBatch, camera, GD);
+                heart.Draw(spriteBatch, camera, GD, gameTime);
             }
 
-            theScroll.Draw(spriteBatch, camera, GD);
+            theScroll.Draw(spriteBatch, camera, GD, gameTime);
         }
         
         //Counts how many hearts are on the map, max ammount is 15

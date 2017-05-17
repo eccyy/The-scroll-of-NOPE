@@ -76,7 +76,7 @@ namespace The_scroll_of_NOPE
 
             levelLayout = new LevelObjects.LevelLayout(Content);
 
-            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,10000);
+            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/SpriteTest"/*SpriteTest skall vara ANKA*/),new Vector2(50,50), 5,10000);
             testStudent = new Student2(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(0, 0), 7, Content.Load<Texture2D>("images/Students/tempProjectile"));
             
             // TODO: use this.Content to load your game content here
@@ -190,9 +190,9 @@ namespace The_scroll_of_NOPE
             {
                 case GameElements._state.Run:
                     //Draws the level design
-                    anka.Draw(spriteBatch, camera, GraphicsDevice);
-                    levelLayout.Draw(spriteBatch, camera, GraphicsDevice);
-                    testStudent.Draw(spriteBatch, camera, GraphicsDevice);
+                    anka.Draw(spriteBatch, camera, GraphicsDevice, gameTime);
+                    levelLayout.Draw(spriteBatch, camera, GraphicsDevice, gameTime);
+                    testStudent.Draw(spriteBatch, camera, GraphicsDevice, gameTime);
 
 
                     #region jonatans Debug Stuff, safe to remove

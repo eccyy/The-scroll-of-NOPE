@@ -30,9 +30,9 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         bool canJump;
 
         #region AnimationThings
+        
+        Rectangle sourceRectangle;
         /*
-        Rectangle hitbox, sourceRectangle;
-
         public Rectangle Hitbox
         {
             get
@@ -50,9 +50,8 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         public Player()
         {
             projectiles = new List<Projectile>();
-            /*
+            
             sourceRectangle = new Rectangle(sourceRectangle.X, sourceRectangle.Y, 50, 100);
-            */
         }
 
         private float _Health;
@@ -179,12 +178,20 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
 
             // Updaterar hitboxen, kan bli fel med kollisioner pga hur hitbox updateras
-            
+
+            /*
             hitbox.X = (int)base.position.X -1;
             hitbox.Y = (int)base.position.Y -1;
             
             hitbox.Height = texture.Height +2;
             hitbox.Width = texture.Width +2;
+            */
+
+            hitbox.X = (int)base.position.X - 1;
+            hitbox.Y = (int)base.position.Y - 1;
+
+            hitbox.Height = sourceRectangle.Height + 2;
+            hitbox.Width = sourceRectangle.Width + 2;
             base.Update();
         }
         
@@ -339,16 +346,19 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         protected abstract void AttackK();           
         protected abstract void AttackL();
 
-        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
+        double elapsed;
+
+        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime)
         {
+            
             // Draw projectiles
             foreach (Projectile projectile in projectiles)
             {
-                projectile.Draw(spriteBatch, camera, GD);
+                projectile.Draw(spriteBatch, camera, GD, gameTime);
             }
-
+            
             // Draw this
-            base.Draw(spriteBatch, camera, GD);
+            base.Draw(spriteBatch, camera, GD, gameTime);
         }
     }
     #endregion

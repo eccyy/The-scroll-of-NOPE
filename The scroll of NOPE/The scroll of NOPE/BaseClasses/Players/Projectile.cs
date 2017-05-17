@@ -44,7 +44,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         /// <param name="texture">The texture to display for the projectile</param>
         /// <param name="speed">The speed the projectile flies</param>
         /// <param name="decay">How long the projectile is alive (ms)</param>
-        public Projectile(Vector2 position, Texture2D texture, Vector2 speed, int decay) : base()
+        public Projectile(Vector2 position, Texture2D texture, Vector2 speed, int decay, Vector2 spritesheetDimensions) : base()
         {
             this.texture = texture;
             this.position = position;

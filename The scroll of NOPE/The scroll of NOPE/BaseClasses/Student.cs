@@ -19,6 +19,9 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         protected DateTime beginOfChargeBasicAttack = DateTime.Now; // Last time the player initialized the basic attack
         protected bool chargingBasicAttack = false;
 
+        protected Vector2 basicAttackSpritesheetDimensions = Vector2.One;
+        protected Vector2 specialAttack1SpritesheetDimensions = Vector2.One;
+
         public Student(Texture2D texture, Vector2 position, int ppfMaxSpeed)
         {
             // Sets the necessary variables of the baseclass which are given as inputs to the contructor
@@ -62,6 +65,46 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         {
 
         }
+
+        /// <summary>
+        /// Performes a ranged attack if the player tries to shoot and is permitted to do so
+        /// </summary>
+        /// <param name="camera">The camera in use</param>
+        /// <param name="chargeDelay_ms">The number of milliseconds to charge the attack</param>
+        /// <param name="cooldownAttack_ms">The number of milliseconds to wait after the attack before a new charge can be performed</param>
+        /// <param name="lastAttack">The time when the last attack of the same type was performed</param>
+        /// <param name="chargingAttack">A boolean indicating whether the attack is charging or not</param>
+        /// <param name="beginOfChargeAttack">The time when the charging of the attack started</param>
+        /// <param name="Attack">The type of attack (should be the method of which the attack will use to perform the attack)</param>
+        protected void UpdateRangedAttack(Camera camera, int chargeDelay_ms, int cooldownAttack_ms, ref DateTime lastAttack, ref bool chargingAttack, ref DateTime beginOfChargeAttack, Action<Camera> Attack)
+        {
+            // Basic Attack
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed /*If the mouse is clicked*/)
+            {
+                // If the player can shoot
+                if (lastAttack.AddMilliseconds(cooldownAttack_ms) <= DateTime.Now /*Checks if the cooldown has passed*/)
+                {
+                    if (!chargingAttack) // Sets the begin time of the charge
+                    {
+                        chargingAttack = true;
+                        beginOfChargeAttack = DateTime.Now; // Starts charging
+                    }
+                    else if (beginOfChargeAttack.AddMilliseconds(chargeDelay_ms) <= DateTime.Now) // If the attack is fully charged
+                    {
+                        Attack(camera); // Perform basic attack
+                        lastAttack = DateTime.Now; // Reset when the last attack was performed
+                    }
+                }
+                else
+                {
+                    chargingAttack = false; // Reset charging when cooldown is active
+                }
+            }
+            else
+            {
+                chargingAttack = false;
+            }
+        }
     }
 
     public abstract class Melee : Student
@@ -93,56 +136,30 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             Vector2 Direction = Mouse.GetState().Position.ToVector2() - (this.Position-camera.Position); // Gets the position of the mouse relative to the player
             Direction.Normalize();
 
-            this.projectiles.Add(new Projectile(this.position, projectileTexture1, absoluteSpeed * Direction, 10 * 1000 /*10 Seconds*/)); // Create new projectile
+            this.projectiles.Add(
+                new Projectile(
+                    this.position, 
+                    projectileTexture1, 
+                    absoluteSpeed * Direction, 
+                    10 * 1000 /*10 Seconds*/, 
+                    basicAttackSpritesheetDimensions)); // Create new projectile
         }
 
         public override void Update(Camera camera)
         {
             // Basic Attack
-            UpdateRangedAttack(camera, chargeDelayBasicAttack_ms, cooldownBasicAttack_ms, ref lastBasicAttack, ref chargingBasicAttack, ref beginOfChargeBasicAttack, AttackBasic);
+            UpdateRangedAttack(
+                camera, 
+                chargeDelayBasicAttack_ms, 
+                cooldownBasicAttack_ms, 
+                ref lastBasicAttack, 
+                ref chargingBasicAttack, 
+                ref beginOfChargeBasicAttack, 
+                AttackBasic);
 
             base.Update();
         }
-
-        /// <summary>
-        /// Performes a ranged attack if the player tries to shoot and is permitted to do so
-        /// </summary>
-        /// <param name="camera">The camera in use</param>
-        /// <param name="chargeDelay_ms">The number of milliseconds to charge the attack</param>
-        /// <param name="cooldownAttack_ms">The number of milliseconds to wait after the attack before a new charge can be performed</param>
-        /// <param name="lastAttack">The time when the last attack of the same type was performed</param>
-        /// <param name="chargingAttack">A boolean indicating whether the attack is charging or not</param>
-        /// <param name="beginOfChargeAttack">The time when the charging of the attack started</param>
-        /// <param name="Attack">The type of attack (should be the method of which the attack will use to perform the attack)</param>
-        private void UpdateRangedAttack(Camera camera, int chargeDelay_ms, int cooldownAttack_ms, ref DateTime lastAttack, ref bool chargingAttack, ref DateTime beginOfChargeAttack, Action<Camera> Attack)
-        {
-            // Basic Attack
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed /*If the mouse is clicked*/)
-            {
-                // If the player can shoot
-                if (lastAttack.AddMilliseconds(cooldownAttack_ms) <= DateTime.Now /*Checks if the cooldown has passed*/)
-                {
-                    if (!chargingAttack) // Sets the begin time of the charge
-                    {
-                        chargingAttack = true;
-                        beginOfChargeAttack = DateTime.Now; // Starts charging
-                    }
-                    else if (beginOfChargeAttack.AddMilliseconds(chargeDelay_ms) <= DateTime.Now) // If the attack is fully charged
-                    {
-                        Attack(camera); // Perform basic attack
-                        lastAttack = DateTime.Now; // Reset when the last attack was performed
-                    }
-                }
-                else
-                {
-                    chargingAttack = false; // Reset charging when cooldown is active
-                }
-            }
-            else
-            {
-                chargingAttack = false;
-            }
-        }
+        
 
         public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
         {
@@ -157,9 +174,9 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
     {
         Texture2D textureAttackSpecial1;
 
-        public Student1(Texture2D texture, Vector2 position, int speed, Texture2D textureAttackSpecial1) : base(texture, position, speed)
+        public Student1(Texture2D texture, Vector2 position, int speed, Microsoft.Xna.Framework.Content.ContentManager _content, Vector2 spritesheetDimensions) : base(texture, position, speed)
         {
-            this.textureAttackSpecial1 = textureAttackSpecial1;
+            this.textureAttackSpecial1 = _content.Load<Texture2D>("Animation/Explosion");
         }
 
         protected override void AttackBasic(Camera camera)
@@ -167,6 +184,11 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             base.AttackBasic(camera);
         }
 
+        protected int chargeDelaySpecialAttack1_ms = 100;
+        protected int cooldownSpecialAttack1_ms = 100;
+        protected DateTime lastSpecialAttack1 = DateTime.Now;
+        protected bool chargingSpecialAttack1 = false;
+        protected DateTime beginOfChargeSpecialAttack1 = DateTime.Now;
         protected void AttackSpecial1(Camera camera)
         {
             float absoluteSpeed = 10.0f;
@@ -174,7 +196,20 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             Vector2 Direction = Mouse.GetState().Position.ToVector2() - (this.Position - camera.Position); // Gets the position of the mouse relative to the player
             Direction.Normalize();
 
-            this.projectiles.Add(new Projectile(this.position, this.textureAttackSpecial1, absoluteSpeed * Direction, 10 * 1000 /*10 Seconds*/)); // Create new projectile
+            this.projectiles.Add(
+                new Projectile(
+                    this.position, 
+                    this.textureAttackSpecial1, 
+                    absoluteSpeed * Direction, 10 * 1000 /*10 Seconds*/, 
+                    specialAttack1SpritesheetDimensions)); // Create new projectile
+        }
+
+        public override void Update(Camera camera)
+        {
+            // Special Attack 1
+            UpdateRangedAttack(camera, chargeDelaySpecialAttack1_ms, cooldownSpecialAttack1_ms, ref lastSpecialAttack1, ref chargingSpecialAttack1, ref beginOfChargeSpecialAttack1, AttackSpecial1);
+
+            base.Update();
         }
     }
 

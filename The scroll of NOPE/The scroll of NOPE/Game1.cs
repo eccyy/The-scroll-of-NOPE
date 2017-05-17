@@ -24,10 +24,9 @@ namespace The_scroll_of_NOPE
         // For drawing text
         private SpriteFont font;
         private SpriteFont winFont;
+        
 
-        // DEBUG PURPOISE
-        //Projectile kula = new Projectile();
-        Student2 testStudent;
+        Student1 testStudent;
         Camera camera;
 
         bool debug, alreadyExecuted = false;
@@ -77,7 +76,7 @@ namespace The_scroll_of_NOPE
             levelLayout = new LevelObjects.LevelLayout(Content);
 
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,10000);
-            testStudent = new Student2(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(0, 0), 7, Content.Load<Texture2D>("images/Students/tempProjectile"));
+            testStudent = new Student1(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(0, 0), 7, Content, new Vector2(5, 5));
             
             // TODO: use this.Content to load your game content here
             collidables.Add(anka);

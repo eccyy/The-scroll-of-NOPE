@@ -19,7 +19,7 @@ namespace The_scroll_of_NOPE.BaseClasses
 
         // Draw(), method to draw graphics
         // Takes one parameter: SpriteBatch
-        public virtual void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
+        public virtual void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime)
         {
             #region Tommy
             //Set destination rectangle without scaling

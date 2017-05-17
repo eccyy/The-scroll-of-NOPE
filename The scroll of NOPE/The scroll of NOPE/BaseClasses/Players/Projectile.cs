@@ -67,7 +67,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             }
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
+        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime)
         {
             //Set destination rectangle without scaling
             Rectangle unzoomedDestination = new Rectangle(

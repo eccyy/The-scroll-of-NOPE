@@ -15,9 +15,13 @@ namespace The_scroll_of_NOPE.Menyer
         List<MenuItem> lobbymeny;
         int selected = 0;
 
+        KeyboardState oldKeyboardstate;
+
         float currentHeight = 0;
         double lastChange = 0;
         int defaultMenuState;
+
+        bool isKeyReady = false;
 
         public MenuLobby(int defaultMenuState)
         {
@@ -39,8 +43,11 @@ namespace The_scroll_of_NOPE.Menyer
         public int Update(GameTime gameTime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
-
-            if (lastChange + 200 < gameTime.TotalGameTime.TotalMilliseconds)
+            if (keyboardState.IsKeyUp(Keys.Enter))
+            {
+                isKeyReady = true;
+            }
+            if (lastChange + 100 < gameTime.TotalGameTime.TotalMilliseconds)
             {
                 if (keyboardState.IsKeyDown(Keys.Down))
                 {
@@ -63,12 +70,15 @@ namespace The_scroll_of_NOPE.Menyer
                 }
                 lastChange = gameTime.TotalGameTime.TotalMilliseconds;
             }
-
-            if (keyboardState.IsKeyDown(Keys.Enter))
+            if (isKeyReady)
             {
-                return lobbymeny[selected].State;
-            }
 
+                if (keyboardState.IsKeyDown(Keys.Enter))
+                {
+                    return lobbymeny[selected].State;
+                }
+            }
+            
             return defaultMenuState;
         }
 

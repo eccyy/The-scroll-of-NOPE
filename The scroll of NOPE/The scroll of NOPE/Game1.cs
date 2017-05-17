@@ -118,7 +118,7 @@ namespace The_scroll_of_NOPE
                     break;
                 case GameElements._state.Lobby:
                     //CreateNewLobbySession();
-                    GameElements.currentState = GameElements.LobbyUpdate();
+                    GameElements.currentState = GameElements.LobbyUpdate(gameTime);
                     break;
                 case GameElements._state.Menu:
                     GameElements.currentState = GameElements.MenuUpdate(gameTime);

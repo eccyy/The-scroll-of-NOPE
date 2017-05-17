@@ -29,29 +29,9 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         bool canJump;
 
-        #region AnimationThings
-        
-        Rectangle sourceRectangle;
-        /*
-        public Rectangle Hitbox
-        {
-            get
-            {
-                hitbox.X = (int)position.X;
-                hitbox.Y = (int)position.Y;
-                hitbox.Width = sourceRectangle.Width;
-                hitbox.Height = sourceRectangle.Height;
-                return hitbox;
-            }
-        }
-        */
-        #endregion
-
         public Player()
         {
             projectiles = new List<Projectile>();
-            
-            sourceRectangle = new Rectangle(sourceRectangle.X, sourceRectangle.Y, 50, 100);
         }
 
         private float _Health;
@@ -189,9 +169,10 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
             hitbox.X = (int)base.position.X - 1;
             hitbox.Y = (int)base.position.Y - 1;
-
+            
             hitbox.Height = sourceRectangle.Height + 2;
             hitbox.Width = sourceRectangle.Width + 2;
+
             base.Update();
         }
         
@@ -345,8 +326,6 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         protected abstract void AttackJ();           
         protected abstract void AttackK();           
         protected abstract void AttackL();
-
-        double elapsed;
 
         public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime)
         {

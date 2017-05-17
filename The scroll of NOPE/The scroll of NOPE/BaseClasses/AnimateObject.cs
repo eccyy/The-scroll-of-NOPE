@@ -12,7 +12,7 @@ namespace The_scroll_of_NOPE.BaseClasses
     {
         protected Vector2 speed;
 
-        Rectangle sourceRectangle;
+        protected Rectangle sourceRectangle;
 
         public AnimateObject()
         {
@@ -60,6 +60,8 @@ namespace The_scroll_of_NOPE.BaseClasses
             // Restore center
             zoomedDestination.Location += Center - newCenter;
 
+
+            //Animations
             elapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
 
             if (elapsed >= 1000)
@@ -78,9 +80,7 @@ namespace The_scroll_of_NOPE.BaseClasses
 
             // Draw
             spriteBatch.Draw(texture, zoomedDestination, sourceRectangle, Color.White, 0f, new Vector2(0,0), SpriteEffects.None, 0);
-           
 
-            
             #endregion
         }
 

@@ -34,12 +34,14 @@ namespace The_scroll_of_NOPE.Menyer
 
             menu = new Menu((int)_state.Menu);
 
-            menu.AddItem(content.Load<Texture2D>("images/menu/start"), (int)_state.Run);
+            //menu.AddItem(content.Load<Texture2D>("images/menu/start"), (int)_state.Run);
             menu.AddItem(content.Load<Texture2D>("images/menu/lobby"), (int)_state.Lobby);
             menu.AddItem(content.Load<Texture2D>("images/menu/exit"), (int)_state.Quit);
 
             lobbymenu = new Menu((int)_state.Lobby);
-            //lobby.AddItem()
+
+            lobbymenu.AddItem(content.Load<Texture2D>("images/menu/start"), (int)_state.Run);
+            lobbymenu.AddItem(content.Load<Texture2D>("images/menu/exit"), (int)_state.Menu);
 
         }
         //looping menustate
@@ -62,7 +64,7 @@ namespace The_scroll_of_NOPE.Menyer
             return (_state)menu.Update(gameTime);
         }
         //looping lobbystate
-        public static _state LobbyUpdate()
+        public static _state LobbyUpdate(GameTime gameTime)
         {
             KeyboardState newKeyboardState = Keyboard.GetState();
             if (newKeyboardState != oldKeyboardState)
@@ -73,7 +75,7 @@ namespace The_scroll_of_NOPE.Menyer
                     return _state.Menu;
                 }
             }
-            return _state.Lobby;
+            return (_state)lobbymenu.Update(gameTime);
         }
         //looping runstate
         public static _state RunUpdate()

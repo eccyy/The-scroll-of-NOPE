@@ -58,6 +58,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                             {
                                 Health += 1000;
                                 levelLayout.Hearts.Remove(heart);
+                                levelLayout.heartCounter -= 1;
                             }
                         }
                 }

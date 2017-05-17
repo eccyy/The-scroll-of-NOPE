@@ -12,7 +12,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
     #region Tommy
     public class Projectile : AnimateObject
     {
-        private float _dmg = 50;
+        protected float _dmg = 50;
         public float dmg
         {
             get
@@ -25,12 +25,32 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             }
         }
 
-        public Projectile(Vector2 position, Texture2D texture, Vector2 speed) : base()
+        protected int decay;
+        protected readonly DateTime creationTime = DateTime.Now;
+
+        protected bool _isDead = false;
+        public bool IsDead
+        {
+            get
+            {
+                return _isDead;
+            }
+        }
+
+        /// <summary>
+        /// Projectile shot by an entity
+        /// </summary>
+        /// <param name="position">The position of the projectile</param>
+        /// <param name="texture">The texture to display for the projectile</param>
+        /// <param name="speed">The speed the projectile flies</param>
+        /// <param name="decay">How long the projectile is alive (ms)</param>
+        public Projectile(Vector2 position, Texture2D texture, Vector2 speed, int decay) : base()
         {
             this.texture = texture;
             this.position = position;
             this.hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             this.speed = speed;
+            this.decay = decay;
         }
 
         public override void Update()
@@ -39,6 +59,12 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
             // Important otherwise the bullet will not actually hit
             this.Hitbox = new Rectangle((int)position.X, (int)position.Y, Hitbox.Height, Hitbox.Width);
+
+            // Check if the projectile should be killed
+            if (this.creationTime.AddMilliseconds(this.decay) <= DateTime.Now)
+            {
+                this._isDead = true;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)

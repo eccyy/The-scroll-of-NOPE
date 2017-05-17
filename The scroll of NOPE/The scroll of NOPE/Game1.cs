@@ -18,7 +18,7 @@ namespace The_scroll_of_NOPE
         SpriteBatch spriteBatch;
         LevelObjects.LevelLayout levelLayout;
         ANKA anka;
-
+        LevelObjects.LevelEditor mapEditor;
         MouseState mouseState; 
 
         // For drawing text
@@ -57,6 +57,7 @@ namespace The_scroll_of_NOPE
             this.IsMouseVisible = true;
             List<BaseClasses.PhysicalObject> collidables = new List<BaseClasses.PhysicalObject>();
             GameElements.currentState = GameElements._state.Menu;
+            
 
             base.Initialize();
         }
@@ -70,11 +71,17 @@ namespace The_scroll_of_NOPE
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             GameElements.LoadContent(Content, Window);
+            mapEditor = new LevelObjects.LevelEditor();
 
             // FOR DEBUG PUSPOSES
             tmpTexture = Content.Load<Texture2D>("images/ANKA/ANKA");
 
-            levelLayout = new LevelObjects.LevelLayout(Content);
+            //  levelLayout = new LevelObjects.LevelLayout(Content);
+            levelLayout = mapEditor.LoadMap("defaultMap");
+            if(levelLayout == null)
+            {
+                levelLayout = new LevelObjects.LevelLayout(Content);
+            }
 
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/SpriteTest"/*SpriteTest skall vara ANKA*/),new Vector2(50,50), 5,10000);
             testStudent = new Student2(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(0, 0), 7, Content.Load<Texture2D>("images/Students/tempProjectile"));

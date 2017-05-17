@@ -22,14 +22,22 @@ namespace The_scroll_of_NOPE.LevelObjects
         // Using streamWriter writes level object to a file
         public bool SaveMap(LevelLayout map, string levelName)
         {
+
+            var appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            appDataDir = Path.Combine(appDataDir, "TheScrollOfNope");
+            Directory.CreateDirectory(appDataDir); // to-do: handle exceptions
+            var fileName = Path.Combine(appDataDir, levelName);
+           
+
             StreamWriter writer;
-            var store = IsolatedStorageFile.GetUserStoreForApplication();
+            
             
             // IF file exist write over
-            if (store.FileExists(levelName) && levelName != "")
+            if (File.Exists(fileName))
             {
-                var fileStorage = store.OpenFile(levelName, FileMode.Open);
-                writer = new StreamWriter(fileStorage);
+                
+
+                writer = new StreamWriter(fileName);
 
                 // Write the entire levelObject to file in json format, this removes previous map of filename
                 // Converts to json using NwetonsoftJson and writes to file
@@ -41,10 +49,10 @@ namespace The_scroll_of_NOPE.LevelObjects
             else if(levelName != "")
             {
                 // Create file
-                var fileStorage = store.CreateFile(levelName);
+                
 
                 // Open file with stream
-                writer = new StreamWriter(fileStorage);
+                writer = new StreamWriter(fileName);
 
                 // Write to the file
                 string mapJSON = JsonConvert.SerializeObject(map);
@@ -60,15 +68,19 @@ namespace The_scroll_of_NOPE.LevelObjects
 
         public LevelLayout LoadMap(string levelName)
         {
+
             StreamReader reader;
 
-            var store = IsolatedStorageFile.GetUserStoreForApplication();
+            var appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            appDataDir = Path.Combine(appDataDir, "TheScrollOfNope");
+            Directory.CreateDirectory(appDataDir); // to-do: handle exceptions
+            var fileName = Path.Combine(appDataDir, levelName);      
 
-            if (store.FileExists(levelName))
+            if (File.Exists(fileName))
             {
                 // Open file
-                var fileStorage = store.OpenFile(levelName, FileMode.Open);
-                reader = new StreamReader(fileStorage);
+                
+                reader = new StreamReader(fileName);
 
                 // Read file
                 string unserialisedMap = reader.ReadToEnd();

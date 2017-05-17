@@ -51,6 +51,8 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             this.hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             this.speed = speed;
             this.decay = decay;
+
+            
         }
 
         public override void Update()

@@ -18,7 +18,7 @@ namespace The_scroll_of_NOPE
         SpriteBatch spriteBatch;
         LevelObjects.LevelLayout levelLayout;
         ANKA anka;
-
+        LevelObjects.LevelEditor mapEditor;
         MouseState mouseState; 
 
         // For drawing text
@@ -56,6 +56,7 @@ namespace The_scroll_of_NOPE
             this.IsMouseVisible = true;
             List<BaseClasses.PhysicalObject> collidables = new List<BaseClasses.PhysicalObject>();
             GameElements.currentState = GameElements._state.Menu;
+            
 
             base.Initialize();
         }
@@ -69,14 +70,22 @@ namespace The_scroll_of_NOPE
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             GameElements.LoadContent(Content, Window);
+            mapEditor = new LevelObjects.LevelEditor();
 
             // FOR DEBUG PUSPOSES
             tmpTexture = Content.Load<Texture2D>("images/ANKA/ANKA");
 
-            levelLayout = new LevelObjects.LevelLayout(Content);
+            //  levelLayout = new LevelObjects.LevelLayout(Content);
+            levelLayout = mapEditor.LoadMap("defaultMap");
+            if(levelLayout == null)
+            {
+                levelLayout = new LevelObjects.LevelLayout(Content);
+            }
 
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/ANKA"),new Vector2(50,50), 5,10000);
             testStudent = new Student1(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(0, 0), 7, Content, new Vector2(5, 5));
+            anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/SpriteTest"/*SpriteTest skall vara ANKA*/),new Vector2(50,50), 5,10000);
+            testStudent = new Student2(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(0, 0), 7, Content.Load<Texture2D>("images/Students/tempProjectile"));
             
             // TODO: use this.Content to load your game content here
             collidables.Add(anka);
@@ -117,7 +126,7 @@ namespace The_scroll_of_NOPE
                     break;
                 case GameElements._state.Lobby:
                     //CreateNewLobbySession();
-                    GameElements.currentState = GameElements.LobbyUpdate();
+                    GameElements.currentState = GameElements.LobbyUpdate(gameTime);
                     break;
                 case GameElements._state.Menu:
                     GameElements.currentState = GameElements.MenuUpdate(gameTime);
@@ -189,9 +198,9 @@ namespace The_scroll_of_NOPE
             {
                 case GameElements._state.Run:
                     //Draws the level design
-                    anka.Draw(spriteBatch, camera, GraphicsDevice);
-                    levelLayout.Draw(spriteBatch, camera, GraphicsDevice);
-                    testStudent.Draw(spriteBatch, camera, GraphicsDevice);
+                    anka.Draw(spriteBatch, camera, GraphicsDevice, gameTime);
+                    levelLayout.Draw(spriteBatch, camera, GraphicsDevice, gameTime);
+                    testStudent.Draw(spriteBatch, camera, GraphicsDevice, gameTime);
 
 
                     #region jonatans Debug Stuff, safe to remove

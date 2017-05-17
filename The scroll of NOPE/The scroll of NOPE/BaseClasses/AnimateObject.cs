@@ -11,6 +11,13 @@ namespace The_scroll_of_NOPE.BaseClasses
    public class AnimateObject : PhysicalObject
     {
         protected Vector2 speed;
+
+        Rectangle sourceRectangle;
+
+        public AnimateObject()
+        {
+            sourceRectangle = new Rectangle(sourceRectangle.X, sourceRectangle.Y, sourceRectangle.Width, sourceRectangle.Height);
+        }
         
         public virtual void Update()
         {
@@ -26,7 +33,10 @@ namespace The_scroll_of_NOPE.BaseClasses
             
                               
         }
-        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD)
+
+        double elapsed;
+
+        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime)
         {
             #region Tommy
             //Set destination rectangle without scaling
@@ -50,8 +60,24 @@ namespace The_scroll_of_NOPE.BaseClasses
             // Restore center
             zoomedDestination.Location += Center - newCenter;
 
+            elapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (elapsed >= 1000)
+            {
+                if (sourceRectangle.X >= sourceRectangle.Width * 3)
+                {
+                    sourceRectangle.X = 0;
+                    elapsed = 0;
+                }
+                else
+                {
+                    sourceRectangle.X += sourceRectangle.Width;
+                    elapsed = 0;
+                }
+            }
+
             // Draw
-            spriteBatch.Draw(texture, zoomedDestination, null/*Entire texture*/, Color.White, 0f, new Vector2(0,0), SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, zoomedDestination, sourceRectangle, Color.White, 0f, new Vector2(0,0), SpriteEffects.None, 0);
            
 
             

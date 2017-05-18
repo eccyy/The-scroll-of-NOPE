@@ -43,6 +43,7 @@ namespace The_scroll_of_NOPE.LevelObjects
                 // Converts to json using NwetonsoftJson and writes to file
                 string mapJSON = JsonConvert.SerializeObject(map);
                 writer.Write(mapJSON);
+                writer.Close();
                 return true;
             }
             // If not create new file and write over
@@ -57,7 +58,7 @@ namespace The_scroll_of_NOPE.LevelObjects
                 // Write to the file
                 string mapJSON = JsonConvert.SerializeObject(map);
                 writer.Write(mapJSON);
-
+                writer.Close();
                 return true;
             }
 
@@ -86,8 +87,9 @@ namespace The_scroll_of_NOPE.LevelObjects
                 string unserialisedMap = reader.ReadToEnd();
 
                 // Converts from json to LevelLayout
+                
                 LevelLayout map = JsonConvert.DeserializeObject<LevelLayout>(unserialisedMap);
-
+                reader.Close();
                 return map;
             }
             

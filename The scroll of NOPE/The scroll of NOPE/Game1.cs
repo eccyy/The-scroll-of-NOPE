@@ -144,6 +144,10 @@ namespace The_scroll_of_NOPE
                         camera.ZoomFactor *= 0.95f;
                     if (tempHandler.IsKeyDown(Keys.D0))
                         camera.ZoomFactor *= 1.05f;
+                    if(tempHandler.IsKeyDown(Keys.P))
+                    {
+                        mapEditor.SaveMap(levelLayout, "DefaultMap");
+                    }
 
                     // Turn debug on/off
                     if (tempHandler.IsKeyDown(Keys.Z))
@@ -275,7 +279,7 @@ namespace The_scroll_of_NOPE
             base.Draw(gameTime);
         }
 
-        #region JonatansKollisioner
+        #region JonatansSaker
         private void Collisions()
         {
             // Hoppas polymorfism funkar nu
@@ -298,6 +302,7 @@ namespace The_scroll_of_NOPE
 
 
         }
+
         #endregion
 
         #region JonatansMördarMaskin

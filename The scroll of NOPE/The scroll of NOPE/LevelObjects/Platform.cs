@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace The_scroll_of_NOPE.LevelObjects
 {
@@ -12,11 +13,22 @@ namespace The_scroll_of_NOPE.LevelObjects
     public class Platform : LevelObject
     {
         public Rectangle sourceRectangle;
+        
 
         public Platform(Texture2D texture, Vector2 position, Rectangle hitbox)
         {
+           
+            
             //Sets this texture to the texture it gets all the way from LevelLayout
             this.texture = texture;
+            textureName = texture.Name;
+            if (texture == null)
+            {
+              
+            }
+           
+            
+            
 
             this.hitbox = hitbox;
             //Needed for collision
@@ -27,6 +39,7 @@ namespace The_scroll_of_NOPE.LevelObjects
         }
         public void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime)
         {
+            
             base.Draw(spriteBatch, camera, GD, gameTime);
         }
     }

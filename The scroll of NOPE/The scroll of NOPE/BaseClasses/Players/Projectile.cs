@@ -52,7 +52,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             this.speed = speed;
             this.decay = decay;
 
-            
+            sourceRectangle = new Rectangle(0, 0, (int)(texture.Width/spritesheetDimensions.X), (int)(texture.Height/spritesheetDimensions.Y));
         }
 
         public override void Update()

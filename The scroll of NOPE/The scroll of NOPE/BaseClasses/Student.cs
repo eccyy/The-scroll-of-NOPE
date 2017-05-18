@@ -29,6 +29,8 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             this.position = position;
             this.maxSpeed = ppfMaxSpeed;
 
+            sourceRectangle = new Rectangle(sourceRectangle.X, sourceRectangle.Y, texture.Width, texture.Height);
+
             // Sets non-input variables in the baseclass
             this.projectiles = new List<Projectile>(); // Initialize of list
             this.Health      = 1000; // Sets Health since it's not specified

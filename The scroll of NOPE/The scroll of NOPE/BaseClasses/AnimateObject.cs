@@ -42,9 +42,9 @@ namespace The_scroll_of_NOPE.BaseClasses
             //Animations
             elapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (elapsed >= 1000)
+            if (elapsed >= 100)
             {
-                if (sourceRectangle.X >= sourceRectangle.Width * 3)
+                if (sourceRectangle.X >= sourceRectangle.Width * (texture.Width/sourceRectangle.Width - 1))
                 {
                     sourceRectangle.X = 0;
                     elapsed = 0;

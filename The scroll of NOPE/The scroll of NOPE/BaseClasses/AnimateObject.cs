@@ -12,11 +12,11 @@ namespace The_scroll_of_NOPE.BaseClasses
     {
         protected Vector2 speed;
 
-        Rectangle sourceRectangle;
+        protected Rectangle sourceRectangle;
 
         public AnimateObject()
         {
-            sourceRectangle = new Rectangle(sourceRectangle.X, sourceRectangle.Y, sourceRectangle.Width, sourceRectangle.Height);
+
         }
         
         public virtual void Update()
@@ -38,11 +38,30 @@ namespace The_scroll_of_NOPE.BaseClasses
 
         public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime)
         {
+            #region Lucas
+            //Animations
+            elapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (elapsed >= 100)
+            {
+                if (sourceRectangle.X >= sourceRectangle.Width * (texture.Width/sourceRectangle.Width - 1))
+                {
+                    sourceRectangle.X = 0;
+                    elapsed = 0;
+                }
+                else
+                {
+                    sourceRectangle.X += sourceRectangle.Width;
+                    elapsed = 0;
+                }
+            }
+            #endregion
+
             #region Tommy
             //Set destination rectangle without scaling
             Rectangle unzoomedDestination = new Rectangle(
                 new Point((int)(position - camera.Position).X, (int)(position - camera.Position).Y),
-                new Point(texture.Width, texture.Height));
+                new Point(sourceRectangle.Width, sourceRectangle.Height));
 
             // Store center of screen
             Point Center = new Point(GD.Viewport.X + GD.Viewport.Width / 2, GD.Viewport.Y + GD.Viewport.Height / 2);
@@ -60,27 +79,11 @@ namespace The_scroll_of_NOPE.BaseClasses
             // Restore center
             zoomedDestination.Location += Center - newCenter;
 
-            elapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (elapsed >= 1000)
-            {
-                if (sourceRectangle.X >= sourceRectangle.Width * 3)
-                {
-                    sourceRectangle.X = 0;
-                    elapsed = 0;
-                }
-                else
-                {
-                    sourceRectangle.X += sourceRectangle.Width;
-                    elapsed = 0;
-                }
-            }
 
             // Draw
             spriteBatch.Draw(texture, zoomedDestination, sourceRectangle, Color.White, 0f, new Vector2(0,0), SpriteEffects.None, 0);
-           
 
-            
             #endregion
         }
 

@@ -44,13 +44,15 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         /// <param name="texture">The texture to display for the projectile</param>
         /// <param name="speed">The speed the projectile flies</param>
         /// <param name="decay">How long the projectile is alive (ms)</param>
-        public Projectile(Vector2 position, Texture2D texture, Vector2 speed, int decay) : base()
+        public Projectile(Vector2 position, Texture2D texture, Vector2 speed, int decay, Vector2 spritesheetDimensions) : base()
         {
             this.texture = texture;
             this.position = position;
             this.hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             this.speed = speed;
             this.decay = decay;
+
+            sourceRectangle = new Rectangle(0, 0, (int)(texture.Width/spritesheetDimensions.X), (int)(texture.Height/spritesheetDimensions.Y));
         }
 
         public override void Update()

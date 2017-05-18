@@ -163,9 +163,9 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         }
         
 
-        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime)
+        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime, float angle)
         {
-            base.Draw(spriteBatch, camera, GD, gameTime);
+            base.Draw(spriteBatch, camera, GD, gameTime, angle);
 
             if (chargingBasicAttack)
                 spriteBatch.Draw(texture, new Rectangle(0,0,10,10), Color.Red);

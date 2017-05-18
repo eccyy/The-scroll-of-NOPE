@@ -196,9 +196,9 @@ namespace The_scroll_of_NOPE
             {
                 case GameElements._state.Run:
                     //Draws the level design
-                    anka.Draw(spriteBatch, camera, GraphicsDevice, gameTime);
-                    levelLayout.Draw(spriteBatch, camera, GraphicsDevice, gameTime);
-                    testStudent.Draw(spriteBatch, camera, GraphicsDevice, gameTime);
+                    anka.Draw(spriteBatch, camera, GraphicsDevice, gameTime, 0);
+                    levelLayout.Draw(spriteBatch, camera, GraphicsDevice, gameTime, 0);
+                    testStudent.Draw(spriteBatch, camera, GraphicsDevice, gameTime, 0);
 
 
                     #region jonatans Debug Stuff, safe to remove

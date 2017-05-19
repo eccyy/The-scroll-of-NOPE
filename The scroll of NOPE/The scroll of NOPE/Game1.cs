@@ -137,6 +137,10 @@ namespace The_scroll_of_NOPE
                     break;
                 case GameElements._state.Run:
                     //put Game update here
+                    if (anka.ankaHasWon)
+                    {
+                        GameElements.currentState = GameElements._state.End;
+                    }
                     alreadyExecuted = false;
                     KeyboardState tempHandler = Keyboard.GetState();
                     if (tempHandler.IsKeyDown(Keys.D9))
@@ -176,6 +180,9 @@ namespace The_scroll_of_NOPE
                     Point screenSize = GraphicsDevice.Viewport.Bounds.Size; // Gets the size of the screen
                     camera.Update(anka, new Vector2(screenSize.X, screenSize.Y)); // Updates camera
                     GameElements.currentState = GameElements.RunUpdate();
+                    break;
+                case GameElements._state.End:
+                    GameElements.currentState = GameElements.EndUpdate();
                     break;
             }
 
@@ -267,6 +274,9 @@ namespace The_scroll_of_NOPE
                     break;
                 case GameElements._state.Quit:
                     Exit();
+                    break;
+                case GameElements._state.End:
+                    //GameElements.
                     break;
             }
 

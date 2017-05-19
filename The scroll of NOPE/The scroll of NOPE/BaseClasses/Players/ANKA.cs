@@ -25,7 +25,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             BuffCalculator(studentCount);
             base.texture = texture;
 
-            sourceRectangle = new Rectangle(sourceRectangle.X, sourceRectangle.Y, 48, 100);
+            sourceRectangle = new Rectangle(sourceRectangle.X, sourceRectangle.Y, 48, 60);
         }
 
         public override void Update()

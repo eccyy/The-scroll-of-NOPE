@@ -163,7 +163,9 @@ namespace The_scroll_of_NOPE
                     Collisions();
 
                     //update mouse input
-                   // mouseState = Mouse.GetState();
+                    mouseState = Mouse.GetState();
+
+                    
                     // If + button is clicked while debug is on a new platforn spawns
                     if (debug)
                     {

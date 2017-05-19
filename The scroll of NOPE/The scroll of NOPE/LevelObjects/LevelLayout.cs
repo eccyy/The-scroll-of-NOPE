@@ -112,7 +112,7 @@ namespace The_scroll_of_NOPE.LevelObjects
             List<Vector2> platformPositions = new List<Vector2>() {
                   new Vector2(0,-500), new Vector2(0,400), new Vector2(3900,-500), new Vector2(3900, 400) //Boundaries kinda
                 , new Vector2(100, 300), new Vector2(200,100), new Vector2(200,400), new Vector2(0, 200), new Vector2(), new Vector2(), new Vector2() 
-                , new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2() 
+                , new Vector2(300, 400), new Vector2(400,300), new Vector2(500,200), new Vector2(), new Vector2(), new Vector2(), new Vector2() 
                 , new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2() 
                 , new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2() 
                 , new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2() 

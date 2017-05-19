@@ -100,16 +100,12 @@ namespace The_scroll_of_NOPE.LevelObjects
             }
             #endregion
 
+            #region AddPlatforms with RMB
             MouseState mouseState = Mouse.GetState();
 
-            if (mouseState.LeftButton == ButtonState.Pressed)
+            if (mouseState.RightButton == ButtonState.Pressed)
             {
                 Random rng = new Random();
-
-                /*
-                float x = mouseState.X;
-                float y = mouseState.Y;
-                */
 
                 int i = rng.Next(1, 4);
 
@@ -120,10 +116,10 @@ namespace The_scroll_of_NOPE.LevelObjects
                 int y = (int)mouseState.Position.Y + (int)camera.Position.Y;
                 int x = (int)mouseState.Position.X + (int)camera.Position.X;
 
-
                 hitbox = new Rectangle(x,y , texture.Width, texture.Height);
                 Platforms.Add(new Platform(texture, new Vector2(x,y), hitbox));
             }
+            #endregion
         }
 
         //In order for objects to have separate textures i put them in methods so they get them by them selves when called.

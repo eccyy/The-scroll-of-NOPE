@@ -157,15 +157,14 @@ namespace The_scroll_of_NOPE
                         }
                     }
 
-                    levelLayout.Update(gameTime);
+                    levelLayout.Update(gameTime, camera);
                     anka.Update();
                     testStudent.Update(camera);
                     Collisions();
 
                     //update mouse input
-                    mouseState = Mouse.GetState();
-
                     
+
                     // If + button is clicked while debug is on a new platforn spawns
                     if (debug)
                     {

@@ -61,10 +61,14 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
             // Remove dead (decayed) projectiles
             List<Projectile> tempList = new List<Projectile>(projectiles);
+            int offset = 0;
             for (int i = 0; i < tempList.Count; i++)
             {
                 if (tempList[i].IsDead)
-                    projectiles.RemoveAt(i);
+                {
+                    projectiles.RemoveAt(i - offset);
+                    offset++;
+                }
             }
             #endregion
 
@@ -327,17 +331,17 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
         protected abstract void AttackK();           
         protected abstract void AttackL();
 
-        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime)
+        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime, float angle)
         {
             
             // Draw projectiles
             foreach (Projectile projectile in projectiles)
             {
-                projectile.Draw(spriteBatch, camera, GD, gameTime);
+                projectile.Draw(spriteBatch, camera, GD, gameTime, angle);
             }
             
             // Draw this
-            base.Draw(spriteBatch, camera, GD, gameTime);
+            base.Draw(spriteBatch, camera, GD, gameTime, angle);
         }
     }
     #endregion

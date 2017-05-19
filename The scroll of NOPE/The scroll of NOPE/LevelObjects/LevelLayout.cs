@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
+using Microsoft.Xna.Framework.Input;
 
 namespace The_scroll_of_NOPE.LevelObjects
 {
@@ -88,7 +88,7 @@ namespace The_scroll_of_NOPE.LevelObjects
         //Counts how many hearts are on the map, max ammount is 15
         public int heartCounter;
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Camera camera)
         {
             #region PickupHearts
             HeartElapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -97,6 +97,27 @@ namespace The_scroll_of_NOPE.LevelObjects
                 heart(content, platforms);
                 HeartElapsed = 0;
                 heartCounter++;
+            }
+            #endregion
+
+            #region AddPlatforms with RMB
+            MouseState mouseState = Mouse.GetState();
+
+            if (mouseState.RightButton == ButtonState.Pressed)
+            {
+                Random rng = new Random();
+
+                int i = rng.Next(1, 4);
+
+                if (i == 1) base.texture = content.Load<Texture2D>("images/Objects/platform1");
+                if (i == 2) base.texture = content.Load<Texture2D>("images/Objects/platform2");
+                if (i == 3) base.texture = content.Load<Texture2D>("images/Objects/platform3");
+
+                int y = (int)mouseState.Position.Y + (int)camera.Position.Y;
+                int x = (int)mouseState.Position.X + (int)camera.Position.X;
+
+                hitbox = new Rectangle(x,y , texture.Width, texture.Height);
+                Platforms.Add(new Platform(texture, new Vector2(x,y), hitbox));
             }
             #endregion
         }
@@ -112,7 +133,7 @@ namespace The_scroll_of_NOPE.LevelObjects
             List<Vector2> platformPositions = new List<Vector2>() {
                   new Vector2(0,-500), new Vector2(0,400), new Vector2(3900,-500), new Vector2(3900, 400) //Boundaries kinda
                 , new Vector2(100, 300), new Vector2(200,100), new Vector2(200,400), new Vector2(0, 200), new Vector2(), new Vector2(), new Vector2() 
-                , new Vector2(300, 400), new Vector2(400,300), new Vector2(500,200), new Vector2(), new Vector2(), new Vector2(), new Vector2() 
+                , new Vector2(300, 400), new Vector2(400,300), new Vector2(500,200), new Vector2(400,100), new Vector2(), new Vector2(), new Vector2() 
                 , new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2() 
                 , new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2() 
                 , new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2(), new Vector2() 

@@ -39,9 +39,11 @@ namespace The_scroll_of_NOPE.BaseClasses
         public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime, float angle)
         {
             #region Lucas
-            //Animations
+            //Animations, this can be used by all classes that use this class, as long as they have a  - 
+            // - Rectangle sourceRectangle with measurements for the sprites.
             elapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
 
+            //Switches frame every 100 ms (should be decided by the using class)
             if (elapsed >= 100)
             {
                 if (sourceRectangle.X >= sourceRectangle.Width * (texture.Width/sourceRectangle.Width - 1))

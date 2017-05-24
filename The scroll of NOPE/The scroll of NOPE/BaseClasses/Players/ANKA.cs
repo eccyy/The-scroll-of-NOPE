@@ -54,9 +54,10 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                     {
                         ankaHasWon = true;
                     }
+                    #region Lucas
                     //Anka picks up heart, should be made for player aswell.
                     //Exists in player.cs, might not be needed here
-                        foreach (HeartPickup heart in new List<HeartPickup>(levelLayout.Hearts))
+                    foreach (HeartPickup heart in new List<HeartPickup>(levelLayout.Hearts))
                         {
                             if (CheckCollision(heart.Hitbox))
                             {
@@ -65,10 +66,11 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                                 levelLayout.heartCounter -= 1;
                             }
                         }
+                    #endregion
                 }
 
                 // Attack collisions with student1
-                if(collidable is Student2)
+                if (collidable is Student2)
                 {
                     var student = collidable as Student2;
 

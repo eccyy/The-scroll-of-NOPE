@@ -162,10 +162,7 @@ namespace The_scroll_of_NOPE
                     testStudent.Update(camera);
                     Collisions();
 
-                    //update mouse input
                     
-
-                    // If + button is clicked while debug is on a new platforn spawns
                     if (debug)
                     {
                         

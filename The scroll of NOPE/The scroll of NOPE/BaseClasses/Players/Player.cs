@@ -214,6 +214,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                     // Treat as a LevelLayout to gain access to the properties
                     var layout = collidable as LevelLayout;
 
+                    #region Lucas
                     foreach (HeartPickup heart in new List<HeartPickup>(layout.Hearts))
                     {
                         if (CheckCollision(heart.Hitbox))
@@ -223,6 +224,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                             layout.heartCounter -= 1;
                         }
                     }
+                    #endregion
 
                     // collion with platforms
                     foreach (Platform platformObject in layout.Platforms)

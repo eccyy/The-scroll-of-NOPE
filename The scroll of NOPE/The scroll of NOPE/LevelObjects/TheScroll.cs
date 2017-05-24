@@ -18,7 +18,8 @@ namespace The_scroll_of_NOPE.LevelObjects
             // TODO: Magic, set texture
             if (texture == null)
             {
-                this.texture = content.Load<Texture2D>(textureName);
+                // Not implemented yet
+                // TODO: IMplement a texture handler to use when serializing
             }
             else
             {

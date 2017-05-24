@@ -72,17 +72,32 @@ namespace The_scroll_of_NOPE
             GameElements.LoadContent(Content, Window);
             mapEditor = new LevelObjects.LevelEditor();
 
+#region Jonatan, load map
             // FOR DEBUG PUSPOSES
             tmpTexture = Content.Load<Texture2D>("images/ANKA/ANKA");
 
-            //  levelLayout = new LevelObjects.LevelLayout(Content);
-            levelLayout = mapEditor.LoadMap("defaultMap");
-            if(levelLayout == null)
+            try
+            {
+                // Load the default map
+                levelLayout = mapEditor.LoadMap("defaultMap");
+
+                // If it could not load because there probably was no defaultMap
+                if (levelLayout == null)
+                {
+                    // Create new map and save it to a file
+                    levelLayout = new LevelObjects.LevelLayout(Content);
+                    mapEditor.SaveMap(levelLayout, "defaultMap");
+                }
+            }
+            // Textures probably did not load properly
+            // TODO: Fix the deserialization and serialization of textures
+            catch
             {
                 levelLayout = new LevelObjects.LevelLayout(Content);
-                mapEditor.SaveMap(levelLayout,"defaultMap");
             }
-
+         
+           
+#endregion
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/SpriteTest"/*SpriteTest skall vara ANKA*/), new Vector2(50, 50), 5, 10000);
             testStudent = new Student1(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(0, 0), 7, Content, new Vector2(5, 5));
             

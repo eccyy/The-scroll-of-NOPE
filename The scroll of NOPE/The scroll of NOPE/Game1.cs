@@ -168,6 +168,7 @@ namespace The_scroll_of_NOPE
                         mapEditor.SaveMap(levelLayout, "DefaultMap");
                     }
 
+
                     // Turn debug on/off
                     if (tempHandler.IsKeyDown(Keys.Z))
                     {
@@ -186,11 +187,11 @@ namespace The_scroll_of_NOPE
                     testStudent.Update(camera);
                     Collisions();
 
+                    //update mouse input
                     
-                    if (debug)
-                    {
-                        
-                    }
+
+                    // If pageUp button is clicked while debug is on a new platforn spawns
+                   
                    
                            
                     Point screenSize = GraphicsDevice.Viewport.Bounds.Size; // Gets the size of the screen

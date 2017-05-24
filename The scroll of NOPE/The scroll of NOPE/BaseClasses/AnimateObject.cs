@@ -10,6 +10,7 @@ namespace The_scroll_of_NOPE.BaseClasses
 {
    public class AnimateObject : PhysicalObject
     {
+#region Jonatan
         protected Vector2 speed;
 
         protected Rectangle sourceRectangle;
@@ -33,7 +34,7 @@ namespace The_scroll_of_NOPE.BaseClasses
             
                               
         }
-
+#endregion
         double elapsed;
 
         public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime, float angle)

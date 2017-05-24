@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace The_scroll_of_NOPE.Menyer
 {
+    #region Anton
     class MenuLobby
     {
         List<MenuItem> lobbymeny;
@@ -96,4 +97,5 @@ namespace The_scroll_of_NOPE.Menyer
             }
         }
     }
+    #endregion 
 }

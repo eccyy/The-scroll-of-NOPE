@@ -146,7 +146,7 @@ namespace The_scroll_of_NOPE.Network
         /// <returns>The Host's lobby session data</returns>
         private LobbySession GetHostSession()
         {
-            return new LobbySession();
+            return new LobbySession(); // not how it's supposed to be, but I needed a return value because it throws an error otherwise
         }
     }
     #endregion

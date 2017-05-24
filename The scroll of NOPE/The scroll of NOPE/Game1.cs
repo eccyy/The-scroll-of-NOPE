@@ -72,16 +72,32 @@ namespace The_scroll_of_NOPE
             GameElements.LoadContent(Content, Window);
             mapEditor = new LevelObjects.LevelEditor();
 
+#region Jonatan, load map
             // FOR DEBUG PUSPOSES
             tmpTexture = Content.Load<Texture2D>("images/ANKA/ANKA");
 
-            //  levelLayout = new LevelObjects.LevelLayout(Content);
-            levelLayout = mapEditor.LoadMap("defaultMap");
-            if(levelLayout == null)
+            try
+            {
+                // Load the default map
+                levelLayout = mapEditor.LoadMap("defaultMap");
+
+                // If it could not load because there probably was no defaultMap
+                if (levelLayout == null)
+                {
+                    // Create new map and save it to a file
+                    levelLayout = new LevelObjects.LevelLayout(Content);
+                    mapEditor.SaveMap(levelLayout, "defaultMap");
+                }
+            }
+            // Textures probably did not load properly
+            // TODO: Fix the deserialization and serialization of textures
+            catch
             {
                 levelLayout = new LevelObjects.LevelLayout(Content);
             }
-
+         
+           
+#endregion
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/SpriteTest"/*SpriteTest skall vara ANKA*/), new Vector2(50, 50), 5, 10000);
             testStudent = new Student1(Content.Load<Texture2D>("images/Students/PlayerTemp"), new Vector2(0, 0), 7, Content, new Vector2(5, 5));
             
@@ -137,12 +153,20 @@ namespace The_scroll_of_NOPE
                     break;
                 case GameElements._state.Run:
                     //put Game update here
+                    if (anka.ankaHasWon)
+                    {
+                        GameElements.currentState = GameElements._state.End;
+                    }
                     alreadyExecuted = false;
                     KeyboardState tempHandler = Keyboard.GetState();
                     if (tempHandler.IsKeyDown(Keys.D9))
                         camera.ZoomFactor *= 0.95f;
                     if (tempHandler.IsKeyDown(Keys.D0))
                         camera.ZoomFactor *= 1.05f;
+                    if(tempHandler.IsKeyDown(Keys.P))
+                    {
+                        mapEditor.SaveMap(levelLayout, "DefaultMap");
+                    }
 
                     // Turn debug on/off
                     if (tempHandler.IsKeyDown(Keys.Z))
@@ -172,6 +196,9 @@ namespace The_scroll_of_NOPE
                     Point screenSize = GraphicsDevice.Viewport.Bounds.Size; // Gets the size of the screen
                     camera.Update(anka, new Vector2(screenSize.X, screenSize.Y)); // Updates camera
                     GameElements.currentState = GameElements.RunUpdate();
+                    break;
+                case GameElements._state.End:
+                    GameElements.currentState = GameElements.EndUpdate();
                     break;
             }
 
@@ -264,6 +291,9 @@ namespace The_scroll_of_NOPE
                 case GameElements._state.Quit:
                     Exit();
                     break;
+                case GameElements._state.End:
+                    //GameElements.
+                    break;
             }
 
             spriteBatch.End();
@@ -272,7 +302,7 @@ namespace The_scroll_of_NOPE
             base.Draw(gameTime);
         }
 
-        #region JonatansKollisioner
+        #region JonatansSaker
         private void Collisions()
         {
             // Hoppas polymorfism funkar nu
@@ -295,6 +325,7 @@ namespace The_scroll_of_NOPE
 
 
         }
+
         #endregion
 
         #region JonatansMördarMaskin

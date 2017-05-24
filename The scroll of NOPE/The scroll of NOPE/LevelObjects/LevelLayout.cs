@@ -45,12 +45,15 @@ namespace The_scroll_of_NOPE.LevelObjects
         Vector2 groundPosition;
 
         //Needed thing
-        ContentManager content;
+        public ContentManager content;
+
+        Content.TextureHandler textures;
 
         public LevelLayout(ContentManager content)
         {
             this.content = content;
-            
+            textures = new Content.TextureHandler(content);
+
             //Spawns the neccessary objects
             platforms = new List<Platform>();
             grounds = new List<Ground>();
@@ -153,7 +156,10 @@ namespace The_scroll_of_NOPE.LevelObjects
                 if (i == 3) base.texture = content.Load<Texture2D>("images/Objects/platform3");
 
                 hitbox = new Rectangle((int)platformPositions[n].X, (int)platformPositions[n].Y, texture.Width, texture.Height);
-                platforms.Add(new Platform(texture, platformPositions[n], hitbox));
+
+                Platform platform = new Platform(texture, platformPositions[n], hitbox);
+
+                platforms.Add(platform);
             }
         }
 
@@ -185,7 +191,7 @@ namespace The_scroll_of_NOPE.LevelObjects
 
             hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
 
-            theScroll = new TheScroll(texture, position, hitbox);
+            theScroll = new TheScroll(texture, position, hitbox,content);
         }
         
         public void heart(ContentManager content,List<Platform> platforms)

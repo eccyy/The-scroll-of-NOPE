@@ -68,10 +68,11 @@ namespace The_scroll_of_NOPE.Menyer
                 lastChange = gameTime.TotalGameTime.TotalMilliseconds;
             }
 
-            if (isKeyReady)
+            if (isKeyReady && keyboardState.IsKeyDown(Keys.Enter))
             {
                 if (keyboardState.IsKeyDown(Keys.Enter))
                 {
+                    isKeyReady = false;
                     return menu[selected].State;
                 }
             }

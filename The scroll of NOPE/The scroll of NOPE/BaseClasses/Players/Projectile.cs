@@ -69,7 +69,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             }
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime)
+        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime, float angle)
         {
             //Set destination rectangle without scaling
             Rectangle unzoomedDestination = new Rectangle(
@@ -93,7 +93,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             zoomedDestination.Location += Center - newCenter;
 
             // Draw
-            float angle = (float)Math.Atan2(this.speed.Y, this.speed.X); // The angle to rotate the texture depending on the mouse pointer's orientation relative to the player
+            angle += (float)Math.Atan2(this.speed.Y, this.speed.X); // The angle to rotate the texture depending on the mouse pointer's orientation relative to the player
 
             spriteBatch.Draw(
                 this.texture, 

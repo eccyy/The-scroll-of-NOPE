@@ -36,7 +36,7 @@ namespace The_scroll_of_NOPE.BaseClasses
 
         double elapsed;
 
-        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime)
+        public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime, float angle)
         {
             #region Lucas
             //Animations
@@ -80,9 +80,10 @@ namespace The_scroll_of_NOPE.BaseClasses
             zoomedDestination.Location += Center - newCenter;
 
 
+            zoomedDestination.Location += new Point(this.texture.Width / 2, this.texture.Height / 2);
 
             // Draw
-            spriteBatch.Draw(texture, zoomedDestination, sourceRectangle, Color.White, 0f, new Vector2(0,0), SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, zoomedDestination, sourceRectangle, Color.White, angle, new Vector2(this.texture.Width / 2, this.texture.Height / 2), SpriteEffects.None, 0);
 
             #endregion
         }

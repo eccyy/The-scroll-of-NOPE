@@ -94,6 +94,13 @@ namespace The_scroll_of_NOPE.Menyer
             return _state.Run;
         }
 
+        public static _state EndUpdate()
+        {
+
+            return _state.End;
+        }
+
+
         //draw method for menu
         public static void MenuDraw(SpriteBatch spriteBatch)
         {
@@ -105,6 +112,10 @@ namespace The_scroll_of_NOPE.Menyer
         {
             //spriteBatch.Draw();
             lobbymenu.Draw(spriteBatch);
+        }
+        public static void EndDraw(SpriteBatch spriteBatch)
+        {
+
         }
     }
 }

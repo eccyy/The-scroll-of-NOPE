@@ -9,7 +9,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 
 namespace The_scroll_of_NOPE.Menyer
-{   //Anton
+{
+    #region Anton
     static class GameElements
     {
         public enum _state { Run, Lobby, Menu,Quit,End };
@@ -20,9 +21,7 @@ namespace The_scroll_of_NOPE.Menyer
 
         static Menu menu;
         static MenuLobby lobbymenu;
-
-        static Texture2D menuSprite, lobbySprite;
-        static Vector2 menuPos, lobbyPos;
+        static End end;
         
         public static void LoadContent(ContentManager content, GameWindow window)
         {
@@ -44,6 +43,10 @@ namespace The_scroll_of_NOPE.Menyer
             lobbymenu.AddItem(content.Load<Texture2D>("images/menu/start"), (int)_state.Run);
             lobbymenu.AddItem(content.Load<Texture2D>("images/menu/exit"), (int)_state.Menu);
 
+            end = new End((int)_state.End);
+
+            end.AddItem(content.Load<Texture2D>("images/menu/restart"), (int)_state.Menu);
+            end.AddItem(content.Load<Texture2D>("images/menu/exit"), (int)_state.Quit);
         }
         //looping menustate
         public static _state MenuUpdate(GameTime gameTime)
@@ -94,10 +97,10 @@ namespace The_scroll_of_NOPE.Menyer
             return _state.Run;
         }
 
-        public static _state EndUpdate()
+        public static _state EndUpdate(GameTime gameTime)
         {
 
-            return _state.End;
+            return (_state)end.Update(gameTime);
         }
 
 
@@ -113,9 +116,10 @@ namespace The_scroll_of_NOPE.Menyer
             //spriteBatch.Draw();
             lobbymenu.Draw(spriteBatch);
         }
-        public static void EndDraw(SpriteBatch spriteBatch)
+        public static void EndDraw(SpriteBatch spriteBatch, SpriteFont font)
         {
-
+            end.Draw(spriteBatch,font);
         }
     }
+    #endregion
 }

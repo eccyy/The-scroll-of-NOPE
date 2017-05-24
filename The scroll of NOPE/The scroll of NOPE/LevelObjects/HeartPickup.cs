@@ -12,6 +12,8 @@ namespace The_scroll_of_NOPE.LevelObjects
     {
         public HeartPickup(Texture2D texture, Vector2 position, Rectangle hitbox)
         {
+            content = new Microsoft.Xna.Framework.Content.ContentManager(content.ServiceProvider, content.RootDirectory);
+
             this.texture = texture;
             this.hitbox = hitbox;
             this.position = position;

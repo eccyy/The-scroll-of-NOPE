@@ -80,6 +80,7 @@ namespace The_scroll_of_NOPE
             if(levelLayout == null)
             {
                 levelLayout = new LevelObjects.LevelLayout(Content);
+                mapEditor.SaveMap(levelLayout,"defaultMap");
             }
 
             anka = new BaseClasses.Players.ANKA(1, Content.Load<Texture2D>("images/ANKA/SpriteTest"/*SpriteTest skall vara ANKA*/), new Vector2(50, 50), 5, 10000);

@@ -12,21 +12,12 @@ namespace The_scroll_of_NOPE.LevelObjects
     #region Lucas
     public abstract class LevelObject : BaseClasses.PhysicalObject
     {
-        ContentManager content;
+        protected ContentManager content;
+       
+
         protected string textureName;
 
-        protected Texture2D texture
-        {
-            get
-            {
-                return content.Load<Texture2D>(textureName);
-            }
-            set
-            {
-               
-                
-            }
-        }
+     
     }
     #endregion
 }

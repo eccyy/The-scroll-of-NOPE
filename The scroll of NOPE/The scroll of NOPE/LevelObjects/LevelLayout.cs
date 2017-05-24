@@ -106,6 +106,8 @@ namespace The_scroll_of_NOPE.LevelObjects
             #region AddPlatforms with RMB
             MouseState mouseState = Mouse.GetState();
 
+            //Adds a new platform at the x,y of the mouse
+            //Does not get saved and placed next time you start the game
             if (mouseState.RightButton == ButtonState.Pressed)
             {
                 Random rng = new Random();
@@ -116,6 +118,7 @@ namespace The_scroll_of_NOPE.LevelObjects
                 if (i == 2) base.texture = content.Load<Texture2D>("images/Objects/platform2");
                 if (i == 3) base.texture = content.Load<Texture2D>("images/Objects/platform3");
 
+                //Needs to be mouse position + camera position for it to be drawn in the right place, otherwise it draws it at the gamewindow coords.
                 int y = (int)mouseState.Position.Y + (int)camera.Position.Y;
                 int x = (int)mouseState.Position.X + (int)camera.Position.X;
 
@@ -146,7 +149,6 @@ namespace The_scroll_of_NOPE.LevelObjects
             //Adds one platform for each Vector2 position in the positions list
             for (int n = 0; n < platformPositions.Count; n++)
             {
-                
                 int i = rng.Next(1, 4);
 
                 if (i == 1) base.texture = content.Load<Texture2D>("images/Objects/platform1");

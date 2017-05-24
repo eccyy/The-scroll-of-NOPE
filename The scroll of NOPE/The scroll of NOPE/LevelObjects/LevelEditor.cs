@@ -6,9 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-
+// Jonatan
 namespace The_scroll_of_NOPE.LevelObjects
 {
+#region Jonatan
     class LevelEditor
     {
         
@@ -89,6 +90,7 @@ namespace The_scroll_of_NOPE.LevelObjects
                 // Converts from json to LevelLayout
                 
                 LevelLayout map = JsonConvert.DeserializeObject<LevelLayout>(unserialisedMap);
+
                 reader.Close();
                 return map;
             }
@@ -97,4 +99,5 @@ namespace The_scroll_of_NOPE.LevelObjects
             return null;
         }
     }
+#endregion
 }

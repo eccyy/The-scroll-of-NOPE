@@ -21,6 +21,7 @@ namespace The_scroll_of_NOPE.LevelObjects
             {
                 // Not implemented yet
                 // TODO: IMplement a texture handler to use when serializing
+
             }
             else
             {

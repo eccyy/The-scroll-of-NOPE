@@ -45,12 +45,15 @@ namespace The_scroll_of_NOPE.LevelObjects
         Vector2 groundPosition;
 
         //Needed thing
-        ContentManager content;
+        public ContentManager content;
+
+        Content.TextureHandler textures;
 
         public LevelLayout(ContentManager content)
         {
             this.content = content;
-            
+            textures = new Content.TextureHandler(content);
+
             //Spawns the neccessary objects
             platforms = new List<Platform>();
             grounds = new List<Ground>();
@@ -88,7 +91,7 @@ namespace The_scroll_of_NOPE.LevelObjects
         //Counts how many hearts are on the map, max ammount is 15
         public int heartCounter;
 
-        public void Update(GameTime gameTime, Camera camera)
+        public void Update(GameTime gameTime, Camera camera, bool Debug)
         {
             #region PickupHearts
             HeartElapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -101,24 +104,31 @@ namespace The_scroll_of_NOPE.LevelObjects
             #endregion
 
             #region AddPlatforms with RMB
-            MouseState mouseState = Mouse.GetState();
-
-            if (mouseState.RightButton == ButtonState.Pressed)
+            if(Debug)
             {
-                Random rng = new Random();
+                MouseState mouseState = Mouse.GetState();
 
-                int i = rng.Next(1, 4);
+                //Adds a new platform at the x,y of the mouse
+                //Does not get saved and placed next time you start the game
+                if (mouseState.RightButton == ButtonState.Pressed)
+                {
+                    Random rng = new Random();
 
-                if (i == 1) base.texture = content.Load<Texture2D>("images/Objects/platform1");
-                if (i == 2) base.texture = content.Load<Texture2D>("images/Objects/platform2");
-                if (i == 3) base.texture = content.Load<Texture2D>("images/Objects/platform3");
+                    int i = rng.Next(1, 4);
 
-                int y = (int)mouseState.Position.Y + (int)camera.Position.Y;
-                int x = (int)mouseState.Position.X + (int)camera.Position.X;
+                    if (i == 1) base.texture = content.Load<Texture2D>("images/Objects/platform1");
+                    if (i == 2) base.texture = content.Load<Texture2D>("images/Objects/platform2");
+                    if (i == 3) base.texture = content.Load<Texture2D>("images/Objects/platform3");
 
-                hitbox = new Rectangle(x,y , texture.Width, texture.Height);
-                Platforms.Add(new Platform(texture, new Vector2(x,y), hitbox));
+                    //Needs to be mouse position + camera position for it to be drawn in the right place, otherwise it draws it at the gamewindow coords.
+                    int y = (int)mouseState.Position.Y + (int)camera.Position.Y;
+                    int x = (int)mouseState.Position.X + (int)camera.Position.X;
+
+                    hitbox = new Rectangle(x, y, texture.Width, texture.Height);
+                    Platforms.Add(new Platform(texture, new Vector2(x, y), hitbox));
+                }
             }
+            
             #endregion
         }
 
@@ -143,7 +153,6 @@ namespace The_scroll_of_NOPE.LevelObjects
             //Adds one platform for each Vector2 position in the positions list
             for (int n = 0; n < platformPositions.Count; n++)
             {
-                
                 int i = rng.Next(1, 4);
 
                 if (i == 1) base.texture = content.Load<Texture2D>("images/Objects/platform1");
@@ -151,7 +160,10 @@ namespace The_scroll_of_NOPE.LevelObjects
                 if (i == 3) base.texture = content.Load<Texture2D>("images/Objects/platform3");
 
                 hitbox = new Rectangle((int)platformPositions[n].X, (int)platformPositions[n].Y, texture.Width, texture.Height);
-                platforms.Add(new Platform(texture, platformPositions[n], hitbox));
+
+                Platform platform = new Platform(texture, platformPositions[n], hitbox);
+
+                platforms.Add(platform);
             }
         }
 
@@ -183,7 +195,7 @@ namespace The_scroll_of_NOPE.LevelObjects
 
             hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
 
-            theScroll = new TheScroll(texture, position, hitbox);
+            theScroll = new TheScroll(texture, position, hitbox,content);
         }
         
         public void heart(ContentManager content,List<Platform> platforms)

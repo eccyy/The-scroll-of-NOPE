@@ -71,6 +71,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BaseClasses\AnimateObject.cs" />
+    <Compile Include="Content\TextureHandler.cs" />
     <Compile Include="LevelObjects\LevelEditor.cs" />
     <Compile Include="BaseClasses\Objects.cs" />
     <Compile Include="BaseClasses\Players\ANKA.cs" />

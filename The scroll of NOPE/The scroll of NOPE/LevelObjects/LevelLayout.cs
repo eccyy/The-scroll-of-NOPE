@@ -91,7 +91,7 @@ namespace The_scroll_of_NOPE.LevelObjects
         //Counts how many hearts are on the map, max ammount is 15
         public int heartCounter;
 
-        public void Update(GameTime gameTime, Camera camera)
+        public void Update(GameTime gameTime, Camera camera, bool Debug)
         {
             #region PickupHearts
             HeartElapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -104,27 +104,31 @@ namespace The_scroll_of_NOPE.LevelObjects
             #endregion
 
             #region AddPlatforms with RMB
-            MouseState mouseState = Mouse.GetState();
-
-            //Adds a new platform at the x,y of the mouse
-            //Does not get saved and placed next time you start the game
-            if (mouseState.RightButton == ButtonState.Pressed)
+            if(Debug)
             {
-                Random rng = new Random();
+                MouseState mouseState = Mouse.GetState();
 
-                int i = rng.Next(1, 4);
+                //Adds a new platform at the x,y of the mouse
+                //Does not get saved and placed next time you start the game
+                if (mouseState.RightButton == ButtonState.Pressed)
+                {
+                    Random rng = new Random();
 
-                if (i == 1) base.texture = content.Load<Texture2D>("images/Objects/platform1");
-                if (i == 2) base.texture = content.Load<Texture2D>("images/Objects/platform2");
-                if (i == 3) base.texture = content.Load<Texture2D>("images/Objects/platform3");
+                    int i = rng.Next(1, 4);
 
-                //Needs to be mouse position + camera position for it to be drawn in the right place, otherwise it draws it at the gamewindow coords.
-                int y = (int)mouseState.Position.Y + (int)camera.Position.Y;
-                int x = (int)mouseState.Position.X + (int)camera.Position.X;
+                    if (i == 1) base.texture = content.Load<Texture2D>("images/Objects/platform1");
+                    if (i == 2) base.texture = content.Load<Texture2D>("images/Objects/platform2");
+                    if (i == 3) base.texture = content.Load<Texture2D>("images/Objects/platform3");
 
-                hitbox = new Rectangle(x,y , texture.Width, texture.Height);
-                Platforms.Add(new Platform(texture, new Vector2(x,y), hitbox));
+                    //Needs to be mouse position + camera position for it to be drawn in the right place, otherwise it draws it at the gamewindow coords.
+                    int y = (int)mouseState.Position.Y + (int)camera.Position.Y;
+                    int x = (int)mouseState.Position.X + (int)camera.Position.X;
+
+                    hitbox = new Rectangle(x, y, texture.Width, texture.Height);
+                    Platforms.Add(new Platform(texture, new Vector2(x, y), hitbox));
+                }
             }
+            
             #endregion
         }
 

@@ -181,7 +181,7 @@ namespace The_scroll_of_NOPE
                         }
                     }
 
-                    levelLayout.Update(gameTime, camera);
+                    levelLayout.Update(gameTime, camera, debug);
                     anka.Update();
                     testStudent.Update(camera);
                     Collisions();

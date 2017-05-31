@@ -12,6 +12,8 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
     #region Tommy
     public class Projectile : AnimateObject
     {
+        
+
         protected float _dmg = 50;
         public float dmg
         {
@@ -52,7 +54,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
             this.speed = speed;
             this.decay = decay;
 
-            sourceRectangle = new Rectangle(0, 0, (int)(texture.Width/spritesheetDimensions.X), (int)(texture.Height/spritesheetDimensions.Y));
+            sourceRectangle = new Rectangle(sourceRectangle.X, sourceRectangle.Y,64,64);
         }
 
         public override void Update()
@@ -71,6 +73,7 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
 
         public override void Draw(SpriteBatch spriteBatch, Camera camera, GraphicsDevice GD, GameTime gameTime, float angle)
         {
+            /*
             //Set destination rectangle without scaling
             Rectangle unzoomedDestination = new Rectangle(
                 new Point((int)(position - camera.Position).X, (int)(position - camera.Position).Y),
@@ -104,6 +107,8 @@ namespace The_scroll_of_NOPE.BaseClasses.Players
                 new Vector2(this.texture.Width / 2, this.texture.Height / 2), 
                 SpriteEffects.None, 
                 0);
+                */
+            base.Draw(spriteBatch, camera, GD, gameTime, angle);
         }
     }
     #endregion

@@ -11,20 +11,22 @@ using Microsoft.Xna.Framework.Content;
 namespace The_scroll_of_NOPE.Menyer
 {
     #region Anton
-    class Menu
+    public class End
     {
-        List<MenuItem> menu;
-        int selected = 0;
+        List<MenuItem> end;
 
-        float currentHeight = 0;
-        double lastChange = 0;
-        int defaultMenuState;
+        int selected;
+        int defaultState;
         bool isKeyReady = false;
+        double lastChange;
+        int currentHeight;
 
-        public Menu(int defaultMenuState)
+        SpriteFont font;
+
+        public End(int defaultState)
         {
-            menu = new List<MenuItem>();
-            this.defaultMenuState = defaultMenuState;
+            end = new List<MenuItem>();
+            this.defaultState = defaultState;
         }
 
         public void AddItem(Texture2D itemTexture, int state)
@@ -35,7 +37,7 @@ namespace The_scroll_of_NOPE.Menyer
             currentHeight += itemTexture.Height + 20;
 
             MenuItem temp = new MenuItem(itemTexture, new Vector2(X, Y), state);
-            menu.Add(temp);
+            end.Add(temp);
         }
 
         public int Update(GameTime gameTime)
@@ -45,12 +47,12 @@ namespace The_scroll_of_NOPE.Menyer
             {
                 isKeyReady = true;
             }
-            if (lastChange + 200 < gameTime.TotalGameTime.TotalMilliseconds)
+            if (lastChange + 100 < gameTime.TotalGameTime.TotalMilliseconds)
             {
                 if (keyboardState.IsKeyDown(Keys.Down))
                 {
                     selected++;
-                    if (selected > menu.Count - 1)
+                    if (selected > end.Count - 1)
                     {
                         selected = 0;
                     }
@@ -62,40 +64,40 @@ namespace The_scroll_of_NOPE.Menyer
                     selected--;
                     if (selected < 0)
                     {
-                        selected = menu.Count - 1;
+                        selected = end.Count - 1;
                     }
 
                 }
                 lastChange = gameTime.TotalGameTime.TotalMilliseconds;
             }
-
             if (isKeyReady && keyboardState.IsKeyDown(Keys.Enter))
             {
+
                 if (keyboardState.IsKeyDown(Keys.Enter))
                 {
                     isKeyReady = false;
-                    return menu[selected].State;
+                    return end[selected].State;
                 }
             }
-            return defaultMenuState;
+
+            return defaultState;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, SpriteFont font)
         {
-            for (int i = 0; i< menu.Count; i++)
+            spriteBatch.DrawString(font, "Anka has won", new Vector2(0, 250), Color.AntiqueWhite);
+            for (int i = 0; i < end.Count; i++)
             {
-                if(i == selected)
+                if (i == selected)
                 {
-                    spriteBatch.Draw(menu[i].Texture, menu[i].Position, Color.BlueViolet);
+                    spriteBatch.Draw(end[i].Texture, end[i].Position, Color.BlueViolet);
                 }
                 else
                 {
-                    spriteBatch.Draw(menu[i].Texture, menu[i].Position, Color.AntiqueWhite);
+                    spriteBatch.Draw(end[i].Texture, end[i].Position, Color.AntiqueWhite);
                 }
             }
         }
-
-
     }
     #endregion
 }

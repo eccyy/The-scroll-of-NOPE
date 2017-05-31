@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace The_scroll_of_NOPE.Menyer
 {
+    #region Anton
     class MenuItem
     {
         Texture2D texture;
@@ -27,4 +28,5 @@ namespace The_scroll_of_NOPE.Menyer
         public Vector2 Position { get { return position; } }
         public int State { get { return currentState; } }
     }
+    #endregion
 }

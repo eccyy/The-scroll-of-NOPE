@@ -24,7 +24,10 @@ namespace The_scroll_of_NOPE
         // For drawing text
         private SpriteFont font;
         private SpriteFont winFont;
-        
+
+        // Textures
+        public  The_scroll_of_NOPE.Content.TextureHandler textures;
+
 
         Student1 testStudent;
         Camera camera;
@@ -72,6 +75,8 @@ namespace The_scroll_of_NOPE
             GameElements.LoadContent(Content, Window);
             mapEditor = new LevelObjects.LevelEditor();
 
+            // Load the textures into the texture handler
+            textures = new The_scroll_of_NOPE.Content.TextureHandler(Content);
 #region Jonatan, load map
             // FOR DEBUG PUSPOSES
             tmpTexture = Content.Load<Texture2D>("images/ANKA/ANKA");
@@ -156,6 +161,7 @@ namespace The_scroll_of_NOPE
                     if (anka.ankaHasWon)
                     {
                         GameElements.currentState = GameElements._state.End;
+                        break;
                     }
                     alreadyExecuted = false;
                     KeyboardState tempHandler = Keyboard.GetState();
@@ -199,7 +205,7 @@ namespace The_scroll_of_NOPE
                     GameElements.currentState = GameElements.RunUpdate();
                     break;
                 case GameElements._state.End:
-                    GameElements.currentState = GameElements.EndUpdate();
+                    GameElements.currentState = GameElements.EndUpdate(gameTime);
                     break;
             }
 
@@ -293,7 +299,7 @@ namespace The_scroll_of_NOPE
                     Exit();
                     break;
                 case GameElements._state.End:
-                    //GameElements.
+                    GameElements.EndDraw(spriteBatch,font);
                     break;
             }
 

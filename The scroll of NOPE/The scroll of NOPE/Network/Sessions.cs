@@ -12,15 +12,14 @@ namespace The_scroll_of_NOPE.Network
         // ID might be useless on second thought, but I'll keep it in here for now.
         protected ulong sessionID;
         protected List<SessionNode> nodes = new List<SessionNode>();
-        protected LobbySettings _LobbySettings;
-        protected GameSettings _GameSettings;
     }
 
     public class LobbySession : NetworkSession
     {
         private bool passwordProtected = false;
         private string lobbyPassword;
-        // public event EventHandler<LobbyUpdateEventArgs> LobbySettingsChanged; // hmm, where should I put this...
+        private LobbySettings settings;
+        // public event EventHandler<LobbyUpdateEventArgs> SettingsChanged; // hmm, where should I put this...
 
         public bool PasswordProtected { get { return this.passwordProtected; } }
 

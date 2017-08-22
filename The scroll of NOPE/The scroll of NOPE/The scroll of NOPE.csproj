@@ -86,11 +86,11 @@
     <Compile Include="LevelObjects\LevelObject.cs" />
     <Compile Include="LevelObjects\Platform.cs" />
     <Compile Include="LevelObjects\TheScroll.cs" />
-    <Compile Include="Menyer\End.cs" />
     <Compile Include="Menyer\GameElements.cs" />
     <Compile Include="Menyer\Menu.cs" />
     <Compile Include="Menyer\MenuItem.cs" />
     <Compile Include="Menyer\MenuLobby.cs" />
+    <Compile Include="Network\GameSettings.cs" />
     <Compile Include="Network\Sessions.cs" />
     <Compile Include="Network\Users.cs" />
     <Compile Include="Program.cs" />

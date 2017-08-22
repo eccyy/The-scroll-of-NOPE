@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace The_scroll_of_NOPE.Menyer
 {
+    #region Anton
     public class End
     {
         List<MenuItem> end;
@@ -98,4 +99,5 @@ namespace The_scroll_of_NOPE.Menyer
             }
         }
     }
+    #endregion
 }
